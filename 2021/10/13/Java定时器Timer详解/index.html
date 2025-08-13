@@ -8,8 +8,8 @@
 <head>
   <meta charset="UTF-8">
 
-  <link rel="apple-touch-icon" sizes="76x76" href="/yaosx425/yaosx425.github.io/img/fluid.png">
-  <link rel="icon" href="/yaosx425/yaosx425.github.io/img/fluid.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
   
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
@@ -22,7 +22,7 @@
     <meta name="description" content="一、守护线程1.守护线程的定义在java中有两类线程：User Thread（用户线程）、Daemon Thread（守护线程）；**任何一个守护线程都是整个JVM中所有非守护线程的保姆。**只要当前JVM实例中尚存在任何一个非守护线程没有结束，守护线程就全部工作；只有当最后一个非守护线程结束时，守护线程随着JVM一同结束工作。守护线程最典型的应用是GC（垃圾回收器）。用户可以在编写程序时，自己设">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java定时器Timer详解">
-<meta property="og:url" content="https://github.com/yaosx425/yaosx425.github.io/2021/10/13/Java%E5%AE%9A%E6%97%B6%E5%99%A8Timer%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:url" content="https://yaosx425.github.io/2021/10/13/Java%E5%AE%9A%E6%97%B6%E5%99%A8Timer%E8%AF%A6%E8%A7%A3/index.html">
 <meta property="og:site_name" content="虫">
 <meta property="og:description" content="一、守护线程1.守护线程的定义在java中有两类线程：User Thread（用户线程）、Daemon Thread（守护线程）；**任何一个守护线程都是整个JVM中所有非守护线程的保姆。**只要当前JVM实例中尚存在任何一个非守护线程没有结束，守护线程就全部工作；只有当最后一个非守护线程结束时，守护线程随着JVM一同结束工作。守护线程最典型的应用是GC（垃圾回收器）。用户可以在编写程序时，自己设">
 <meta property="og:locale" content="zh_CN">
@@ -60,12 +60,12 @@
 <link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
 
 
-<link  rel="stylesheet" href="/yaosx425/yaosx425.github.io/css/main.css" />
+<link  rel="stylesheet" href="/css/main.css" />
 
 
-  <link id="highlight-css" rel="stylesheet" href="/yaosx425/yaosx425.github.io/css/highlight.css" />
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
   
-    <link id="highlight-css-dark" rel="stylesheet" href="/yaosx425/yaosx425.github.io/css/highlight-dark.css" />
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
   
 
 
@@ -74,15 +74,15 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"github.com","root":"/yaosx425/yaosx425.github.io/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/yaosx425/yaosx425.github.io/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"yaosx425.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
       Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
     }
   </script>
-  <script  src="/yaosx425/yaosx425.github.io/js/utils.js" ></script>
-  <script  src="/yaosx425/yaosx425.github.io/js/color-schema.js" ></script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
   
 
 
@@ -99,7 +99,7 @@
 <div class="header-inner" style="height: 70vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand" href="/yaosx425/yaosx425.github.io/">
+    <a class="navbar-brand" href="/">
       <strong>Fluid</strong>
     </a>
 
@@ -118,7 +118,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/yaosx425/yaosx425.github.io/" target="_self">
+              <a class="nav-link" href="/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
                 <span>首页</span>
               </a>
@@ -130,7 +130,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/yaosx425/yaosx425.github.io/archives/" target="_self">
+              <a class="nav-link" href="/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
                 <span>归档</span>
               </a>
@@ -142,7 +142,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/yaosx425/yaosx425.github.io/categories/" target="_self">
+              <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
                 <span>分类</span>
               </a>
@@ -154,7 +154,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/yaosx425/yaosx425.github.io/tags/" target="_self">
+              <a class="nav-link" href="/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
                 <span>标签</span>
               </a>
@@ -166,7 +166,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/yaosx425/yaosx425.github.io/about/" target="_self">
+              <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
                 <span>关于</span>
               </a>
@@ -196,7 +196,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/yaosx425/yaosx425.github.io/img/default.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -290,9 +290,9 @@
 <p>如果在程序中使用Timer或Scheduler而不进行额外的处理，将会出现这一问题。</p>
 <h1 id="二、定时器Timer"><a href="#二、定时器Timer" class="headerlink" title="二、定时器Timer"></a>二、定时器Timer</h1><h2 id="1-定义"><a href="#1-定义" class="headerlink" title="1.定义"></a>1.定义</h2><p>在JDK类库中Timer类主要负责计划任务的功能，也就是在指定时间开始执行某一个任务。此类也常用来做一下周期性同步工作，代替它的有quartz、SpringTask。Timer类的主要作用是设置计划任务，但封装任务的类是TimerTask类（实际上该类是一个抽象类，执行任务的代码要放在该类的子类中）。</p>
 <p><strong>构造方法</strong></p>
-<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1196212/201812/1196212-20181227102245752-1827594921.png"><img src="https://img2018.cnblogs.com/blog/1196212/201812/1196212-20181227102245752-1827594921.png" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1196212/201812/1196212-20181227102245752-1827594921.png"><img src="https://img2018.cnblogs.com/blog/1196212/201812/1196212-20181227102245752-1827594921.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
 <p><strong>成员方法</strong></p>
-<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1196212/201812/1196212-20181227101856352-1648328232.png"><img src="https://img2018.cnblogs.com/blog/1196212/201812/1196212-20181227101856352-1648328232.png" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1196212/201812/1196212-20181227101856352-1648328232.png"><img src="https://img2018.cnblogs.com/blog/1196212/201812/1196212-20181227101856352-1648328232.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
 <p><strong>Timer内部维护一个TimerThread线程，而且线程名字与Thread类一样，默认用一个静态成员变量进行生成全局序列。</strong></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Timer</span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> TaskQueue queue = <span class="hljs-keyword">new</span> <span class="hljs-built_in">TaskQueue</span>();<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> TimerThread thread = <span class="hljs-keyword">new</span> <span class="hljs-built_in">TimerThread</span>(queue);<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-type">static</span> AtomicInteger nextSerialNumber = <span class="hljs-keyword">new</span> <span class="hljs-built_in">AtomicInteger</span>(<span class="hljs-number">0</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
 
@@ -344,7 +344,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>Java定时器Timer详解</div>
-      <div>https://github.com/yaosx425/yaosx425.github.io/2021/10/13/Java定时器Timer详解/</div>
+      <div>https://yaosx425.github.io/2021/10/13/Java定时器Timer详解/</div>
     </div>
     <div class="license-meta">
       
@@ -388,7 +388,7 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/yaosx425/yaosx425.github.io/2021/10/14/Runnable%E6%8E%A5%E5%8F%A3/" title="Runnable接口">
+                      <a href="/2021/10/14/Runnable%E6%8E%A5%E5%8F%A3/" title="Runnable接口">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">Runnable接口</span>
                         <span class="visible-mobile">上一篇</span>
@@ -398,7 +398,7 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/yaosx425/yaosx425.github.io/2021/06/05/%E6%95%B0%E6%8D%AE%E5%BA%93%E9%94%99%E9%A2%98%E7%A7%AF%E7%B4%AF/" title="数据库错题积累">
+                      <a href="/2021/06/05/%E6%95%B0%E6%8D%AE%E5%BA%93%E9%94%99%E9%A2%98%E7%A7%AF%E7%B4%AF/" title="数据库错题积累">
                         <span class="hidden-mobile">数据库错题积累</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
@@ -527,8 +527,8 @@
 
 <script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
 <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/yaosx425/yaosx425.github.io/js/events.js" ></script>
-<script  src="/yaosx425/yaosx425.github.io/js/plugins.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 
   <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
@@ -550,7 +550,7 @@
 
 
   
-    <script  src="/yaosx425/yaosx425.github.io/js/img-lazyload.js" ></script>
+    <script  src="/js/img-lazyload.js" ></script>
   
 
 
@@ -649,7 +649,7 @@
 
   <script>Fluid.plugins.imageCaption();</script>
 
-  <script  src="/yaosx425/yaosx425.github.io/js/local-search.js" ></script>
+  <script  src="/js/local-search.js" ></script>
 
 
 
@@ -657,7 +657,7 @@
 
 <!-- 主题的启动项，将它保持在最底部 -->
 <!-- the boot of the theme, keep it at the bottom -->
-<script  src="/yaosx425/yaosx425.github.io/js/boot.js" ></script>
+<script  src="/js/boot.js" ></script>
 
 
   

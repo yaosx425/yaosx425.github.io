@@ -8,8 +8,8 @@
 <head>
   <meta charset="UTF-8">
 
-  <link rel="apple-touch-icon" sizes="76x76" href="/yaosx425/yaosx425.github.io/img/fluid.png">
-  <link rel="icon" href="/yaosx425/yaosx425.github.io/img/fluid.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
   
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
@@ -22,7 +22,7 @@
     <meta name="description" content="什么是正则表达式？正则表达式，又称为规则表达式，通常被用来检索、替换那些符合逻辑的某个模式（规则）的文本，是对字符串操作的一种逻辑公式。 正则表达式描述了一种字符串匹配的模式（Pattern），可以用来检查一个串是否含有某种子串、将匹配的子串替换或者从某个串中取出符合某个条件的子串等。 正则表达式是由普通字符（例如字符a到z）以及特殊字符（称为“元字符”）组成的文字模式。模式描述在搜索文本时要匹配">
 <meta property="og:type" content="article">
 <meta property="og:title" content="正则表达式">
-<meta property="og:url" content="https://github.com/yaosx425/yaosx425.github.io/2021/05/15/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.html">
+<meta property="og:url" content="https://yaosx425.github.io/2021/05/15/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.html">
 <meta property="og:site_name" content="虫">
 <meta property="og:description" content="什么是正则表达式？正则表达式，又称为规则表达式，通常被用来检索、替换那些符合逻辑的某个模式（规则）的文本，是对字符串操作的一种逻辑公式。 正则表达式描述了一种字符串匹配的模式（Pattern），可以用来检查一个串是否含有某种子串、将匹配的子串替换或者从某个串中取出符合某个条件的子串等。 正则表达式是由普通字符（例如字符a到z）以及特殊字符（称为“元字符”）组成的文字模式。模式描述在搜索文本时要匹配">
 <meta property="og:locale" content="zh_CN">
@@ -82,12 +82,12 @@
 <link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
 
 
-<link  rel="stylesheet" href="/yaosx425/yaosx425.github.io/css/main.css" />
+<link  rel="stylesheet" href="/css/main.css" />
 
 
-  <link id="highlight-css" rel="stylesheet" href="/yaosx425/yaosx425.github.io/css/highlight.css" />
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
   
-    <link id="highlight-css-dark" rel="stylesheet" href="/yaosx425/yaosx425.github.io/css/highlight-dark.css" />
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
   
 
 
@@ -96,15 +96,15 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"github.com","root":"/yaosx425/yaosx425.github.io/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/yaosx425/yaosx425.github.io/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"yaosx425.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
       Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
     }
   </script>
-  <script  src="/yaosx425/yaosx425.github.io/js/utils.js" ></script>
-  <script  src="/yaosx425/yaosx425.github.io/js/color-schema.js" ></script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
   
 
 
@@ -121,7 +121,7 @@
 <div class="header-inner" style="height: 70vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand" href="/yaosx425/yaosx425.github.io/">
+    <a class="navbar-brand" href="/">
       <strong>Fluid</strong>
     </a>
 
@@ -140,7 +140,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/yaosx425/yaosx425.github.io/" target="_self">
+              <a class="nav-link" href="/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
                 <span>首页</span>
               </a>
@@ -152,7 +152,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/yaosx425/yaosx425.github.io/archives/" target="_self">
+              <a class="nav-link" href="/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
                 <span>归档</span>
               </a>
@@ -164,7 +164,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/yaosx425/yaosx425.github.io/categories/" target="_self">
+              <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
                 <span>分类</span>
               </a>
@@ -176,7 +176,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/yaosx425/yaosx425.github.io/tags/" target="_self">
+              <a class="nav-link" href="/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
                 <span>标签</span>
               </a>
@@ -188,7 +188,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/yaosx425/yaosx425.github.io/about/" target="_self">
+              <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
                 <span>关于</span>
               </a>
@@ -218,7 +218,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/yaosx425/yaosx425.github.io/img/default.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -313,27 +313,27 @@
 </thead>
 <tbody><tr>
 <td>[ABC]</td>
-<td>匹配 <strong>[…]</strong> 中的所有字符，例如 <strong>[aeiou]</strong> 匹配字符串 “google runoob taobao” 中所有的 e o u a 字母。<img src="https://www.runoob.com/wp-content/uploads/2014/03/E691DDE1-E5CB-4EA8-8D16-759BD0D2B09D.jpg" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></td>
+<td>匹配 <strong>[…]</strong> 中的所有字符，例如 <strong>[aeiou]</strong> 匹配字符串 “google runoob taobao” 中所有的 e o u a 字母。<img src="https://www.runoob.com/wp-content/uploads/2014/03/E691DDE1-E5CB-4EA8-8D16-759BD0D2B09D.jpg" srcset="/img/loading.gif" lazyload alt="img"></td>
 </tr>
 <tr>
 <td>[^ABC]</td>
-<td>匹配除了 <strong>[…]</strong> 中字符的所有字符，例如 <strong>[^aeiou]</strong> 匹配字符串 “google runoob taobao” 中除了 e o u a 字母的所有字母。<img src="https://www.runoob.com/wp-content/uploads/2014/03/ED971D92-30F4-4768-A2C7-02A84A3A9DEB.jpg" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></td>
+<td>匹配除了 <strong>[…]</strong> 中字符的所有字符，例如 <strong>[^aeiou]</strong> 匹配字符串 “google runoob taobao” 中除了 e o u a 字母的所有字母。<img src="https://www.runoob.com/wp-content/uploads/2014/03/ED971D92-30F4-4768-A2C7-02A84A3A9DEB.jpg" srcset="/img/loading.gif" lazyload alt="img"></td>
 </tr>
 <tr>
 <td>[A-Z]</td>
-<td>[A-Z] 表示一个区间，匹配所有大写字母，[a-z] 表示所有小写字母。<img src="https://www.runoob.com/wp-content/uploads/2014/03/C5E357BD-65E3-4EB3-9D80-10D096F19287.jpg" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></td>
+<td>[A-Z] 表示一个区间，匹配所有大写字母，[a-z] 表示所有小写字母。<img src="https://www.runoob.com/wp-content/uploads/2014/03/C5E357BD-65E3-4EB3-9D80-10D096F19287.jpg" srcset="/img/loading.gif" lazyload alt="img"></td>
 </tr>
 <tr>
 <td><strong>.</strong></td>
-<td>匹配除换行符（\n、\r）之外的任何单个字符，相等于 [^\n\r]。<img src="https://www.runoob.com/wp-content/uploads/2014/03/0FD7E77D-38A7-43BC-B51A-7DBA23A77756.jpg" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></td>
+<td>匹配除换行符（\n、\r）之外的任何单个字符，相等于 [^\n\r]。<img src="https://www.runoob.com/wp-content/uploads/2014/03/0FD7E77D-38A7-43BC-B51A-7DBA23A77756.jpg" srcset="/img/loading.gif" lazyload alt="img"></td>
 </tr>
 <tr>
 <td>[\s\S]</td>
-<td>匹配所有。\s 是匹配所有空白符，包括换行，\S 非空白符，不包括换行。<img src="https://www.runoob.com/wp-content/uploads/2014/03/47CA6C59-64CF-433A-909E-1E342349A4E0.jpg" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></td>
+<td>匹配所有。\s 是匹配所有空白符，包括换行，\S 非空白符，不包括换行。<img src="https://www.runoob.com/wp-content/uploads/2014/03/47CA6C59-64CF-433A-909E-1E342349A4E0.jpg" srcset="/img/loading.gif" lazyload alt="img"></td>
 </tr>
 <tr>
 <td>\w</td>
-<td>匹配字母、数字、下划线。等价于 [A-Za-z0-9_]<img src="https://www.runoob.com/wp-content/uploads/2014/03/F35A5971-3519-4CAE-8BEC-9DE8F4A55257.jpg" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></td>
+<td>匹配字母、数字、下划线。等价于 [A-Za-z0-9_]<img src="https://www.runoob.com/wp-content/uploads/2014/03/F35A5971-3519-4CAE-8BEC-9DE8F4A55257.jpg" srcset="/img/loading.gif" lazyload alt="img"></td>
 </tr>
 </tbody></table>
 <h2 id="非打印字符"><a href="#非打印字符" class="headerlink" title="非打印字符"></a>非打印字符</h2><p>非打印字符也可以是正则表达式的组成部分。下表列出了表示非打印字符的转义序列：</p>
@@ -481,9 +481,9 @@
 <p>**贪婪：**下面的表达式匹配从开始小于符号 (&lt;) 到关闭 h1 标记的大于符号 (&gt;) 之间的所有内容。</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/&lt;.*&gt;/</span><br></code></pre></td></tr></table></figure>
 
-<p><a target="_blank" rel="noopener" href="https://www.runoob.com/wp-content/uploads/2014/03/AD8F3320-2F2E-4513-9BB5-84450D62783D.jpg"><img src="https://www.runoob.com/wp-content/uploads/2014/03/AD8F3320-2F2E-4513-9BB5-84450D62783D.jpg" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/wp-content/uploads/2014/03/AD8F3320-2F2E-4513-9BB5-84450D62783D.jpg"><img src="https://www.runoob.com/wp-content/uploads/2014/03/AD8F3320-2F2E-4513-9BB5-84450D62783D.jpg" srcset="/img/loading.gif" lazyload alt="img"></a></p>
 <p>**非贪婪：**如果您只需要匹配开始和结束 h1 标签，下面的非贪婪表达式只匹配</p>
-<h1 id="。-也可以使用以下正则表达式来匹配-h1-标签，表达式则是：-通过在-、-或-限定符之后放置-，该表达式从”贪婪”表达式转换为”非贪婪”表达式或者最小匹配。"><a href="#。-也可以使用以下正则表达式来匹配-h1-标签，表达式则是：-通过在-、-或-限定符之后放置-，该表达式从”贪婪”表达式转换为”非贪婪”表达式或者最小匹配。" class="headerlink" title="。/&lt;.*?&gt;/也可以使用以下正则表达式来匹配 h1 标签，表达式则是：/&lt;\w+?&gt;/通过在 *****、*+* 或 ? 限定符之后放置 ?，该表达式从”贪婪”表达式转换为”非贪婪”表达式或者最小匹配。"></a>。<code>/&lt;.*?&gt;/</code><img src="https://www.runoob.com/wp-content/uploads/2014/03/A6E72665-CE61-46F4-A72B-A34BC13F5820.jpg" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img">也可以使用以下正则表达式来匹配 h1 标签，表达式则是：<code>/&lt;\w+?&gt;/</code><img src="https://www.runoob.com/wp-content/uploads/2014/03/C6E89F76-D059-4600-A507-74C42306A790.jpg" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img">通过在 *****、*<em>+</em>* 或 <strong>?</strong> 限定符之后放置 <strong>?</strong>，该表达式从”贪婪”表达式转换为”非贪婪”表达式或者最小匹配。</h1><h2 id="定位符"><a href="#定位符" class="headerlink" title="定位符"></a>定位符</h2><p>定位符使我们能够将正则表达式固定到行首或行尾。它们还使我们能够创建这样的正则表达式，这些正则表达式出现在一个单词内、在一个单词的开头或者单词的结尾。</p>
+<h1 id="。-也可以使用以下正则表达式来匹配-h1-标签，表达式则是：-通过在-、-或-限定符之后放置-，该表达式从”贪婪”表达式转换为”非贪婪”表达式或者最小匹配。"><a href="#。-也可以使用以下正则表达式来匹配-h1-标签，表达式则是：-通过在-、-或-限定符之后放置-，该表达式从”贪婪”表达式转换为”非贪婪”表达式或者最小匹配。" class="headerlink" title="。/&lt;.*?&gt;/也可以使用以下正则表达式来匹配 h1 标签，表达式则是：/&lt;\w+?&gt;/通过在 *****、*+* 或 ? 限定符之后放置 ?，该表达式从”贪婪”表达式转换为”非贪婪”表达式或者最小匹配。"></a>。<code>/&lt;.*?&gt;/</code><img src="https://www.runoob.com/wp-content/uploads/2014/03/A6E72665-CE61-46F4-A72B-A34BC13F5820.jpg" srcset="/img/loading.gif" lazyload alt="img">也可以使用以下正则表达式来匹配 h1 标签，表达式则是：<code>/&lt;\w+?&gt;/</code><img src="https://www.runoob.com/wp-content/uploads/2014/03/C6E89F76-D059-4600-A507-74C42306A790.jpg" srcset="/img/loading.gif" lazyload alt="img">通过在 *****、*<em>+</em>* 或 <strong>?</strong> 限定符之后放置 <strong>?</strong>，该表达式从”贪婪”表达式转换为”非贪婪”表达式或者最小匹配。</h1><h2 id="定位符"><a href="#定位符" class="headerlink" title="定位符"></a>定位符</h2><p>定位符使我们能够将正则表达式固定到行首或行尾。它们还使我们能够创建这样的正则表达式，这些正则表达式出现在一个单词内、在一个单词的开头或者单词的结尾。</p>
 <p>定位符用来描述字符串或单词的边界，<strong>^</strong> 和 <strong>$</strong> 分别指字符串的开始与结束，<strong>\b</strong> 描述单词的前或后边界，<strong>\B</strong> 表示非单词边界。</p>
 <p>正则表达式的定位符有：</p>
 <table>
@@ -532,33 +532,33 @@
 
 <h2 id="选择"><a href="#选择" class="headerlink" title="选择"></a>选择</h2><p>用圆括号 <strong>()</strong> 将所有选择项括起来，相邻的选择项之间用 <strong>|</strong> 分隔。</p>
 <p><strong>()</strong> 表示捕获分组，<strong>()</strong> 会把每个分组里的匹配的值保存起来， 多个匹配值可以通过数字 n 来查看(<strong>n</strong> 是一个数字，表示第 n 个捕获组的内容)。</p>
-<p><a target="_blank" rel="noopener" href="https://www.runoob.com/wp-content/uploads/2014/03/366574CC-3706-4B4C-8782-1BFF4CF57582.jpg"><img src="https://www.runoob.com/wp-content/uploads/2014/03/366574CC-3706-4B4C-8782-1BFF4CF57582.jpg" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></a></p>
-<p><a target="_blank" rel="noopener" href="https://www.runoob.com/wp-content/uploads/2014/03/82A7298A-2A94-49E3-AA27-A7778EE89711.jpg"><img src="https://www.runoob.com/wp-content/uploads/2014/03/82A7298A-2A94-49E3-AA27-A7778EE89711.jpg" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/wp-content/uploads/2014/03/366574CC-3706-4B4C-8782-1BFF4CF57582.jpg"><img src="https://www.runoob.com/wp-content/uploads/2014/03/366574CC-3706-4B4C-8782-1BFF4CF57582.jpg" srcset="/img/loading.gif" lazyload alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/wp-content/uploads/2014/03/82A7298A-2A94-49E3-AA27-A7778EE89711.jpg"><img src="https://www.runoob.com/wp-content/uploads/2014/03/82A7298A-2A94-49E3-AA27-A7778EE89711.jpg" srcset="/img/loading.gif" lazyload alt="img"></a></p>
 <p>但<strong>用圆括号会有一个副作用，使相关的匹配会被缓存</strong>，此时<strong>可用 ?: 放在第一个选项前来消除这种副作用</strong>。</p>
 <p>其中 <strong>?:</strong> 是<strong>非捕获元之一</strong>，还有两个非捕获元是 <strong>?&#x3D;</strong> 和 <strong>?!</strong>，这两个还有更多的含义，前者为正向预查，在任何开始匹配圆括号内的正则表达式模式的位置来匹配搜索字符串，后者为负向预查，在任何开始不匹配该正则表达式模式的位置来匹配搜索字符串。</p>
 <p><strong>捕获元与非捕获元：</strong></p>
 <p>以前看到什么?:,?&#x3D;,?!，用的少，也就没留意，最近大面积灾荒，经常看到，甚是恐惧，以至于前面在读gulp里面碰见个regex表达式：&#x2F;-[0-9a-f]{8,10}-?&#x2F;(匹配app-7ef5d9ee29.css这一类表达式中的md5值),就一头栽进去，’-?’到底又有什么特殊的含义，最后才发现，那TMD就是一个贪婪匹配，你个蠢货，但确实搞不懂源码作者在想啥，也许是我没碰到app-7ef5d9ee29-any.css这样的文件名，要不非得多加个’-?’干啥，让我直往坑里跳。<br>回到正题，先搞懂什么叫捕获组，概括起来就是，用括号如‘（pattern）’这样的形式，匹配满足括号中的，就是一个捕获组。先看一张来自于菜鸟教程的定义：</p>
-<p><a target="_blank" rel="noopener" href="https://segmentfault.com/img/bVShnX?w=734&h=452"><img src="https://segmentfault.com/img/bVShnX?w=734&h=452" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/img/bVShnX?w=734&h=452"><img src="https://segmentfault.com/img/bVShnX?w=734&h=452" srcset="/img/loading.gif" lazyload alt="img"></a></p>
 <p>四种形式，<strong>加?和不加有什么区别，区别就是捕获元与非捕获元</strong>，表现形式就是用exec方法去匹配，捕获组会单纯保存在一组变量中。理论太枯燥，直接看例子，来源于JS高设page106，略有改动：</p>
 <figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs arcade"><span class="hljs-keyword">var</span> str =<span class="hljs-string">&#x27;mom and dad and baby&#x27;</span>;<br><span class="hljs-keyword">var</span> pattern = <span class="hljs-regexp">/mom( and dad( and baby))/</span>; <span class="hljs-comment">//捕获元形式</span><br><span class="hljs-keyword">var</span> pat= <span class="hljs-regexp">/mom(?: and dad(?: and baby))/</span>; <span class="hljs-comment">//非捕获元形式</span><br><span class="hljs-keyword">var</span> mat = pattern.exec(str);<br><span class="hljs-keyword">var</span> match = pat.exec(str);<br><span class="hljs-built_in">console</span>.<span class="hljs-built_in">log</span>(mat)；<br><span class="hljs-built_in">console</span>.<span class="hljs-built_in">log</span>(match)；<br></code></pre></td></tr></table></figure>
 
-<p><a target="_blank" rel="noopener" href="https://segmentfault.com/img/bVShpP?w=886&h=295"><img src="https://segmentfault.com/img/bVShpP?w=886&h=295" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/img/bVShpP?w=886&h=295"><img src="https://segmentfault.com/img/bVShpP?w=886&h=295" srcset="/img/loading.gif" lazyload alt="img"></a></p>
 <p>看着devtools打印的结果，是不是有点眉目，是的，匹配的结果虽一致，但捕获组匹配时，将满足捕获元形式的单元<strong>单独保存为一个匹配结果</strong>，而非捕获元不单独保存，只保存完整匹配结果。我们常见的Regexp.$1,$2其实就是对捕获组结果的引用。</p>
 <p>捕获元与非捕获元搞懂了，那(?:pattern)与(?&#x3D;pattern)啥区别呢，答案，两个区别。区别一：前者匹配的结果包含捕获元，后者匹配的结果则不包含；区别二：前者匹配捕获元时，消耗字符（索引），而后者不消耗。还是来看一个例子：</p>
 <figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs arcade"><span class="hljs-keyword">var</span> str =<span class="hljs-string">&#x27;ababa&#x27;</span>;<br><span class="hljs-keyword">var</span> pattern = <span class="hljs-regexp">/ab(?:a)/g</span>;<br><span class="hljs-keyword">var</span> pat=  <span class="hljs-regexp">/ab(?=a)/g</span>; <br><span class="hljs-keyword">var</span> mat = pattern.exec(str);<br><span class="hljs-keyword">var</span> match = pat.exec(str);<br><span class="hljs-built_in">console</span>.<span class="hljs-built_in">log</span>(mat);<br><span class="hljs-built_in">console</span>.<span class="hljs-built_in">log</span>(match);       <br> mat = pattern.exec(str); <span class="hljs-comment">//全局模式，第二次匹配</span><br> match = pat.exec(str); <span class="hljs-comment">//全局模式，第二次匹配</span><br><span class="hljs-built_in">console</span>.<span class="hljs-built_in">log</span>(mat);<br><span class="hljs-built_in">console</span>.<span class="hljs-built_in">log</span>(match); <br></code></pre></td></tr></table></figure>
 
-<p><a target="_blank" rel="noopener" href="https://segmentfault.com/img/bVShs7?w=345&h=401"><img src="https://segmentfault.com/img/bVShs7?w=345&h=401" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/img/bVShs7?w=345&h=401"><img src="https://segmentfault.com/img/bVShs7?w=345&h=401" srcset="/img/loading.gif" lazyload alt="img"></a></p>
 <p>从上面代码运行的截图可以看出区别一，也就是(?:pattern)的形式的捕获元匹配的结果会保存在最终的结果中，而(?&#x3D;pattern)；区别二看的不是很明显，这时我们需要依靠RegexBuddy，这个过程中到底发生了什么？看运行截图，如果你够仔细，你可以发现区别，第一次匹配到结果，开始第二次匹配时，?:是从字符索引3开始,而?&#x3D;是从2开始，这就是前面所说的消耗字符与不消耗字符。</p>
-<p><a target="_blank" rel="noopener" href="https://segmentfault.com/img/bVShuK?w=708&h=358"><img src="https://segmentfault.com/img/bVShuK?w=708&h=358" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/img/bVShuK?w=708&h=358"><img src="https://segmentfault.com/img/bVShuK?w=708&h=358" srcset="/img/loading.gif" lazyload alt="img"></a></p>
 <p>好了，最后一个问题，整箱预查(?&#x3D;pattern)与负向预查(?!pattern)，其实从中文单纯来理解负向预查，是会带来歧义的。这里的负向其实单单就是正向预查的取反，即要匹配的字符不满足捕获的条件，才能匹配到结果。</p>
 <h3 id="以下列出-、"><a href="#以下列出-、" class="headerlink" title="以下列出 ?&#x3D;、?&lt;&#x3D;、?!、?&lt;! 的使用区别"></a>以下列出 ?&#x3D;、?&lt;&#x3D;、?!、?&lt;! 的使用区别</h3><p><strong>exp1(?&#x3D;exp2)</strong>：查找 exp2 前面的 exp1。</p>
-<p><a target="_blank" rel="noopener" href="https://www.runoob.com/wp-content/uploads/2014/03/reg-111.jpg"><img src="https://www.runoob.com/wp-content/uploads/2014/03/reg-111.jpg" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/wp-content/uploads/2014/03/reg-111.jpg"><img src="https://www.runoob.com/wp-content/uploads/2014/03/reg-111.jpg" srcset="/img/loading.gif" lazyload alt="img"></a></p>
 <p><strong>(?&lt;&#x3D;exp2)exp1</strong>：查找 exp2 后面的 exp1。</p>
-<p><a target="_blank" rel="noopener" href="https://www.runoob.com/wp-content/uploads/2014/03/reg-222.jpg"><img src="https://www.runoob.com/wp-content/uploads/2014/03/reg-222.jpg" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/wp-content/uploads/2014/03/reg-222.jpg"><img src="https://www.runoob.com/wp-content/uploads/2014/03/reg-222.jpg" srcset="/img/loading.gif" lazyload alt="img"></a></p>
 <p><strong>exp1(?!exp2)</strong>：查找后面不是 exp2 的 exp1。</p>
-<p><a target="_blank" rel="noopener" href="https://www.runoob.com/wp-content/uploads/2014/03/reg-333.jpg"><img src="https://www.runoob.com/wp-content/uploads/2014/03/reg-333.jpg" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/wp-content/uploads/2014/03/reg-333.jpg"><img src="https://www.runoob.com/wp-content/uploads/2014/03/reg-333.jpg" srcset="/img/loading.gif" lazyload alt="img"></a></p>
 <p><strong>(?&lt;!exp2)exp1</strong>：查找前面不是 exp2 的 exp1。</p>
-<p><a target="_blank" rel="noopener" href="https://www.runoob.com/wp-content/uploads/2014/03/reg-444.jpg"><img src="https://www.runoob.com/wp-content/uploads/2014/03/reg-444.jpg" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/wp-content/uploads/2014/03/reg-444.jpg"><img src="https://www.runoob.com/wp-content/uploads/2014/03/reg-444.jpg" srcset="/img/loading.gif" lazyload alt="img"></a></p>
 <h3 id="反向引用"><a href="#反向引用" class="headerlink" title="反向引用"></a>反向引用</h3><p>对一个正则表达式模式或部分模式两边添加圆括号将导致相关匹配存储到一个临时缓冲区中，所捕获的每个子匹配都按照在正则表达式模式中从左到右出现的顺序存储。缓冲区编号从 1 开始，最多可存储 99 个捕获的子表达式。每个缓冲区都可以使用 <strong>\n</strong> 访问，其中 n 为一个标识特定缓冲区的一位或两位十进制数。</p>
 <p>可以<strong>使用非捕获元字符 ?:、?&#x3D; 或 ?! 来重写捕获</strong>，忽略对相关匹配的保存。</p>
 <p>反向引用的最简单的、最有用的应用之一，是提供查找文本中两个相同的相邻单词的匹配项的能力。以下面的句子为例：</p>
@@ -628,27 +628,27 @@
 </tr>
 </tbody></table>
 <h3 id="g-修饰符"><a href="#g-修饰符" class="headerlink" title="g 修饰符"></a>g 修饰符</h3><p>g 修饰符可以查找字符串中所有的匹配项：</p>
-<p><a target="_blank" rel="noopener" href="https://www.runoob.com/wp-content/uploads/2020/08/D1A5F1E7-E25E-448E-9BE3-68508E058E99.jpg"><img src="https://www.runoob.com/wp-content/uploads/2020/08/D1A5F1E7-E25E-448E-9BE3-68508E058E99.jpg" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/wp-content/uploads/2020/08/D1A5F1E7-E25E-448E-9BE3-68508E058E99.jpg"><img src="https://www.runoob.com/wp-content/uploads/2020/08/D1A5F1E7-E25E-448E-9BE3-68508E058E99.jpg" srcset="/img/loading.gif" lazyload alt="img"></a></p>
 <p><strong>实例</strong></p>
 <p>在字符串中查找 “runoob”:</p>
 <figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs axapta"><span class="hljs-built_in">var</span> <span class="hljs-built_in">str</span>=<span class="hljs-string">&quot;Google runoob taobao runoob&quot;</span>; <br><span class="hljs-built_in">var</span> n1=<span class="hljs-built_in">str</span>.match(/runoob/);   <span class="hljs-comment">// 查找第一次匹配项</span><br><span class="hljs-built_in">var</span> n2=<span class="hljs-built_in">str</span>.match(/runoob/g);  <span class="hljs-comment">// 查找所有匹配项</span><br></code></pre></td></tr></table></figure>
 
 <h3 id="i-修饰符"><a href="#i-修饰符" class="headerlink" title="i 修饰符"></a>i 修饰符</h3><p>i 修饰符为不区分大小写匹配，实例如下：</p>
-<p><a target="_blank" rel="noopener" href="https://www.runoob.com/wp-content/uploads/2020/08/FF2D211D-0B88-492C-BAA4-04183278383E.jpg"><img src="https://www.runoob.com/wp-content/uploads/2020/08/FF2D211D-0B88-492C-BAA4-04183278383E.jpg" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/wp-content/uploads/2020/08/FF2D211D-0B88-492C-BAA4-04183278383E.jpg"><img src="https://www.runoob.com/wp-content/uploads/2020/08/FF2D211D-0B88-492C-BAA4-04183278383E.jpg" srcset="/img/loading.gif" lazyload alt="img"></a></p>
 <p><strong>实例</strong></p>
 <p>在字符串中查找 “runoob”:</p>
 <figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs axapta"><span class="hljs-built_in">var</span> <span class="hljs-built_in">str</span>=<span class="hljs-string">&quot;Google runoob taobao RUNoob&quot;</span>; <br><span class="hljs-built_in">var</span> n1=<span class="hljs-built_in">str</span>.match(/runoob/g);   <span class="hljs-comment">// 区分大小写</span><br><span class="hljs-built_in">var</span> n2=<span class="hljs-built_in">str</span>.match(/runoob/gi);  <span class="hljs-comment">// 不区分大小写</span><br></code></pre></td></tr></table></figure>
 
 <h3 id="m-修饰符"><a href="#m-修饰符" class="headerlink" title="m 修饰符"></a>m 修饰符</h3><p>m 修饰符可以使 <strong>^</strong> 和 <strong>$</strong> 匹配一段文本中每行的开始和结束位置。</p>
 <p>g 只匹配第一行，添加 m 之后实现多行。</p>
-<p><a target="_blank" rel="noopener" href="https://www.runoob.com/wp-content/uploads/2020/08/BC3E6D8A-21D2-44F8-A1AE-D90C4939D37A.jpg"><img src="https://www.runoob.com/wp-content/uploads/2020/08/BC3E6D8A-21D2-44F8-A1AE-D90C4939D37A.jpg" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/wp-content/uploads/2020/08/BC3E6D8A-21D2-44F8-A1AE-D90C4939D37A.jpg"><img src="https://www.runoob.com/wp-content/uploads/2020/08/BC3E6D8A-21D2-44F8-A1AE-D90C4939D37A.jpg" srcset="/img/loading.gif" lazyload alt="img"></a></p>
 <p>以下实例字符串中使用 <strong>\n</strong> 来换行：</p>
 <p><strong>实例</strong></p>
 <p>在字符串中查找 “runoob”:</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-keyword">var</span> str<span class="hljs-operator">=</span><span class="hljs-string">&quot;runoobgoogle<span class="hljs-subst">\n</span>taobao<span class="hljs-subst">\n</span>runoobweibo&quot;</span>;<br><span class="hljs-keyword">var</span> n1<span class="hljs-operator">=</span>str.match(<span class="hljs-regexp">/^runoob/</span>g);   <span class="hljs-comment">// 匹配一个</span><br><span class="hljs-keyword">var</span> n2<span class="hljs-operator">=</span>str.match(<span class="hljs-regexp">/^runoob/</span>gm);  <span class="hljs-comment">// 多行匹配</span><br></code></pre></td></tr></table></figure>
 
 <h3 id="s-修饰符"><a href="#s-修饰符" class="headerlink" title="s 修饰符"></a>s 修饰符</h3><p>默认情况下的圆点 <strong>.</strong> 是 匹配除换行符 <strong>\n</strong> 之外的任何字符，加上 s 之后, <strong>.</strong> 中包含换行符 <strong>\n</strong>。</p>
-<p><a target="_blank" rel="noopener" href="https://www.runoob.com/wp-content/uploads/2020/08/5CDFC964-F0C4-4ADE-80F3-17FB4748DE14.jpg"><img src="https://www.runoob.com/wp-content/uploads/2020/08/5CDFC964-F0C4-4ADE-80F3-17FB4748DE14.jpg" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/wp-content/uploads/2020/08/5CDFC964-F0C4-4ADE-80F3-17FB4748DE14.jpg"><img src="https://www.runoob.com/wp-content/uploads/2020/08/5CDFC964-F0C4-4ADE-80F3-17FB4748DE14.jpg" srcset="/img/loading.gif" lazyload alt="img"></a></p>
 <p>s 修饰符实例如下：</p>
 <p><strong>实例</strong></p>
 <p>在字符串中查找：</p>
@@ -838,7 +838,7 @@
 <p>以下标记的文本是获得的匹配的表达式：</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-symbol">test@</span>runoob.com<br></code></pre></td></tr></table></figure>
 
-<p><a target="_blank" rel="noopener" href="https://www.runoob.com/wp-content/uploads/2014/03/3D635D20-FE65-420F-9E79-5B4F1E7E7374.jpg"><img src="https://www.runoob.com/wp-content/uploads/2014/03/3D635D20-FE65-420F-9E79-5B4F1E7E7374.jpg" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/wp-content/uploads/2014/03/3D635D20-FE65-420F-9E79-5B4F1E7E7374.jpg"><img src="https://www.runoob.com/wp-content/uploads/2014/03/3D635D20-FE65-420F-9E79-5B4F1E7E7374.jpg" srcset="/img/loading.gif" lazyload alt="img"></a></p>
 <p><strong>匹配邮箱的正则表达式</strong></p>
 <p><strong>&#x2F;\b[\w.%+-]+@[\w.-]+.[a-zA-Z]{2,6}\b&#x2F;g</strong></p>
 <h1 id="正则表达式-运算符优先级"><a href="#正则表达式-运算符优先级" class="headerlink" title="正则表达式 - 运算符优先级"></a>正则表达式 - 运算符优先级</h1><p>正则表达式从左到右进行计算，并遵循优先级顺序，这与算术表达式非常类似。</p>
@@ -1032,7 +1032,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>正则表达式</div>
-      <div>https://github.com/yaosx425/yaosx425.github.io/2021/05/15/正则表达式/</div>
+      <div>https://yaosx425.github.io/2021/05/15/正则表达式/</div>
     </div>
     <div class="license-meta">
       
@@ -1076,7 +1076,7 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/yaosx425/yaosx425.github.io/2021/05/17/%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="序列化与反序列化">
+                      <a href="/2021/05/17/%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="序列化与反序列化">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">序列化与反序列化</span>
                         <span class="visible-mobile">上一篇</span>
@@ -1086,7 +1086,7 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/yaosx425/yaosx425.github.io/2021/05/15/%E8%8C%83%E5%BC%8F/" title="范式">
+                      <a href="/2021/05/15/%E8%8C%83%E5%BC%8F/" title="范式">
                         <span class="hidden-mobile">范式</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
@@ -1215,8 +1215,8 @@
 
 <script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
 <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/yaosx425/yaosx425.github.io/js/events.js" ></script>
-<script  src="/yaosx425/yaosx425.github.io/js/plugins.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 
   <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
@@ -1238,7 +1238,7 @@
 
 
   
-    <script  src="/yaosx425/yaosx425.github.io/js/img-lazyload.js" ></script>
+    <script  src="/js/img-lazyload.js" ></script>
   
 
 
@@ -1337,7 +1337,7 @@
 
   <script>Fluid.plugins.imageCaption();</script>
 
-  <script  src="/yaosx425/yaosx425.github.io/js/local-search.js" ></script>
+  <script  src="/js/local-search.js" ></script>
 
 
 
@@ -1345,7 +1345,7 @@
 
 <!-- 主题的启动项，将它保持在最底部 -->
 <!-- the boot of the theme, keep it at the bottom -->
-<script  src="/yaosx425/yaosx425.github.io/js/boot.js" ></script>
+<script  src="/js/boot.js" ></script>
 
 
   

@@ -8,8 +8,8 @@
 <head>
   <meta charset="UTF-8">
 
-  <link rel="apple-touch-icon" sizes="76x76" href="/yaosx425/yaosx425.github.io/img/fluid.png">
-  <link rel="icon" href="/yaosx425/yaosx425.github.io/img/fluid.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
   
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
@@ -22,7 +22,7 @@
     <meta name="description" content="java的编译期和运行期参考博文： https:&#x2F;&#x2F;blog.csdn.net&#x2F;zl1zl2zl3&#x2F;article&#x2F;details&#x2F;107425987 首先我觉得应该了解一下java中的编译期和运行期的概念。 一张图片：   一个.java文件完成运行需要经过哪些步骤？  （1）Java源码–&gt;java字节码 （2）加载java字节码并运行  编译期间做些什么？  编译器的作用：源代码（原始">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于Java中的反射和动态代理">
-<meta property="og:url" content="https://github.com/yaosx425/yaosx425.github.io/2021/03/24/%E5%85%B3%E4%BA%8EJava%E4%B8%AD%E7%9A%84%E5%8F%8D%E5%B0%84%E5%92%8C%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/index.html">
+<meta property="og:url" content="https://yaosx425.github.io/2021/03/24/%E5%85%B3%E4%BA%8EJava%E4%B8%AD%E7%9A%84%E5%8F%8D%E5%B0%84%E5%92%8C%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/index.html">
 <meta property="og:site_name" content="虫">
 <meta property="og:description" content="java的编译期和运行期参考博文： https:&#x2F;&#x2F;blog.csdn.net&#x2F;zl1zl2zl3&#x2F;article&#x2F;details&#x2F;107425987 首先我觉得应该了解一下java中的编译期和运行期的概念。 一张图片：   一个.java文件完成运行需要经过哪些步骤？  （1）Java源码–&gt;java字节码 （2）加载java字节码并运行  编译期间做些什么？  编译器的作用：源代码（原始">
 <meta property="og:locale" content="zh_CN">
@@ -60,12 +60,12 @@
 <link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
 
 
-<link  rel="stylesheet" href="/yaosx425/yaosx425.github.io/css/main.css" />
+<link  rel="stylesheet" href="/css/main.css" />
 
 
-  <link id="highlight-css" rel="stylesheet" href="/yaosx425/yaosx425.github.io/css/highlight.css" />
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
   
-    <link id="highlight-css-dark" rel="stylesheet" href="/yaosx425/yaosx425.github.io/css/highlight-dark.css" />
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
   
 
 
@@ -74,15 +74,15 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"github.com","root":"/yaosx425/yaosx425.github.io/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/yaosx425/yaosx425.github.io/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"yaosx425.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
       Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
     }
   </script>
-  <script  src="/yaosx425/yaosx425.github.io/js/utils.js" ></script>
-  <script  src="/yaosx425/yaosx425.github.io/js/color-schema.js" ></script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
   
 
 
@@ -99,7 +99,7 @@
 <div class="header-inner" style="height: 70vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand" href="/yaosx425/yaosx425.github.io/">
+    <a class="navbar-brand" href="/">
       <strong>Fluid</strong>
     </a>
 
@@ -118,7 +118,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/yaosx425/yaosx425.github.io/" target="_self">
+              <a class="nav-link" href="/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
                 <span>首页</span>
               </a>
@@ -130,7 +130,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/yaosx425/yaosx425.github.io/archives/" target="_self">
+              <a class="nav-link" href="/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
                 <span>归档</span>
               </a>
@@ -142,7 +142,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/yaosx425/yaosx425.github.io/categories/" target="_self">
+              <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
                 <span>分类</span>
               </a>
@@ -154,7 +154,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/yaosx425/yaosx425.github.io/tags/" target="_self">
+              <a class="nav-link" href="/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
                 <span>标签</span>
               </a>
@@ -166,7 +166,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/yaosx425/yaosx425.github.io/about/" target="_self">
+              <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
                 <span>关于</span>
               </a>
@@ -196,7 +196,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/yaosx425/yaosx425.github.io/img/default.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -282,7 +282,7 @@
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zl1zl2zl3/article/details/107425987">https://blog.csdn.net/zl1zl2zl3/article/details/107425987</a></p>
 <p>首先我觉得应该了解一下java中的编译期和运行期的概念。</p>
 <p>一张图片：</p>
-<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/6XCjbV"><img src="https://z3.ax1x.com/2021/03/25/6XCjbV.png" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="6XCjbV.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/6XCjbV"><img src="https://z3.ax1x.com/2021/03/25/6XCjbV.png" srcset="/img/loading.gif" lazyload alt="6XCjbV.png"></a></p>
 <ol>
 <li>一个.java文件完成运行需要经过哪些步骤？</li>
 </ol>
@@ -365,7 +365,7 @@
 
 <p><strong>反射方法的其他使用之—通过反射越过泛型检查：</strong></p>
 <p>泛型用在编译期，编译过后泛型擦除（消失掉）。所以是可以通过反射越过泛型检查的。</p>
-<h4 id="静态代理和动态代理的区别"><a href="#静态代理和动态代理的区别" class="headerlink" title="静态代理和动态代理的区别"></a>静态代理和动态代理的区别</h4><p><a target="_blank" rel="noopener" href="https://imgtu.com/i/6OH7Lj"><img src="https://z3.ax1x.com/2021/03/25/6OH7Lj.png" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="6OH7Lj.png"></a></p>
+<h4 id="静态代理和动态代理的区别"><a href="#静态代理和动态代理的区别" class="headerlink" title="静态代理和动态代理的区别"></a>静态代理和动态代理的区别</h4><p><a target="_blank" rel="noopener" href="https://imgtu.com/i/6OH7Lj"><img src="https://z3.ax1x.com/2021/03/25/6OH7Lj.png" srcset="/img/loading.gif" lazyload alt="6OH7Lj.png"></a></p>
 <p>使用代理的目的是：对目标对象（的方法）进行功能增强。</p>
 <p>既然是对目标对象的方法进行增强，代理对象的方法中一定会调用目标对象的方法。而且一般会在目标对象的方法<strong>调用前后（或者其他时机）做一些其他的处理</strong>以达到增强的效果。</p>
 <h4 id="什么是静态代理？"><a href="#什么是静态代理？" class="headerlink" title="什么是静态代理？"></a>什么是静态代理？</h4><p>代理类和实现类实现<strong>同一个接口</strong>，代理类里面有一个实现类的<strong>引用</strong>，客户调用代理类的方法时，代理类就调用实现类的方法。称为静态，是因为<strong>代理类和实现类是写死的</strong>，就是在编译阶段就确定了。</p>
@@ -406,7 +406,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>关于Java中的反射和动态代理</div>
-      <div>https://github.com/yaosx425/yaosx425.github.io/2021/03/24/关于Java中的反射和动态代理/</div>
+      <div>https://yaosx425.github.io/2021/03/24/关于Java中的反射和动态代理/</div>
     </div>
     <div class="license-meta">
       
@@ -450,7 +450,7 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/yaosx425/yaosx425.github.io/2021/03/27/Python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Python学习笔记">
+                      <a href="/2021/03/27/Python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Python学习笔记">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">Python学习笔记</span>
                         <span class="visible-mobile">上一篇</span>
@@ -460,7 +460,7 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/yaosx425/yaosx425.github.io/2021/03/17/Java%E4%B8%AD%E7%9A%84map%E8%AF%A6%E8%A7%A3/" title="Java中的map详解">
+                      <a href="/2021/03/17/Java%E4%B8%AD%E7%9A%84map%E8%AF%A6%E8%A7%A3/" title="Java中的map详解">
                         <span class="hidden-mobile">Java中的map详解</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
@@ -589,8 +589,8 @@
 
 <script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
 <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/yaosx425/yaosx425.github.io/js/events.js" ></script>
-<script  src="/yaosx425/yaosx425.github.io/js/plugins.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 
   <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
@@ -612,7 +612,7 @@
 
 
   
-    <script  src="/yaosx425/yaosx425.github.io/js/img-lazyload.js" ></script>
+    <script  src="/js/img-lazyload.js" ></script>
   
 
 
@@ -711,7 +711,7 @@
 
   <script>Fluid.plugins.imageCaption();</script>
 
-  <script  src="/yaosx425/yaosx425.github.io/js/local-search.js" ></script>
+  <script  src="/js/local-search.js" ></script>
 
 
 
@@ -719,7 +719,7 @@
 
 <!-- 主题的启动项，将它保持在最底部 -->
 <!-- the boot of the theme, keep it at the bottom -->
-<script  src="/yaosx425/yaosx425.github.io/js/boot.js" ></script>
+<script  src="/js/boot.js" ></script>
 
 
   

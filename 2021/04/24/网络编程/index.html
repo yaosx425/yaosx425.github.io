@@ -8,8 +8,8 @@
 <head>
   <meta charset="UTF-8">
 
-  <link rel="apple-touch-icon" sizes="76x76" href="/yaosx425/yaosx425.github.io/img/fluid.png">
-  <link rel="icon" href="/yaosx425/yaosx425.github.io/img/fluid.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
   
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
@@ -22,7 +22,7 @@
     <meta name="description" content="1.socket在进行网络编程之前，我们需要了解socket。其中IP协议对应于网络层，TCP协议对应于传输层，而HTTP协议对应于应用层。 TCP&#x2F;IP协议是传输层协议，主要解决数据如何在网络中传输，而HTTP协议是应用层协议，主要解决如何包装数据。 那么socket是什么呢？ 首先，socket是网络通信的工具，任何一门语言都有socket，他不是任何一门语言的专有名词，而是大家通过">
 <meta property="og:type" content="article">
 <meta property="og:title" content="网络编程">
-<meta property="og:url" content="https://github.com/yaosx425/yaosx425.github.io/2021/04/24/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/index.html">
+<meta property="og:url" content="https://yaosx425.github.io/2021/04/24/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/index.html">
 <meta property="og:site_name" content="虫">
 <meta property="og:description" content="1.socket在进行网络编程之前，我们需要了解socket。其中IP协议对应于网络层，TCP协议对应于传输层，而HTTP协议对应于应用层。 TCP&#x2F;IP协议是传输层协议，主要解决数据如何在网络中传输，而HTTP协议是应用层协议，主要解决如何包装数据。 那么socket是什么呢？ 首先，socket是网络通信的工具，任何一门语言都有socket，他不是任何一门语言的专有名词，而是大家通过">
 <meta property="og:locale" content="zh_CN">
@@ -62,12 +62,12 @@
 <link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
 
 
-<link  rel="stylesheet" href="/yaosx425/yaosx425.github.io/css/main.css" />
+<link  rel="stylesheet" href="/css/main.css" />
 
 
-  <link id="highlight-css" rel="stylesheet" href="/yaosx425/yaosx425.github.io/css/highlight.css" />
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
   
-    <link id="highlight-css-dark" rel="stylesheet" href="/yaosx425/yaosx425.github.io/css/highlight-dark.css" />
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
   
 
 
@@ -76,15 +76,15 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"github.com","root":"/yaosx425/yaosx425.github.io/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/yaosx425/yaosx425.github.io/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"yaosx425.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
       Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
     }
   </script>
-  <script  src="/yaosx425/yaosx425.github.io/js/utils.js" ></script>
-  <script  src="/yaosx425/yaosx425.github.io/js/color-schema.js" ></script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
   
 
 
@@ -101,7 +101,7 @@
 <div class="header-inner" style="height: 70vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand" href="/yaosx425/yaosx425.github.io/">
+    <a class="navbar-brand" href="/">
       <strong>Fluid</strong>
     </a>
 
@@ -120,7 +120,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/yaosx425/yaosx425.github.io/" target="_self">
+              <a class="nav-link" href="/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
                 <span>首页</span>
               </a>
@@ -132,7 +132,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/yaosx425/yaosx425.github.io/archives/" target="_self">
+              <a class="nav-link" href="/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
                 <span>归档</span>
               </a>
@@ -144,7 +144,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/yaosx425/yaosx425.github.io/categories/" target="_self">
+              <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
                 <span>分类</span>
               </a>
@@ -156,7 +156,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/yaosx425/yaosx425.github.io/tags/" target="_self">
+              <a class="nav-link" href="/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
                 <span>标签</span>
               </a>
@@ -168,7 +168,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/yaosx425/yaosx425.github.io/about/" target="_self">
+              <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
                 <span>关于</span>
               </a>
@@ -198,7 +198,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/yaosx425/yaosx425.github.io/img/default.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -287,7 +287,7 @@
 <p>实际上socket是对TCP&#x2F;IP协议的封装，它的出现只是使得程序员更方便的使用TCP&#x2F;IP协议栈而已。socket本身并不是协议，它是应用层与TCP&#x2F;IP协议通信的中间软件抽象层，是一组调用接口（TCP&#x2F;IP网络的API函数）。</p>
 <p>socket非常类似于电话插座。以一个国家级电话网为例。电话的通话双方相当于相互通信的2个进程，区号是它的网络地址；区内一个单位的交换机相当于一台主机，主机分配给每个用户的局内号码相当于socket号。任何用户在通话之前，首先要占有一部电话机，相当于申请一个socket；同时要知道对方的号码，相当于对方有一个固定的socket。然后向对方拨号呼叫，相当于发出连接请求。对方假如在场并空闲，拿起电话话筒，双方就可以正式通话，相当于连接成功。双方通话的过程，是一方向电话机发出信号和对方从电话机接收信号的过程，相当于向socket发送数据和从socket接收数据。通话结束后，一方挂起电话机相当于关闭socket，撤消连接。</p>
 <p><strong>socket在网路中的位置：</strong></p>
-<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1804804/201912/1804804-20191206181929276-344007041.png"><img src="https://img2018.cnblogs.com/blog/1804804/201912/1804804-20191206181929276-344007041.png" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1804804/201912/1804804-20191206181929276-344007041.png"><img src="https://img2018.cnblogs.com/blog/1804804/201912/1804804-20191206181929276-344007041.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
 <h1 id="2-Socket的TCP和UDP通信"><a href="#2-Socket的TCP和UDP通信" class="headerlink" title="2.Socket的TCP和UDP通信"></a>2.Socket的TCP和UDP通信</h1><p>socket有两种建立通信的方式，一种是基于TCP的可靠传输，一种是基于UDP的不可靠传输。</p>
 <h5 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h5><ul>
 <li>可靠的、面向连接的协议（eg:打电话）、传输效率低全双工通信（发送缓存&amp;接收缓存）、面向字节流。使用TCP的应用：Web浏览器；文件传输程序。</li>
@@ -301,7 +301,7 @@
 <li>UDP传输数据时是有大小限制的，每个被传输的数据包必须限定在64KB之内。</li>
 <li>UDP是一个不可靠的协议，发送方所发送的数据包并不一定以相同的顺序到达接收方。</li>
 </ul>
-<p><strong>socket中TCP和UDP对比：</strong><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1804804/201912/1804804-20191206182728562-1766232336.png"><img src="https://img2018.cnblogs.com/blog/1804804/201912/1804804-20191206182728562-1766232336.png" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></a></p>
+<p><strong>socket中TCP和UDP对比：</strong><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1804804/201912/1804804-20191206182728562-1766232336.png"><img src="https://img2018.cnblogs.com/blog/1804804/201912/1804804-20191206182728562-1766232336.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
 <h1 id="3-Java中Socket方法"><a href="#3-Java中Socket方法" class="headerlink" title="3.Java中Socket方法"></a>3.Java中Socket方法</h1><table>
 <thead>
 <tr>
@@ -362,7 +362,7 @@
 <td>返回此套接字连接的远程端口</td>
 </tr>
 </tbody></table>
-<h1 id="4-基于Java的socket网络编程"><a href="#4-基于Java的socket网络编程" class="headerlink" title="4.基于Java的socket网络编程"></a>4.基于Java的socket网络编程</h1><h5 id="4-1代码结构"><a href="#4-1代码结构" class="headerlink" title="4.1代码结构"></a>4.1代码结构</h5><p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1804804/201912/1804804-20191206190418518-1346060472.png"><img src="https://img2018.cnblogs.com/blog/1804804/201912/1804804-20191206190418518-1346060472.png" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></a></p>
+<h1 id="4-基于Java的socket网络编程"><a href="#4-基于Java的socket网络编程" class="headerlink" title="4.基于Java的socket网络编程"></a>4.基于Java的socket网络编程</h1><h5 id="4-1代码结构"><a href="#4-1代码结构" class="headerlink" title="4.1代码结构"></a>4.1代码结构</h5><p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1804804/201912/1804804-20191206190418518-1346060472.png"><img src="https://img2018.cnblogs.com/blog/1804804/201912/1804804-20191206190418518-1346060472.png" srcset="/img/loading.gif" lazyload alt="img"></a></p>
 <h5 id="4-2基于TCP实现"><a href="#4-2基于TCP实现" class="headerlink" title="4.2基于TCP实现"></a>4.2基于TCP实现</h5><h5 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h5><ul>
 <li>创建一个服务器端socket套接字（套接字会在制定的端口上监听）</li>
 <li>当有使用ServerSocket中的accept()获取客户端socket对象</li>
@@ -445,7 +445,7 @@
 <p><strong>TCP适用场景</strong></p>
 <ul>
 <li><p>由于这种面向连接的特性，TCP协议可以<strong>保证传输数据的安全</strong>，所以应用十分广泛，例如<strong>下载文件，浏览网页</strong>等。</p>
-<p><img src="https://img-blog.csdnimg.cn/20210212130312288.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNDU0ODYz,size_16,color_FFFFFF,t_70" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://img-blog.csdnimg.cn/20210212130312288.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNDU0ODYz,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload alt="img"></p>
 </li>
 </ul>
 <h1 id="13-网络编程三要素"><a href="#13-网络编程三要素" class="headerlink" title="13.网络编程三要素"></a>13.网络编程三要素</h1><p>协议：</p>
@@ -478,7 +478,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>网络编程</div>
-      <div>https://github.com/yaosx425/yaosx425.github.io/2021/04/24/网络编程/</div>
+      <div>https://yaosx425.github.io/2021/04/24/网络编程/</div>
     </div>
     <div class="license-meta">
       
@@ -522,7 +522,7 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/yaosx425/yaosx425.github.io/2021/05/13/%E6%A1%86%E6%9E%B6/" title="框架">
+                      <a href="/2021/05/13/%E6%A1%86%E6%9E%B6/" title="框架">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">框架</span>
                         <span class="visible-mobile">上一篇</span>
@@ -532,7 +532,7 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/yaosx425/yaosx425.github.io/2021/04/10/Spring/" title="Spring">
+                      <a href="/2021/04/10/Spring/" title="Spring">
                         <span class="hidden-mobile">Spring</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
@@ -661,8 +661,8 @@
 
 <script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
 <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/yaosx425/yaosx425.github.io/js/events.js" ></script>
-<script  src="/yaosx425/yaosx425.github.io/js/plugins.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 
   <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
@@ -684,7 +684,7 @@
 
 
   
-    <script  src="/yaosx425/yaosx425.github.io/js/img-lazyload.js" ></script>
+    <script  src="/js/img-lazyload.js" ></script>
   
 
 
@@ -783,7 +783,7 @@
 
   <script>Fluid.plugins.imageCaption();</script>
 
-  <script  src="/yaosx425/yaosx425.github.io/js/local-search.js" ></script>
+  <script  src="/js/local-search.js" ></script>
 
 
 
@@ -791,7 +791,7 @@
 
 <!-- 主题的启动项，将它保持在最底部 -->
 <!-- the boot of the theme, keep it at the bottom -->
-<script  src="/yaosx425/yaosx425.github.io/js/boot.js" ></script>
+<script  src="/js/boot.js" ></script>
 
 
   
