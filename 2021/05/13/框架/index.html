@@ -27,7 +27,7 @@
 <meta property="og:description" content="框架的作用　　任何语言、框架的发展都是为了降低程序之间的依赖性和耦合性，使重用性达到最高。　　在我们平时的四层框架中，界面层page、action层、业务逻辑层service、数据访问层dao，虽然分层明确，代码清晰，但是层与层之间有着很高的依赖性，比如service层处理业务逻辑构造sql语句时需要引用dao层的对象，调用dao层的方法执行sql语句，而action层处理界面动作的时候又要引用s">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-05-13T03:19:16.000Z">
-<meta property="article:modified_time" content="2023-02-24T03:34:45.773Z">
+<meta property="article:modified_time" content="2025-08-13T10:12:24.759Z">
 <meta property="article:author" content="姚淑璇">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -275,7 +275,7 @@
             
               <div class="markdown-body">
                 
-                <p><strong>框架的作用</strong><br>　　任何语言、框架的发展都是为了降低程序之间的依赖性和耦合性，使重用性达到最高。<br>　　在我们平时的四层框架中，界面层page、action层、业务逻辑层service、数据访问层dao，虽然分层明确，代码清晰，但是层与层之间有着很高的依赖性，比如service层处理业务逻辑构造sql语句时需要引用dao层的对象，调用dao层的方法执行sql语句，而action层处理界面动作的时候又要引用service层的对象，调用service层的方法，这样一来，实例action对象的时候要同时实例至少一个service对象和一个dao对象，这样依赖性太强，因此我们把他们做成接口，只在类里写各层的引用，而不对引用进行实例化，用spring的ioc依赖注入，在spring容器启动时来实例化引用，降低了程序的依赖性，如果某个业务逻辑发生变化，可以重新写一个新的业务逻辑实现类，修改spring的配置文件即可，不用每个action代码中去改new的对象，这就是依赖注入。<br>　　我们通常说一个方法只做一件事情，但是实际是实现不了的，因为一个方法除了做业务逻辑处理外还要至少处理事务、日志等事情，这些东西没有办法脱离，因此spring的aop面向切面，就将事务和日志可以定义成切面，配置的配置文件中，在你需要的时候切入进来，代码中缺很清晰没有事务和日志，这就是spring的aop。<br>　　事务的处理： 在以往的JDBCTemplate 中事务提交成功，异常处理都是通过Try&#x2F;Catch 来完成，而在Spring中。Spring容器集成了TransactionTemplate，她封装了所有对事务处理的功能，包括异常时事务回滚，操作成功时数据提交等复杂业务功能。这都是由Spring 容器来管理，大大减少了程序员的代码量，也对事务有了很好的管理控制。Hibernate中也有对事务的管理，hibernate 中事务管理是通过SessionFactory 创建和维护Session 来完成。而Spring 对SessionFactory配置也进行了整合，不需要在通过hibernate.cfg.xml来对SessionaFactory进行设定。这样的话就可以很好的利用Sping对事务管理强大功能。避免了每次对数据操作都要现获得Session实例来启动事务&#x2F;提交&#x2F;回滚事务还有繁琐的Try&#x2F;Catch操作。这些也就是Spring中的AOP（面向切面编程）机制很好的应用。一方面使开发业务逻辑更清晰、专业分工更加容易进行。另一方面就是应用Spirng AOP隔离降低了程序的耦合性使我们可以在不同的应用中将各个切面结合起来使用大大提高了代码重用度。</p>
+                <p><strong>框架的作用</strong><br>　　任何语言、框架的发展都是为了降低程序之间的依赖性和耦合性，使重用性达到最高。<br>　　在我们平时的四层框架中，界面层page、action层、业务逻辑层service、数据访问层dao，虽然分层明确，代码清晰，但是层与层之间有着很高的依赖性，比如service层处理业务逻辑构造sql语句时需要引用dao层的对象，调用dao层的方法执行sql语句，而action层处理界面动作的时候又要引用service层的对象，调用service层的方法，这样一来，实例action对象的时候要同时实例至少一个service对象和一个dao对象，这样依赖性太强，因此我们把他们做成接口，只在类里写各层的引用，而不对引用进行实例化，用spring的ioc依赖注入，在spring容器启动时来实例化引用，降低了程序的依赖性，如果某个业务逻辑发生变化，可以重新写一个新的业务逻辑实现类，修改spring的配置文件即可，不用每个action代码中去改new的对象，这就是依赖注入。<br>　　我们通常说一个方法只做一件事情，但是实际是实现不了的，因为一个方法除了做业务逻辑处理外还要至少处理事务、日志等事情，这些东西没有办法脱离，因此spring的aop面向切面，就将事务和日志可以定义成切面，配置的配置文件中，在你需要的时候切入进来，代码中缺很清晰没有事务和日志，这就是spring的aop。<br>　　事务的处理： 在以往的JDBCTemplate 中事务提交成功，异常处理都是通过Try&#x2F;Catch 来完成，而在Spring中。Spring容器集成了TransactionTemplate，她封装了所有对事务处理的功能，包括异常时事务回滚，操作成功时数据提交等复杂业务功能。这都是由Spring 容器来管理，大大减少了程序员的代码量，也对事务有了很好的管理控制。Hibernate中也有对事务的管理，hibernate 中事务管理是通过SessionFactory 创建和维护Session 来完成。而Spring 对SessionFactory配置也进行了整合，不需要在通过hibernate.cfg.xml来对SessionaFactory进行设定。这样的话就可以很好的利用Sping对事务管理强大功能。避免了每次对数据操作都要现获得Session实例来启动事务&#x2F;提交&#x2F;回滚事务还有繁琐的Try&#x2F;Catch操作。这些也就是Spring中的AOP（面向切面编程）机制很好的应用。一方面使开发业务逻辑更清晰、专业分工更加容易进行。另一方面就是应用Spirng AOP隔离降低了程序的耦合性使我们可以在不同的应用中将各个切面结合起来使用大大提高了代码重用度。   </p>
 
                 
               </div>
