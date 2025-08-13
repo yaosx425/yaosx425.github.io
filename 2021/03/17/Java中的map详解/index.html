@@ -1,0 +1,654 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/yaosx425/yaosx425.github.io/img/fluid.png">
+  <link rel="icon" href="/yaosx425/yaosx425.github.io/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="姚淑璇">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="先看一张图片：  关于Collection和map关系：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;111testing&#x2F;p&#x2F;8100148.html 问题汇总：1. Java中的map到底是什么？运行机制或者基本原理是什么？java.util中包含Collection和Map接口，然后产生了Map类的集合。可以把它理解成一个数据字典，然后可以给每个数据对象制定代号。下次可以直接根据代号找到数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java中的map详解">
+<meta property="og:url" content="https://github.com/yaosx425/yaosx425.github.io/2021/03/17/Java%E4%B8%AD%E7%9A%84map%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="虫">
+<meta property="og:description" content="先看一张图片：  关于Collection和map关系：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;111testing&#x2F;p&#x2F;8100148.html 问题汇总：1. Java中的map到底是什么？运行机制或者基本原理是什么？java.util中包含Collection和Map接口，然后产生了Map类的集合。可以把它理解成一个数据字典，然后可以给每个数据对象制定代号。下次可以直接根据代号找到数">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/17/66tBHe.png">
+<meta property="article:published_time" content="2021-03-17T03:10:55.000Z">
+<meta property="article:modified_time" content="2023-02-24T03:42:33.539Z">
+<meta property="article:author" content="姚淑璇">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s3.ax1x.com/2021/03/17/66tBHe.png">
+  
+  
+  
+  <title>Java中的map详解 - 虫</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/yaosx425/yaosx425.github.io/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/yaosx425/yaosx425.github.io/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/yaosx425/yaosx425.github.io/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"github.com","root":"/yaosx425/yaosx425.github.io/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/yaosx425/yaosx425.github.io/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/yaosx425/yaosx425.github.io/js/utils.js" ></script>
+  <script  src="/yaosx425/yaosx425.github.io/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/yaosx425/yaosx425.github.io/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/yaosx425/yaosx425.github.io/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/yaosx425/yaosx425.github.io/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/yaosx425/yaosx425.github.io/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/yaosx425/yaosx425.github.io/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/yaosx425/yaosx425.github.io/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/yaosx425/yaosx425.github.io/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Java中的map详解"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-03-17 11:10" pubdate>
+          2021年3月17日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          990 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          9 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Java中的map详解</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p><strong>先看一张图片：</strong></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/66tBHe"><img src="https://s3.ax1x.com/2021/03/17/66tBHe.png" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="66tBHe.png"></a></p>
+<p><em>关于Collection和map关系</em>：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/111testing/p/8100148.html">https://www.cnblogs.com/111testing/p/8100148.html</a></p>
+<h1 id="问题汇总："><a href="#问题汇总：" class="headerlink" title="问题汇总："></a>问题汇总：</h1><h4 id="1-Java中的map到底是什么？运行机制或者基本原理是什么？"><a href="#1-Java中的map到底是什么？运行机制或者基本原理是什么？" class="headerlink" title="1. Java中的map到底是什么？运行机制或者基本原理是什么？"></a><strong>1. Java中的map到底是什么？运行机制或者基本原理是什么？</strong></h4><p>java.util中包含Collection和Map接口，然后产生了Map类的集合。可以把它理解成一个数据字典，然后可以给每个数据对象制定代号。下次可以直接根据代号找到数据，而不用像数组、列表那样要从头到尾查找一遍。</p>
+<h4 id="2-什么是Collection？"><a href="#2-什么是Collection？" class="headerlink" title="2. 什么是Collection？"></a><strong>2. 什么是Collection？</strong></h4><p>Collection集合和Map集合一样，由接口产生类，但是是单列集合体系，包含List和Set。其中List是有序的单列集合接口，存入的数据可以重复且有序，Set是无序的单列接口，存入数据不可重复。</p>
+<p><em>关于Collection</em>：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41635282/article/details/112116998">https://blog.csdn.net/qq_41635282/article/details/112116998</a></p>
+<h4 id="3-什么是Set"><a href="#3-什么是Set" class="headerlink" title="3. 什么是Set?"></a><strong>3. 什么是Set?</strong></h4><p>是接口，也是一种Set集合，类似于一个罐子，程序可以一次把多个对象“丢进”Set集合，而Set集合通常不能记住元素的添加顺序。实际上Set就是Collection只是Set不允许包含重复元素。</p>
+<p>*关于Set集合的实例：*<a target="_blank" rel="noopener" href="https://blog.csdn.net/mashaokang1314/article/details/83721792">https://blog.csdn.net/mashaokang1314/article/details/83721792</a></p>
+<p>*关于Set集合HashSet、LinkedHashSet、TreeSet的源码分析：*<a target="_blank" rel="noopener" href="https://blog.csdn.net/xiaoxiaovbb/article/details/80439643">https://blog.csdn.net/xiaoxiaovbb/article/details/80439643</a></p>
+<h4 id="4-什么是java中的迭代器？"><a href="#4-什么是java中的迭代器？" class="headerlink" title="4. 什么是java中的迭代器？"></a><strong>4. 什么是java中的迭代器</strong>？</h4><p>集合体系中的迭代器就是遍历，集合取出元素的方式，迭代器可以取出并操作集合中的元素。</p>
+<p>特点：每个集合都有存和取的方式，而且每个集合的数据结构不一样，所以他们存和取的动作也不一样，添加通过add（）能完成添加操作，但是取的动作比较复杂，所以把取的动作封装成了对象，包含hasNext（）、next（）、remove（）三个共同的方法，由于集合本身最知道该怎么取元素和迭代器对象需要用到集合内部的元素，所以把迭代器封装成了集合类的内部类，通过一个方法把迭代器提供给外部，就是iterator（）。</p>
+<h4 id="5-Java中的Iterator（）方法是什么？"><a href="#5-Java中的Iterator（）方法是什么？" class="headerlink" title="5. Java中的Iterator（）方法是什么？"></a><strong>5. Java中的Iterator（）方法是什么？</strong></h4><p>iterator就是java中的迭代器，迭代器是一种设计模式，它是一个对象，它可以遍历并选择序列中的对象。</p>
+<p>*iterator迭代器的实现及相关实例：*<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xujian2014/p/5846128.html">https://www.cnblogs.com/xujian2014/p/5846128.html</a></p>
+<p>*用法：*<a target="_blank" rel="noopener" href="https://www.cnblogs.com/lxqiaoyixuan/p/7156944.html">https://www.cnblogs.com/lxqiaoyixuan/p/7156944.html</a></p>
+<h4 id="6-Map集合和Collection集合的区别是什么？"><a href="#6-Map集合和Collection集合的区别是什么？" class="headerlink" title="6. Map集合和Collection集合的区别是什么？"></a><strong>6. Map集合和Collection集合的区别是什么？</strong></h4><p>Map集合是一种键和值的映射关系（双列集合），Collection集合是单列集合，只能存储一种类型的元素。</p>
+<p>同时两者也有关系：HashSet依赖于Map接口的子类实现类HashMap，TreeSet依赖于Map接口的子实现类TreeMap。</p>
+<h4 id="7-HashMap遍历有哪些方法？"><a href="#7-HashMap遍历有哪些方法？" class="headerlink" title="7. HashMap遍历有哪些方法？"></a><strong>7. HashMap遍历有哪些方法？</strong></h4><p>一种是通过keySet（）获取所有的set值进行操作</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">Set</span>&lt;<span class="hljs-type">Integer</span>&gt; doubleSet = hashMap.keySet();<br>	<span class="hljs-keyword">for</span>(<span class="hljs-type">Integer</span> aDouble: doubleSet)&#123;<br>        <span class="hljs-type">Double</span> <span class="hljs-keyword">value</span> = hashMap.<span class="hljs-keyword">get</span>(aDouble);<br>        <span class="hljs-keyword">System</span>.<span class="hljs-keyword">out</span>.println(aDouble + &quot;=&quot; + <span class="hljs-keyword">value</span>);<br>    &#125;//使用<span class="hljs-keyword">foreach</span>进行遍历<br><br>Iterator&lt;<span class="hljs-type">Integer</span>&gt; iterator = doubleSet.iterator();<br>		<span class="hljs-keyword">while</span>(iterator.hasNext())&#123;<br>            <span class="hljs-type">Integer</span> aDouble = iterator.next();<br>            <span class="hljs-type">Double</span> <span class="hljs-keyword">value</span> = hashMap.<span class="hljs-keyword">get</span>(aDouble);<br>           <span class="hljs-keyword">System</span>.<span class="hljs-keyword">out</span>.println(aDouble+&quot;===&quot;+<span class="hljs-keyword">value</span>)<br>        &#125;//使用迭代器进行遍历<br></code></pre></td></tr></table></figure>
+
+<p>另一种是通过HashMap的entrySet（）方法，获取的返回值为Set&lt;Entry&lt;Key,Value&gt;&gt;,然后通过遍历获取到HashMap钟的所有值。</p>
+<figure class="highlight irpf90"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs irpf90">Set&lt;Map.<span class="hljs-built_in">Entry</span>&lt;<span class="hljs-keyword">Integer</span>,<span class="hljs-keyword">Double</span>&gt;&gt; entries = hashMap.entrySet();<br>	for(Map.<span class="hljs-built_in">Entry</span>&lt;<span class="hljs-keyword">Integer</span>,<span class="hljs-keyword">Double</span>&gt; <span class="hljs-built_in">entry</span> : entries)&#123;<br>        <span class="hljs-keyword">Integer</span> key = <span class="hljs-built_in">entry</span>.getKey();<br>        <span class="hljs-keyword">Double</span> <span class="hljs-keyword">value</span> = <span class="hljs-built_in">entry</span>.getValue();<br>        System.<span class="hljs-keyword">out</span>.println(key+<span class="hljs-string">&quot;===&quot;</span>+<span class="hljs-keyword">value</span>);<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="其他："><a href="#其他：" class="headerlink" title="其他："></a>其他：</h1><p>*Java讲Map和Collection集合细节最详细的一篇：*<a target="_blank" rel="noopener" href="https://www.cnblogs.com/111testing/p/8100148.html">https://www.cnblogs.com/111testing/p/8100148.html</a></p>
+<p>*Java基础 Map集合：*<a target="_blank" rel="noopener" href="https://blog.csdn.net/kai46385076/article/details/94769759">https://blog.csdn.net/kai46385076/article/details/94769759</a></p>
+<p>阅读笔记：</p>
+<ol>
+<li>Map集合的概念和相关方法。</li>
+<li>通过阅读能更了解遍历map方式的基本原理。</li>
+</ol>
+<p>*Java中的Map及其使用：*<a target="_blank" rel="noopener" href="https://blog.csdn.net/taraex/article/details/90243965">https://blog.csdn.net/taraex/article/details/90243965</a></p>
+<p>阅读笔记：主要讲Map集合的子类的用法和Collection集合的用法。</p>
+<p>*Java Map集合类简介：*<a target="_blank" rel="noopener" href="https://www.oracle.com/cn/database/technology/maps.html">https://www.oracle.com/cn/database/technology/maps.html</a></p>
+<p>阅读笔记：讲的Map非常详细！！！</p>
+<p>*Java中的Map接口的解析：*<a target="_blank" rel="noopener" href="https://blog.csdn.net/jiguquan3839/article/details/84546835">https://blog.csdn.net/jiguquan3839/article/details/84546835</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Java中的map详解</div>
+      <div>https://github.com/yaosx425/yaosx425.github.io/2021/03/17/Java中的map详解/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>姚淑璇</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年3月17日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/yaosx425/yaosx425.github.io/2021/03/24/%E5%85%B3%E4%BA%8EJava%E4%B8%AD%E7%9A%84%E5%8F%8D%E5%B0%84%E5%92%8C%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/" title="关于Java中的反射和动态代理">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">关于Java中的反射和动态代理</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/yaosx425/yaosx425.github.io/2021/03/13/%E6%80%8E%E4%B9%88%E5%9C%A8Gitee%E4%B8%8A%E5%88%9B%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/" title="怎么在Gitee上创建自己的博客">
+                        <span class="hidden-mobile">怎么在Gitee上创建自己的博客</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/yaosx425/yaosx425.github.io/js/events.js" ></script>
+<script  src="/yaosx425/yaosx425.github.io/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/yaosx425/yaosx425.github.io/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/yaosx425/yaosx425.github.io/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/yaosx425/yaosx425.github.io/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

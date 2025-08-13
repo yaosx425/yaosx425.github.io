@@ -1,0 +1,803 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/yaosx425/yaosx425.github.io/img/fluid.png">
+  <link rel="icon" href="/yaosx425/yaosx425.github.io/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="姚淑璇">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1.socket在进行网络编程之前，我们需要了解socket。其中IP协议对应于网络层，TCP协议对应于传输层，而HTTP协议对应于应用层。 TCP&#x2F;IP协议是传输层协议，主要解决数据如何在网络中传输，而HTTP协议是应用层协议，主要解决如何包装数据。 那么socket是什么呢？ 首先，socket是网络通信的工具，任何一门语言都有socket，他不是任何一门语言的专有名词，而是大家通过">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络编程">
+<meta property="og:url" content="https://github.com/yaosx425/yaosx425.github.io/2021/04/24/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/index.html">
+<meta property="og:site_name" content="虫">
+<meta property="og:description" content="1.socket在进行网络编程之前，我们需要了解socket。其中IP协议对应于网络层，TCP协议对应于传输层，而HTTP协议对应于应用层。 TCP&#x2F;IP协议是传输层协议，主要解决数据如何在网络中传输，而HTTP协议是应用层协议，主要解决如何包装数据。 那么socket是什么呢？ 首先，socket是网络通信的工具，任何一门语言都有socket，他不是任何一门语言的专有名词，而是大家通过">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1804804/201912/1804804-20191206181929276-344007041.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1804804/201912/1804804-20191206182728562-1766232336.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1804804/201912/1804804-20191206190418518-1346060472.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210212130312288.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNDU0ODYz,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2021-04-24T03:18:10.000Z">
+<meta property="article:modified_time" content="2023-02-24T03:35:04.600Z">
+<meta property="article:author" content="姚淑璇">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img2018.cnblogs.com/blog/1804804/201912/1804804-20191206181929276-344007041.png">
+  
+  
+  
+  <title>网络编程 - 虫</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/yaosx425/yaosx425.github.io/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/yaosx425/yaosx425.github.io/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/yaosx425/yaosx425.github.io/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"github.com","root":"/yaosx425/yaosx425.github.io/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/yaosx425/yaosx425.github.io/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/yaosx425/yaosx425.github.io/js/utils.js" ></script>
+  <script  src="/yaosx425/yaosx425.github.io/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/yaosx425/yaosx425.github.io/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/yaosx425/yaosx425.github.io/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/yaosx425/yaosx425.github.io/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/yaosx425/yaosx425.github.io/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/yaosx425/yaosx425.github.io/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/yaosx425/yaosx425.github.io/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/yaosx425/yaosx425.github.io/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="网络编程"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-04-24 11:18" pubdate>
+          2021年4月24日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          42 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">网络编程</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="1-socket"><a href="#1-socket" class="headerlink" title="1.socket"></a>1.socket</h1><p>在进行网络编程之前，我们需要了解socket。其中IP协议对应于网络层，TCP协议对应于传输层，而HTTP协议对应于应用层。</p>
+<p>TCP&#x2F;IP协议是传输层协议，主要解决数据如何在网络中传输，而HTTP协议是应用层协议，主要解决如何包装数据。</p>
+<p>那么<strong>socket</strong>是什么呢？</p>
+<p>首先，socket是网络通信的工具，任何一门语言都有socket，他不是任何一门语言的专有名词，而是大家通过自己的程序与其他电脑进行网络通信的时候都用它。</p>
+<p>实际上socket是对TCP&#x2F;IP协议的封装，它的出现只是使得程序员更方便的使用TCP&#x2F;IP协议栈而已。socket本身并不是协议，它是应用层与TCP&#x2F;IP协议通信的中间软件抽象层，是一组调用接口（TCP&#x2F;IP网络的API函数）。</p>
+<p>socket非常类似于电话插座。以一个国家级电话网为例。电话的通话双方相当于相互通信的2个进程，区号是它的网络地址；区内一个单位的交换机相当于一台主机，主机分配给每个用户的局内号码相当于socket号。任何用户在通话之前，首先要占有一部电话机，相当于申请一个socket；同时要知道对方的号码，相当于对方有一个固定的socket。然后向对方拨号呼叫，相当于发出连接请求。对方假如在场并空闲，拿起电话话筒，双方就可以正式通话，相当于连接成功。双方通话的过程，是一方向电话机发出信号和对方从电话机接收信号的过程，相当于向socket发送数据和从socket接收数据。通话结束后，一方挂起电话机相当于关闭socket，撤消连接。</p>
+<p><strong>socket在网路中的位置：</strong></p>
+<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1804804/201912/1804804-20191206181929276-344007041.png"><img src="https://img2018.cnblogs.com/blog/1804804/201912/1804804-20191206181929276-344007041.png" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></a></p>
+<h1 id="2-Socket的TCP和UDP通信"><a href="#2-Socket的TCP和UDP通信" class="headerlink" title="2.Socket的TCP和UDP通信"></a>2.Socket的TCP和UDP通信</h1><p>socket有两种建立通信的方式，一种是基于TCP的可靠传输，一种是基于UDP的不可靠传输。</p>
+<h5 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h5><ul>
+<li>可靠的、面向连接的协议（eg:打电话）、传输效率低全双工通信（发送缓存&amp;接收缓存）、面向字节流。使用TCP的应用：Web浏览器；文件传输程序。</li>
+<li>面向连接的协议，在socket之间进行数据传输之前必须要建立连接，所以在TCP中需要连接时间</li>
+<li>TCP传输数据无大小限制，一旦建立连接，双方socket就可以按统一的格式传输大的数据（无限制）。</li>
+<li>TCP是一个可靠的协议，它确保接收方完全正确地获取发送方所发送的全部数据。</li>
+</ul>
+<h5 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h5><ul>
+<li>不可靠的、无连接的服务，传输效率高（发送前时延小），一对一、一对多、多对一、多对多、面向报文(数据包)，尽最大努力服务，无拥塞控制。使用UDP的应用：域名系统 (DNS)；视频流；IP语音(VoIP)。</li>
+<li>每个数据包中都给出了完整的地址信息，因此无需建立发送方和接收方的连接。</li>
+<li>UDP传输数据时是有大小限制的，每个被传输的数据包必须限定在64KB之内。</li>
+<li>UDP是一个不可靠的协议，发送方所发送的数据包并不一定以相同的顺序到达接收方。</li>
+</ul>
+<p><strong>socket中TCP和UDP对比：</strong><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1804804/201912/1804804-20191206182728562-1766232336.png"><img src="https://img2018.cnblogs.com/blog/1804804/201912/1804804-20191206182728562-1766232336.png" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></a></p>
+<h1 id="3-Java中Socket方法"><a href="#3-Java中Socket方法" class="headerlink" title="3.Java中Socket方法"></a>3.Java中Socket方法</h1><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ServerSocket(int port)</td>
+<td>创建ServerSocket</td>
+</tr>
+<tr>
+<td>bind(SocketAddress bindpoint)</td>
+<td>将套接字绑定到本地地址</td>
+</tr>
+<tr>
+<td>accept()</td>
+<td>阻塞方法，也就是说调用accept方法后程序会停下来等待连接请求</td>
+</tr>
+<tr>
+<td>close()</td>
+<td>关闭此套接字</td>
+</tr>
+<tr>
+<td>connect(SocketAddress endpoint)</td>
+<td>将此套接字连接到服务器</td>
+</tr>
+<tr>
+<td>InetAddress getInetAddress()</td>
+<td>返回套接字的连接地址</td>
+</tr>
+<tr>
+<td>InetAddress getLocalAddress()</td>
+<td>获取套接字绑定的本地地址</td>
+</tr>
+<tr>
+<td>InputStream getInputStream()</td>
+<td>返回此套接字的输入流</td>
+</tr>
+<tr>
+<td>OutputStream getOutputStream()</td>
+<td>返回此套接字的输出流</td>
+</tr>
+<tr>
+<td>SocketAddress getLocalSocketAddress()</td>
+<td>返回此套接字绑定的端点地址，如果尚未绑定则返回 null</td>
+</tr>
+<tr>
+<td>SocketAddress getRemoteSocketAddress()</td>
+<td>返回此套接字的连接的端点地址，如果尚未连接则返回 null</td>
+</tr>
+<tr>
+<td>int getLoacalPort()</td>
+<td>返回此套接字绑定的本地端口</td>
+</tr>
+<tr>
+<td>int getPort()</td>
+<td>返回此套接字连接的远程端口</td>
+</tr>
+</tbody></table>
+<h1 id="4-基于Java的socket网络编程"><a href="#4-基于Java的socket网络编程" class="headerlink" title="4.基于Java的socket网络编程"></a>4.基于Java的socket网络编程</h1><h5 id="4-1代码结构"><a href="#4-1代码结构" class="headerlink" title="4.1代码结构"></a>4.1代码结构</h5><p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1804804/201912/1804804-20191206190418518-1346060472.png"><img src="https://img2018.cnblogs.com/blog/1804804/201912/1804804-20191206190418518-1346060472.png" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></a></p>
+<h5 id="4-2基于TCP实现"><a href="#4-2基于TCP实现" class="headerlink" title="4.2基于TCP实现"></a>4.2基于TCP实现</h5><h5 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h5><ul>
+<li>创建一个服务器端socket套接字（套接字会在制定的端口上监听）</li>
+<li>当有使用ServerSocket中的accept()获取客户端socket对象</li>
+<li>使用多线程实现聊天：<ul>
+<li>1.MyClientThread线程负责接收客户端发送给服务器端的消息</li>
+<li>2.MyServerThread线程负责向客户端发送消息</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> socket.chat;<br><br><span class="hljs-keyword">import</span> java.io.DataInputStream;<br><span class="hljs-keyword">import</span> java.io.DataOutputStream;<br><span class="hljs-keyword">import</span> java.io.IOException;<br><span class="hljs-keyword">import</span> java.net.ServerSocket;<br><span class="hljs-keyword">import</span> java.net.Socket;<br><span class="hljs-keyword">import</span> java.util.Scanner;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * socket实现聊天</span><br><span class="hljs-comment"> * 1.创建一个服务器端socket套接字（套接字会在制定的端口上监听）；</span><br><span class="hljs-comment"> * 2.当有使用ServerSocket中的accept()获取客户端socket对象</span><br><span class="hljs-comment"> * 3.使用多线程实现聊天：1.MyClientThread线程负责接收客户端发送给服务器端的消息；</span><br><span class="hljs-comment"> *                      2.MyServerThread线程负责向客户端发送消息</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyServerSocket</span>&#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">ServerSocket</span> <span class="hljs-variable">serverSocket</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<span class="hljs-comment">//服务器端socket</span><br>        <span class="hljs-type">Socket</span> <span class="hljs-variable">clientSocket</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<span class="hljs-comment">//客户端socket</span><br><br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">//创建一个服务器端socket服务</span><br>            serverSocket = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ServerSocket</span>(<span class="hljs-number">8888</span>);<br>            <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;<span class="hljs-comment">//使用while死循环模拟客户端一直启动</span><br>                clientSocket = serverSocket.accept();<span class="hljs-comment">//获取连接服务端的客户端socket</span><br>                <span class="hljs-comment">//该线程用于接收客户端发送的消息，并将该消息打印到控制台</span><br>                <span class="hljs-type">MyClientThread</span> <span class="hljs-variable">myClientThread</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyClientThread</span>(clientSocket);<br>                <span class="hljs-comment">//该线程用于向客户端发送的消息</span><br>                <span class="hljs-type">MyServerThread</span> <span class="hljs-variable">myServerThread</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyServerThread</span>(clientSocket);<br><br>                <span class="hljs-comment">//启动线程</span><br>                myClientThread.start();<br>                myServerThread.start();<br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (IOException io) &#123;<br>            io.printStackTrace();<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            <span class="hljs-keyword">if</span> (clientSocket != <span class="hljs-literal">null</span>) &#123;<br>                <span class="hljs-keyword">try</span> &#123;<br>                    clientSocket.close();<br>                &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>                    e.printStackTrace();<br>                &#125;<br>            &#125;<br>            <span class="hljs-keyword">if</span> (serverSocket != <span class="hljs-literal">null</span>) &#123;<br>                <span class="hljs-keyword">try</span> &#123;<br>                    serverSocket.close();<br>                &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>                    e.printStackTrace();<br>                &#125;<br>            &#125;<br>        &#125;<br>    &#125;<span class="hljs-comment">//main--end</span><br>&#125;<span class="hljs-comment">//MyServerSocket--end</span><br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 接收客户端的内容</span><br><span class="hljs-comment"> * 1.根据客户端Socket获取指向客户端Socket对象的输入流对象（输入源）</span><br><span class="hljs-comment"> * 2.通过输入流对象将客户端输入的信息读取到内存中</span><br><span class="hljs-comment"> * 3.通过输出流对象（System.out.print)将内存中的数据打印到控制台</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClientThread</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Thread</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">DataInputStream</span> <span class="hljs-variable">dataInputStream</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">MyClientThread</span><span class="hljs-params">(Socket socket)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">//获取客户端的输入流对象</span><br>            <span class="hljs-built_in">this</span>.dataInputStream = <span class="hljs-keyword">new</span> <span class="hljs-title class_">DataInputStream</span>(socket.getInputStream());<br>        &#125; <span class="hljs-keyword">catch</span> (IOException io) &#123;<br>            io.printStackTrace();<br>        &#125;<br>    &#125;<span class="hljs-comment">//MyClientThread--end</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">tellClient</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;<br>                tellClient = <span class="hljs-built_in">this</span>.dataInputStream.readUTF();<span class="hljs-comment">//将客户端发送的信息写入到内存中</span><br>                System.out.println(<span class="hljs-string">&quot;客户端说：&quot;</span>+tellClient);<span class="hljs-comment">//将读取的客户端信息打印到控制台</span><br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (IOException io) &#123;<br>            io.printStackTrace();<br>        &#125;<br>    &#125;<span class="hljs-comment">//run--end</span><br>&#125;<span class="hljs-comment">//MyClientThread--end</span><br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 向发送客户端的消息</span><br><span class="hljs-comment"> * 1.根据客户端Socket获取指向客户端Socket对象的输出流对象（输出目的地）</span><br><span class="hljs-comment"> * 2.获取控制台输入流对象（输入源）</span><br><span class="hljs-comment"> * 3.通过输入流对象将控制台输入的信息读取到内存中</span><br><span class="hljs-comment"> * 4.通过输出流对象将内存中的数据返回给服务器端</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyServerThread</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Thread</span> &#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">DataOutputStream</span> <span class="hljs-variable">dataOutputStream</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<span class="hljs-comment">//用于输出服务器返回给客户端的信息</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">Scanner</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<span class="hljs-comment">//用于将服务器端在控制台输入的信息读取到内存中</span><br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">MyServerThread</span><span class="hljs-params">(Socket socket)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">//根据客户端获取输出流对象</span><br>            <span class="hljs-built_in">this</span>.dataOutputStream = <span class="hljs-keyword">new</span> <span class="hljs-title class_">DataOutputStream</span>(socket.getOutputStream());<br>            <span class="hljs-comment">//获取控制台输入流对象</span><br>            in = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Scanner</span>(System.in);<br>        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<span class="hljs-comment">//MyServerThread--end</span><br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">tellServer</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br><br>        <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                <span class="hljs-comment">//将控制台中的信息读入到内存中</span><br>                tellServer = in.nextLine();<br>                <span class="hljs-comment">//服务器端向客户端发送消息</span><br>                <span class="hljs-built_in">this</span>.dataOutputStream.writeUTF(tellServer);<br>            &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>        &#125;<br>    &#125;<span class="hljs-comment">//run</span><br>&#125;<span class="hljs-comment">//server</span><br></code></pre></td></tr></table></figure>
+
+<h5 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h5><ul>
+<li>根据IP和port获取和服务端连接的Socket对象</li>
+<li>通过服务端Socket对象获取指向服务端Socket对象的输入流&#x2F;输出流，获取服务器端发送的信息或者向服务器发送消息</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> socket.chat;<br><br><span class="hljs-keyword">import</span> java.io.DataInputStream;<br><span class="hljs-keyword">import</span> java.io.DataOutputStream;<br><span class="hljs-keyword">import</span> java.io.IOException;<br><span class="hljs-keyword">import</span> java.net.Socket;<br><span class="hljs-keyword">import</span> java.util.Scanner;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 客户端socket</span><br><span class="hljs-comment"> * 1.根据IP和port获取和服务端连接的Socket对象</span><br><span class="hljs-comment"> * 2.通过服务端Socket对象获取指向服务端Socket对象的输入流/输出流，获取服务器端发送的信息或者向服务器发送消息</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClientSocket</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">Socket</span> <span class="hljs-variable">serverSocket</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            serverSocket = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Socket</span>(<span class="hljs-string">&quot;127.0.0.1&quot;</span>, <span class="hljs-number">8888</span>);<br><br>            <span class="hljs-type">MyClientToSerThread</span> <span class="hljs-variable">myClientToSerThread</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyClientToSerThread</span>(serverSocket);<br>            <span class="hljs-type">MyAcceptServerThread</span> <span class="hljs-variable">myAcceptServerThread</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyAcceptServerThread</span>(serverSocket);<br><br>            myClientToSerThread.start();<br>            myAcceptServerThread.start();<br>        &#125; <span class="hljs-keyword">catch</span> (IOException io) &#123;<br>            io.printStackTrace();<br>        &#125;<br><br>    &#125;<span class="hljs-comment">//main--end</span><br>&#125;<span class="hljs-comment">//MyClientSocket--end</span><br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 向服务端发送消息</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClientToSerThread</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Thread</span> &#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">DataOutputStream</span> <span class="hljs-variable">dataOutputStream</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">Scanner</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">MyClientToSerThread</span><span class="hljs-params">(Socket socket)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-built_in">this</span>.dataOutputStream = <span class="hljs-keyword">new</span> <span class="hljs-title class_">DataOutputStream</span>(socket.getOutputStream());<br>            <span class="hljs-built_in">this</span>.in = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Scanner</span>(System.in);<br>        &#125; <span class="hljs-keyword">catch</span> (IOException io) &#123;<br>            io.printStackTrace();<br>        &#125;<br>    &#125;<span class="hljs-comment">//MyClientToSerThread--end</span><br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">tell</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>        <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                tell = in.nextLine();<br>                dataOutputStream.writeUTF(tell);<br>            &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>        &#125;<br>    &#125;<span class="hljs-comment">//run--end</span><br>&#125;<span class="hljs-comment">//MyClientToSerThread--end</span><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> *接收客户端的信息</span><br><span class="hljs-comment"> **/</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyAcceptServerThread</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Thread</span> &#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">DataInputStream</span> <span class="hljs-variable">dataInputStream</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">MyAcceptServerThread</span><span class="hljs-params">(Socket socket)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-built_in">this</span>.dataInputStream = <span class="hljs-keyword">new</span> <span class="hljs-title class_">DataInputStream</span>(socket.getInputStream());<br>        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<span class="hljs-comment">//MyAcceptServerThread--end</span><br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">tell</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>        <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                tell = <span class="hljs-built_in">this</span>.dataInputStream.readUTF();<br>                System.out.println(<span class="hljs-string">&quot;服务端：&quot;</span>+tell);<br>            &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>        &#125;<br>    &#125;<span class="hljs-comment">//run--end</span><br>&#125;<span class="hljs-comment">//MyAcceptServerThread--end</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="5-网络七层协议OSI"><a href="#5-网络七层协议OSI" class="headerlink" title="5.网络七层协议OSI"></a>5.网络七层协议OSI</h1><p>例如：采用socket通讯时，用到了IP和端口，表明涉及网络层和传输层；无视多台电脑通信的系统差别，所以它涉及了表示层；一般Socket都是基于一个应用程序的，所以会涉及到会话层和应用层。</p>
+<h1 id="6-TCP、UDP、IP"><a href="#6-TCP、UDP、IP" class="headerlink" title="6.TCP、UDP、IP"></a>6.TCP、UDP、IP</h1><p>IP协议是在源地址和目的地址之间传送数据包，IP负责选择传送的道路，这种选择道路称为路由功能。当有些网络内只能传送小数据包时，还提供对数据大小的重新组装功能，以适应不同网络对包大小的要求。对数据没有差错控制，它只使用报头的校验码。</p>
+<p>UDP（User Datagram Protocol 用户数据报协议）是无连接，无数据包分组排序的协议。</p>
+<p>TCP（Transmission Control Protocol <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%BC%A0%E8%BE%93%E6%8E%A7%E5%88%B6%E5%8D%8F%E8%AE%AE/9727741">传输控制协议</a>）是一种面向连接的、可靠的、基于字节流的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%BC%A0%E8%BE%93%E5%B1%82/4329536">传输层</a>通信协议。建立连接时需要三次“握手”</p>
+<p>1、TCP与UDP区别总结：<br>1、TCP面向连接，发送数据要先建立连接;UDP是无连接的，即发送数据之前不需要建立连接<br>2、TCP提供可靠的服务。也就是说，通过TCP连接传送的数据，无差错，不丢失，不重复，且按序到达;UDP尽最大努力交付，即不保证可靠交付</p>
+<p>　　Tcp通过校验和，重传控制，序号标识，滑动窗口、确认应答实现可靠传输。如丢包时的重发控制，还可以对次序乱掉的分包进行顺序控制。</p>
+<p>3、UDP具有较好的实时性，工作效率比TCP高，适用于对高速传输和实时性有较高的通信或广播通信。</p>
+<p>4.每一条TCP连接只能是点到点的;UDP支持一对一，一对多，多对一和多对多的交互通信</p>
+<p>5、TCP对系统资源要求较多，UDP对系统资源要求较少。</p>
+<h1 id="7-Socket"><a href="#7-Socket" class="headerlink" title="7.Socket"></a>7.Socket</h1><p>socket不是通信协议，而是一种通信模型，是一种<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/9796867">进程通信</a>机制。</p>
+<p>socket本质是编程接口(API)，对TCP&#x2F;IP的封装，TCP&#x2F;IP也要提供可供程序员做网络开发所用的接口，这就是Socket编程接口。HTTP是轿车，提供了封装或者显示数据的具体形式；Socket是发动机，提供了网络通信的能力。</p>
+<h1 id="8-同步、异步网络通信"><a href="#8-同步、异步网络通信" class="headerlink" title="8.同步、异步网络通信"></a>8.同步、异步网络通信</h1><p>同步通信是一种比特同步通信技术，要求发收双方具有同频同相的同步时钟信号，只需在传送报文的最前面附加特定的同步字符，使发收双方建立同步，此后便在同步时钟的控制下逐位发送&#x2F;接收。</p>
+<p>异步通信不要求接收端时钟和发送端时钟同步，发送端发送完一个字节后，可经过任意长的时间间隔再发送下一个字节，所以必须加上开始位和停止位。</p>
+<p>通俗理解：</p>
+<p>同步、异步通信在网络通讯中是指，代码控制数据传输的具体手段。</p>
+<p>同步通信时，发送端发送数据后一直处于阻塞状态，发送端接收到接受端对应回应后，再进行下一次发送。</p>
+<p>异步通信时，a发个b后还未得到b回应前，可以再a发给c。</p>
+<h1 id="9-软件结构"><a href="#9-软件结构" class="headerlink" title="9.软件结构"></a>9.软件结构</h1><p>软件结构一共有两种:C&#x2F;S B&#x2F;S</p>
+<p>C&#x2F;S结构:全称为Client&#x2F;Server结构，是客户端和服务器结构。常见程序有QQ、迅雷、网盘等。(需要安装客户端软件)一般使用客户端软件访问服务器。<br>B&#x2F;S结构:全称为Browser&#x2F;Server结构，是指浏览器和服务器结构。常见浏览器有谷歌，火狐。(不需要下载软件)，一般使用浏览器访问服务器。<br>这两种架构各有优势，但是无论哪种架构，都离不开网络的支持。<br>网络编程:就是在一定的协议下，实现两台计算机的通信的程序。</p>
+<h1 id="10-什么是网络通信协议？"><a href="#10-什么是网络通信协议？" class="headerlink" title="10.什么是网络通信协议？"></a>10.什么是网络通信协议？</h1><p>通过计算机网络可以使多台计算机实现连接，位于同一个网络中的计算机在进行连接和通信时候需要遵守一定的规则，这就好比在道路中行驶的汽车一定要遵守交通规则一样。在计算机网络中，这些连接和通信的规则被称为网络通信协议，它对数据的传输格式、传输速率、传输步骤等做了统一的规定，通信双方必须同时遵守才能完成数据的交换。</p>
+<h1 id="11-TCP-IP协议"><a href="#11-TCP-IP协议" class="headerlink" title="11.TCP&#x2F;IP协议"></a>11.TCP&#x2F;IP协议</h1><p><strong>TCP&#x2F;IP</strong></p>
+<ul>
+<li>传输控制协议&#x2F;因特网互联协议，TCP&#x2F;IP是Internet最基本、最广泛的协议。它定义了计算机如何连入因特网，以及数据如何在它们之间传输的标准。它的内容包含一系列的用于处理数据通信的协议，并采用4层分层模型。</li>
+<li>每一层都呼叫它的下一层所提供的协议来完成自己的需求。</li>
+<li>下面是TCP&#x2F;IP协议中的4层分别是:应用层、传输层、网络层、链路层，每层分别负责不同的通信功能。</li>
+</ul>
+<p><strong>4层分层模型</strong></p>
+<ul>
+<li>链路层:定义物理传输通道，通常是对某些网络连接设备的驱动协议，例如针对光纤、网线提供的驱动。</li>
+<li>网络层:是整个TCP&#x2F;IP协议的核心，主要用于将传输的数据进行分组，将分组的数据发送到目标计算机或网络。</li>
+<li>运输层:主要负责网络通信，在进行网络通信时，可以采用TCP协议，也可以采用UDP协议。</li>
+<li>应用层:主要负责应用程序的协议，例如Http协议,FTP协议等。(比如访问网站时必须遵循https协议)</li>
+</ul>
+<h1 id="12-网络通信协议分类（TCP-UDP）"><a href="#12-网络通信协议分类（TCP-UDP）" class="headerlink" title="12.网络通信协议分类（TCP&#x2F;UDP）"></a>12.网络通信协议分类（TCP&#x2F;UDP）</h1><ul>
+<li>1.通信的协议还是比较复杂的，java.net包中包含的类和接口，他们提供<strong>低层次的通信细节</strong>。我们可以直接使用这些类和接口，来<strong>专注于网络程序开发</strong>，而不用考虑通信的细节。</li>
+<li>2.java.net包中提供了<strong>两种常见的网络协议</strong>的支持**:UDP TCP**</li>
+</ul>
+<p><strong>UDP协议</strong></p>
+<ul>
+<li>UDP协议为<strong>用户数据报协议</strong>，UDP是<strong>无连接通信协议</strong>，即在数据传输时，数据的发送端和接收端不需建立逻辑连接。</li>
+<li>简单说，当一台计算机向另外一台计算机发送数据时，发送端不会确认接收端是否存在，就会发出数据，同样的，接收端在收到数据时，也不会向发送端反馈是否收到数据。</li>
+</ul>
+<p><strong>UDP适用场景</strong></p>
+<ul>
+<li>由于使用UDP协议消耗资源小，通信效率高，所以通常都会用于音频、视频和普通数据的传输，例如视频会议都是使用UDP协议，因为这种情况下即时偶尔丢失一两个数据包，也不会对接收结果产生太大影响。</li>
+<li>但是在使用UDP协议传输数据时，由于UDP的面向无连接性，不能保证数据的完整性，因此在传输重要数据时不建议使用UDP协议。</li>
+<li>UDP协议传输的数据被限制在64kb，超出这个范围就不能发送，就如qq发送很大的压缩包失败，是UDP不允许而不是qq问题。</li>
+<li>数据报:网络传输的基本单位</li>
+</ul>
+<p><strong>TCP协议</strong></p>
+<ul>
+<li>TCP<strong>传输控制协议</strong>，TCP协议是<strong>面向连接</strong>的通信协议，即传输数据之前，在发送端和接收端建立逻辑连接，然后再传输数据，它提供了两台计算机之间的<strong>可靠无差错的数据传输。</strong></li>
+</ul>
+<p><strong>TCP三次握手</strong></p>
+<ul>
+<li>在TCP连接中必须要明确客户端与服务器端，由客户端向服务器端发出连接请求，每次连接的创建都需经过”三次握手”。</li>
+<li>三次握手:TCP协议中，在发送数据的准备阶段，客户端与服务器之间的三次交互，以保证连接的可靠。</li>
+<li>第一次握手:客户端向服务器端发出连接请求，等待服务器确认。</li>
+<li>第二次握手:服务器端向客户端回送一个响应，通知客户端收到了连接请求。</li>
+<li>第三次握手:客户端再次向服务器端发送确认信息，确认连接。</li>
+<li>完成三次握手，连接建立后，客户端和服务器就可以开始进行数据传输。</li>
+</ul>
+<p><strong>TCP适用场景</strong></p>
+<ul>
+<li><p>由于这种面向连接的特性，TCP协议可以<strong>保证传输数据的安全</strong>，所以应用十分广泛，例如<strong>下载文件，浏览网页</strong>等。</p>
+<p><img src="https://img-blog.csdnimg.cn/20210212130312288.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNDU0ODYz,size_16,color_FFFFFF,t_70" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></p>
+</li>
+</ul>
+<h1 id="13-网络编程三要素"><a href="#13-网络编程三要素" class="headerlink" title="13.网络编程三要素"></a>13.网络编程三要素</h1><p>协议：</p>
+<p>计算机网络通信必须遵守的规则。</p>
+<p>IP地址：</p>
+<p>指互联网协议地址（Internet Protocol Address），俗称IP。IP地址用来给一个网络中的计算机设备做唯一的编号。假如我们把“个人电脑”比作“一台电脑”的话，那么IP地址就相当于“电话号码”。</p>
+<p>IP地址分类：</p>
+<p>IPv4:是一个32位的二进制数，通常被分为4个字节，表示成a,b,c,d的形式，例如192.168.65.100.其中a,b,c,d都是0~255之间的十进制整数，那么最多可以表示42亿个。</p>
+<p>IPv6：由于互联网的蓬勃发展，IP地址的需求量愈来愈大，但是网络地址资源有限，使得IP地址的分配越发紧张。为了扩大地址空间，拟通过IPv6重新定义地址空间，采用128位地址长度，每16个字节一组，分成8组十六进制数，表示成ABCD:EF01:2345:6789:ABCD:EF01:2345:6789,号称可以为全世界的每一粒沙子编上一个网址，这样就解决了网络地址资源数量不够的问题。</p>
+<p>端口号：</p>
+<p>网络的通信，本质上是两个进程（应用程序）的通信。每台计算机都有很多进程，那么在网络通信时，如何区分这些进程呢？</p>
+<p>如果说IP地址可以唯一标识网络中的设备，那么<strong>端口号</strong>就可以唯一标识设备中的进程（应用程序）了。</p>
+<p>**端口号：**用两个字节表示的整数，它的取值范围是0<del>65535.其中，0</del>1023之间的端口号用于一些知名的网络服务和应用，普通的应用程序需要使用1024以上的端口号。如果端口号被另外一个服务或应用所占用，会导致当前程序启动失败。</p>
+<p>利用协议+IP地址+端口号三元组合，就可以标识网络中的进程了，那么进程间的通信就可以利用这个标识与其他进程进行交互。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>网络编程</div>
+      <div>https://github.com/yaosx425/yaosx425.github.io/2021/04/24/网络编程/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>姚淑璇</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年4月24日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/yaosx425/yaosx425.github.io/2021/05/13/%E6%A1%86%E6%9E%B6/" title="框架">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">框架</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/yaosx425/yaosx425.github.io/2021/04/10/Spring/" title="Spring">
+                        <span class="hidden-mobile">Spring</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/yaosx425/yaosx425.github.io/js/events.js" ></script>
+<script  src="/yaosx425/yaosx425.github.io/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/yaosx425/yaosx425.github.io/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/yaosx425/yaosx425.github.io/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/yaosx425/yaosx425.github.io/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

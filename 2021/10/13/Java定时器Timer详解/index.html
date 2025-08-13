@@ -1,0 +1,669 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/yaosx425/yaosx425.github.io/img/fluid.png">
+  <link rel="icon" href="/yaosx425/yaosx425.github.io/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="姚淑璇">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="一、守护线程1.守护线程的定义在java中有两类线程：User Thread（用户线程）、Daemon Thread（守护线程）；**任何一个守护线程都是整个JVM中所有非守护线程的保姆。**只要当前JVM实例中尚存在任何一个非守护线程没有结束，守护线程就全部工作；只有当最后一个非守护线程结束时，守护线程随着JVM一同结束工作。守护线程最典型的应用是GC（垃圾回收器）。用户可以在编写程序时，自己设">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java定时器Timer详解">
+<meta property="og:url" content="https://github.com/yaosx425/yaosx425.github.io/2021/10/13/Java%E5%AE%9A%E6%97%B6%E5%99%A8Timer%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="虫">
+<meta property="og:description" content="一、守护线程1.守护线程的定义在java中有两类线程：User Thread（用户线程）、Daemon Thread（守护线程）；**任何一个守护线程都是整个JVM中所有非守护线程的保姆。**只要当前JVM实例中尚存在任何一个非守护线程没有结束，守护线程就全部工作；只有当最后一个非守护线程结束时，守护线程随着JVM一同结束工作。守护线程最典型的应用是GC（垃圾回收器）。用户可以在编写程序时，自己设">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1196212/201812/1196212-20181227102245752-1827594921.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1196212/201812/1196212-20181227101856352-1648328232.png">
+<meta property="article:published_time" content="2021-10-13T03:23:54.000Z">
+<meta property="article:modified_time" content="2023-02-24T03:32:40.584Z">
+<meta property="article:author" content="姚淑璇">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img2018.cnblogs.com/blog/1196212/201812/1196212-20181227102245752-1827594921.png">
+  
+  
+  
+  <title>Java定时器Timer详解 - 虫</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/yaosx425/yaosx425.github.io/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/yaosx425/yaosx425.github.io/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/yaosx425/yaosx425.github.io/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"github.com","root":"/yaosx425/yaosx425.github.io/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/yaosx425/yaosx425.github.io/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/yaosx425/yaosx425.github.io/js/utils.js" ></script>
+  <script  src="/yaosx425/yaosx425.github.io/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/yaosx425/yaosx425.github.io/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/yaosx425/yaosx425.github.io/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/yaosx425/yaosx425.github.io/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/yaosx425/yaosx425.github.io/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/yaosx425/yaosx425.github.io/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/yaosx425/yaosx425.github.io/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/yaosx425/yaosx425.github.io/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Java定时器Timer详解"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-10-13 11:23" pubdate>
+          2021年10月13日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          18 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Java定时器Timer详解</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="一、守护线程"><a href="#一、守护线程" class="headerlink" title="一、守护线程"></a>一、守护线程</h1><h2 id="1-守护线程的定义"><a href="#1-守护线程的定义" class="headerlink" title="1.守护线程的定义"></a>1.守护线程的定义</h2><p>在java中有两类线程：User Thread（用户线程）、Daemon Thread（守护线程）；**任何一个守护线程都是整个JVM中所有非守护线程的保姆。**只要当前JVM实例中尚存在任何一个非守护线程没有结束，守护线程就全部工作；只有当最后一个非守护线程结束时，守护线程随着JVM一同结束工作。守护线程最典型的应用是GC（垃圾回收器）。用户可以在编写程序时，自己设置守护线程。</p>
+<h2 id="2-注意事项"><a href="#2-注意事项" class="headerlink" title="2.注意事项"></a>2.注意事项</h2><p>（1）thread.setDeamon（true）必须在thread.start（）之前进行设置，否则会报IllegalThreadStateException异常。不可以把常规线程设置为守护线程。</p>
+<p>（2）在Deamon线程中产生的新线程也是Deamon的。</p>
+<p>（3）读写操作或者计算逻辑不能分配给Deamon线程。</p>
+<p>（4）JRE判断程序是否执行结束的标准是所有的前台线程执行完毕了，而不管后台线程的状态。</p>
+<p>（5）守护线程也叫做服务线程，在没有用户线程时服务会自动离开。优先级较低，用于为系统中的其他对象和线程提供服务。</p>
+<p>（6）守护线程不依赖于终端，但是依赖于系统，与系统”同生共死”。</p>
+<h2 id="3-为什么要用守护线程？"><a href="#3-为什么要用守护线程？" class="headerlink" title="3.为什么要用守护线程？"></a>3.为什么要用守护线程？</h2><p>静态变量是ClassLoader级别的，如果Web应用程序停止，这些静态变量也会从JVM中清除。但是线程则是JVM级别的，如果你在Web应用中启动一个线程，这个线程的生命周期并不会和Web应用程序保持同步。也就是说，即使停止了Web应用，这个线程依旧是活跃的。</p>
+<p><strong>“舞台已经拆除，戏子继续表演。”</strong></p>
+<p>如果在程序中使用Timer或Scheduler而不进行额外的处理，将会出现这一问题。</p>
+<h1 id="二、定时器Timer"><a href="#二、定时器Timer" class="headerlink" title="二、定时器Timer"></a>二、定时器Timer</h1><h2 id="1-定义"><a href="#1-定义" class="headerlink" title="1.定义"></a>1.定义</h2><p>在JDK类库中Timer类主要负责计划任务的功能，也就是在指定时间开始执行某一个任务。此类也常用来做一下周期性同步工作，代替它的有quartz、SpringTask。Timer类的主要作用是设置计划任务，但封装任务的类是TimerTask类（实际上该类是一个抽象类，执行任务的代码要放在该类的子类中）。</p>
+<p><strong>构造方法</strong></p>
+<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1196212/201812/1196212-20181227102245752-1827594921.png"><img src="https://img2018.cnblogs.com/blog/1196212/201812/1196212-20181227102245752-1827594921.png" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></a></p>
+<p><strong>成员方法</strong></p>
+<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1196212/201812/1196212-20181227101856352-1648328232.png"><img src="https://img2018.cnblogs.com/blog/1196212/201812/1196212-20181227101856352-1648328232.png" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="img"></a></p>
+<p><strong>Timer内部维护一个TimerThread线程，而且线程名字与Thread类一样，默认用一个静态成员变量进行生成全局序列。</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Timer</span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> TaskQueue queue = <span class="hljs-keyword">new</span> <span class="hljs-built_in">TaskQueue</span>();<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> TimerThread thread = <span class="hljs-keyword">new</span> <span class="hljs-built_in">TimerThread</span>(queue);<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-type">static</span> AtomicInteger nextSerialNumber = <span class="hljs-keyword">new</span> <span class="hljs-built_in">AtomicInteger</span>(<span class="hljs-number">0</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>TimerThread的run方法中while循环获取TaskQueue中的task并且执行任务（mainLoop中执行task.run()方法–相当于同步调用）</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-keyword">class</span> <span class="hljs-title class_">TimerThread</span> extends Thread&#123;<br>    <span class="hljs-type">boolean</span> newTasksMayBeScheduled = <span class="hljs-literal">true</span>;<br>    <span class="hljs-keyword">private</span> TaskQueue queue;<br>    <span class="hljs-built_in">TimerThread</span>(TaskQueue queue)&#123;<br>        <span class="hljs-keyword">this</span>.queue = queue;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-keyword">try</span>&#123;<br>            <span class="hljs-built_in">mainLoop</span>();<br>        &#125;finally&#123;<br>            <span class="hljs-built_in">synchronized</span>(queue)&#123;<br>                newTasksMayBeScheduled = <span class="hljs-literal">false</span>;<br>                queue.<span class="hljs-built_in">clear</span>();<br>            &#125;<br>        &#125;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-type">void</span> <span class="hljs-title">mainLoop</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>)&#123;<br>            ......<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>TaskQueue用于存放TimerTask任务（内部维护一个TimerTask数组）</strong></p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs perl"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TaskQueue</span></span>&#123;<br>    private TimerTask[] queue = new TimerTask[<span class="hljs-number">128</span>];<br>    ...<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>TimerTask是一个继承Runnable接口的抽象类：</strong></p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs haxe"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-title class_"><span class="hljs-keyword">class</span> <span class="hljs-title">TimerTask</span> <span class="hljs-keyword"><span class="hljs-keyword">implements</span> <span class="hljs-type">Runnable</span></span></span>&#123;<br>    <span class="hljs-keyword">final</span> Object lock = <span class="hljs-keyword">new</span><span class="hljs-type"></span> Object();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>TimerTask有一个cancel方法用于将当前任务从任务队列删除。（也就是队列中不会执行该任务，如果正在执行中调用该方法会执行完毕）</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs pf">public boolean cancel()&#123;<br>    synchronized(lock)&#123;<br>        boolean result = (<span class="hljs-keyword">state</span>==SCHEDULED);<br>        <span class="hljs-keyword">state</span> = CANCELLED;<br>        return result;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="2-相关方法的用法"><a href="#2-相关方法的用法" class="headerlink" title="2.相关方法的用法"></a>2.相关方法的用法</h2><p>（1）Schedule（task，Date）的用法：此方法用于<strong>在指定的时间执行一次task</strong>。默认的执行完毕不会结束线程，因为timer的成员属性thread默认是非守护线程，而且其run方法中通过轮询同步调用task的run()方法。</p>
+<p>(2)Schedule(TimerTask task,Date firsttime,long period)的用法：此方法用于在指定的时间执行一次任务之后，在指定的period的时间间隔后不停的执行任务。（时间间隔是从任务开始执行计算的，也就是从当前任务执行的开始时间到下次任务开始时间的间隔是20秒）</p>
+<p>(3)Schedule(TimerTask task,Long delay)的用法：以当前时间为参考，在延迟指定的秒数后执行一次性任务；如果延迟时间是负数会抛出IllegalArgumentException异常。</p>
+<p>(4)Schedule(TimerTask task,long delay,long period)的用法：以当前时间为参考，在延迟指定的秒数后第一次执行任务；如果延迟时间是负数会抛出IllegalArgumentException异常。并且在period后重复执行任务，执行时间是从上次任务结束时间开始计算。凡是带period的都会在时间间隔后重复执行。</p>
+<p>(5)scheduleAtFixedRate(TimerTask task,Date firstTime,Long period)的用法：在有延时和没有延时的情况下，周期性的任务的下次任务开始时间都是相对于上次任务的开始时间进行延迟。schedule和scheduleAtFixedRate的区别在于，如果指定开始执行的时间在当前系统运行时间之前，scheduleAtFixedRate会把已经过去的时间也作为周期执行，而schedule不会把过去的时间算上。scheduleAtFixedRate(TimerTask task,Date firstTime,Long period)有延迟，下次任务相对于上次任务的开始时间开始执行。如果指定的开始执行的时间在当前系统运行的时间之前，会把已经过去的时间也作为周期执行。</p>
+<p>(6)TimerTask有一个cancel方法用于将当前任务从任务队列删除。（也就是队列中不会执行该任务，如果正在执行中调用该方法会执行完毕）。Timer的cancel方法用于清空所欲任务队列（如果有任务正在执行会等任务执行完清空；有时候不一定会停掉，因为cancel方法不一定能抢到queue对象的锁。）</p>
+<h1 id="3-timer方法含义"><a href="#3-timer方法含义" class="headerlink" title="3.timer方法含义"></a>3.timer方法含义</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"> <span class="hljs-type">Timer</span> <span class="hljs-variable">timer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Timer</span>();    <span class="hljs-comment">//其中会调用this(&quot;Timer-&quot; + serialNumber());, 即它以Timer+序列号为该定时器的名字</span><br><span class="hljs-type">Timer</span> <span class="hljs-variable">timer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Timer</span>(String name);    <span class="hljs-comment">//以name作为该定时器的名字</span><br><span class="hljs-type">Timer</span> <span class="hljs-variable">timer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Timer</span>(<span class="hljs-type">boolean</span> isDeamon);    <span class="hljs-comment">//是否将此定时器作为守护线程执行</span><br><span class="hljs-type">Timer</span> <span class="hljs-variable">timer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Timer</span>(name, isDeamon);    <span class="hljs-comment">//定时器名字, 是否为守护线程</span><br></code></pre></td></tr></table></figure>
+
+<p>以下所有的task都是TimerTask的子类，所有time都是Date类型的日期，所有delay和period都是long类型的延迟时间，单位为毫秒。</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs maxima"><span class="hljs-built_in">timer</span>.schedule(task, <span class="hljs-built_in">time</span>);  //在<span class="hljs-built_in">time</span>时间执行task任务<span class="hljs-number">1</span>次<br><span class="hljs-built_in">timer</span>.schedule(task, <span class="hljs-built_in">delay</span>); //在延迟<span class="hljs-built_in">delay</span>毫秒后执行task任务<span class="hljs-number">1</span>次<br><span class="hljs-built_in">timer</span>.schedule(task, firstTime, period); //在firsttime时间执行task1次，之后定期period毫秒时间执行task,时间如果为过去时间,不会执行过去没有执行的任务,但是会马上执行<br><span class="hljs-built_in">timer</span>.schedule(task, <span class="hljs-built_in">delay</span>, period);//在延迟<span class="hljs-built_in">delay</span>后执行task1次，之后定期period毫秒时间执行task,时间如果为过去时间,不会执行过去没有执行的任务,但是会马上执行<br><span class="hljs-built_in">timer</span>.scheduleAtFixedRate(task, firstTime, period);//在firstTime时间执行task一次, 以后每隔period毫秒执行<span class="hljs-number">1</span>次, 时间如果为过去时间, 会执行过去没有执行的任务, 但是会马上执行<br><span class="hljs-built_in">timer</span>.scheduleAtFixedRate(task, <span class="hljs-built_in">delay</span>, period);//在<span class="hljs-built_in">delay</span>毫秒后执行task一次, 以后每隔period毫秒执行<span class="hljs-number">1</span>次, 时间如果为过去时间, 会执行过去没有执行的任务, 但是会马上执行<br></code></pre></td></tr></table></figure>
+
+<p>区别：</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs maxima"><span class="hljs-built_in">timer</span>.schedule(task, firstTime, period);<br><span class="hljs-built_in">timer</span>.scheduleAtFixedRate(task, firstTime, period);<br>//如果开始时间在过去，则schedule会表现出自从当前时间开始，scheduleAtFixedRate会把之前没有来得及执行的任务全都执行，感觉像之前一直有在执行一样。<br><span class="hljs-built_in">timer</span>.schedule(task, <span class="hljs-built_in">time</span>);<br><span class="hljs-built_in">timer</span>.schedule(task, <span class="hljs-built_in">delay</span>);<br>//如果<span class="hljs-built_in">time</span>时间为过去时间，则该任务会马上执行，如果为将来时间，则会等待时间到来再执行，如果传入的是<span class="hljs-built_in">delay</span>，则<span class="hljs-built_in">delay</span>不可以为负数，负数报错，正数代表未来的<span class="hljs-built_in">delay</span>毫秒以后执行。<br></code></pre></td></tr></table></figure>
+
+<p>小结：</p>
+<p>时间如果为过去时间，则所有schedule和scheduleAtFixedRate都会立即执行，并且schedule不会执行过去的任务，而scheduleAtFixedRate则会把过去的任务全都执行，即按照固定时间执行一样，isDaemon决定是否该Timer以守护线程存在。</p>
+<p>timer.purge() 对实际的timer的任务执行不会有影响，它仅仅只会移除所有被取消的任务队列的引用以方便垃圾回收，只有任务数非常多（n + clogn）的时候，可以调用此方法以时间换取空间。</p>
+<p>timer.cancel() 停止该timer，并且丢弃所有绑定的任务，但不干预当前正在执行的任务。一旦timer停止了，那么其执行线程将会优雅终止，并且该timer不可以再绑定task任务了。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Java定时器Timer详解</div>
+      <div>https://github.com/yaosx425/yaosx425.github.io/2021/10/13/Java定时器Timer详解/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>姚淑璇</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年10月13日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/yaosx425/yaosx425.github.io/2021/10/14/Runnable%E6%8E%A5%E5%8F%A3/" title="Runnable接口">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Runnable接口</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/yaosx425/yaosx425.github.io/2021/06/05/%E6%95%B0%E6%8D%AE%E5%BA%93%E9%94%99%E9%A2%98%E7%A7%AF%E7%B4%AF/" title="数据库错题积累">
+                        <span class="hidden-mobile">数据库错题积累</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/yaosx425/yaosx425.github.io/js/events.js" ></script>
+<script  src="/yaosx425/yaosx425.github.io/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/yaosx425/yaosx425.github.io/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/yaosx425/yaosx425.github.io/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/yaosx425/yaosx425.github.io/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

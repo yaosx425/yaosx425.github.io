@@ -1,0 +1,1013 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/yaosx425/yaosx425.github.io/img/fluid.png">
+  <link rel="icon" href="/yaosx425/yaosx425.github.io/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="姚淑璇">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="做题总结 MTU&#x3D;MSS+ TCP Header + IP Header，MTU是网络传输最大报文包，MSS是网络传输数据最大值。 MTU：maximum transmission unit,最大传输单元，由硬件规定，如以太网的MTU为1500字节。 MSS:maximum segment size，最大分节大小，为TCP数据包每次传输的最大数据分段大小，一般由发送端向对端TCP通知对端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络">
+<meta property="og:url" content="https://github.com/yaosx425/yaosx425.github.io/2021/11/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/index.html">
+<meta property="og:site_name" content="虫">
+<meta property="og:description" content="做题总结 MTU&#x3D;MSS+ TCP Header + IP Header，MTU是网络传输最大报文包，MSS是网络传输数据最大值。 MTU：maximum transmission unit,最大传输单元，由硬件规定，如以太网的MTU为1500字节。 MSS:maximum segment size，最大分节大小，为TCP数据包每次传输的最大数据分段大小，一般由发送端向对端TCP通知对端">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdn.net/20170104192709069?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvempxXzEzMTQ1MjA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="article:published_time" content="2021-11-30T03:28:34.000Z">
+<meta property="article:modified_time" content="2023-02-24T03:30:53.119Z">
+<meta property="article:author" content="姚淑璇">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20170104192709069?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvempxXzEzMTQ1MjA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+  
+  
+  
+  <title>计算机网络 - 虫</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/yaosx425/yaosx425.github.io/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/yaosx425/yaosx425.github.io/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/yaosx425/yaosx425.github.io/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"github.com","root":"/yaosx425/yaosx425.github.io/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/yaosx425/yaosx425.github.io/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/yaosx425/yaosx425.github.io/js/utils.js" ></script>
+  <script  src="/yaosx425/yaosx425.github.io/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/yaosx425/yaosx425.github.io/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/yaosx425/yaosx425.github.io/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/yaosx425/yaosx425.github.io/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/yaosx425/yaosx425.github.io/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/yaosx425/yaosx425.github.io/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/yaosx425/yaosx425.github.io/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/yaosx425/yaosx425.github.io/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="计算机网络"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-11-30 11:28" pubdate>
+          2021年11月30日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          13k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          108 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">计算机网络</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="做题总结"><a href="#做题总结" class="headerlink" title="做题总结"></a>做题总结</h1><ol>
+<li>MTU&#x3D;MSS+ TCP Header + IP Header，MTU是网络传输最大报文包，MSS是网络传输数据最大值。</li>
+<li><strong>MTU</strong>：maximum transmission unit,最大传输单元，由硬件规定，如以太网的MTU为1500字节。</li>
+<li><strong>MSS</strong>:maximum segment size，最大分节大小，为TCP数据包每次传输的最大数据分段大小，一般由发送端向对端TCP通知对端在每个分节中能发送的最大TCP数据。MSS值为MTU值减去IPv4 Header（20 Byte）和TCP header（20 Byte）得到。</li>
+<li><strong>分片</strong>:若一IP数据报大小超过相应链路的MTU的时候，IPV4和IPV6都执行分片(fragmentation)，各片段到达目的地前通常不会被重组(re-assembling)。IPV4主机对其产生的数据报执行分片，IPV4路由器对其转发的数据也执行分片。然而IPV6只在数据产生的主机执行分片；IPV6路由器对其转发的数据不执行分片。</li>
+<li>数据传输的三种交换方式：电路交换、报文交换、分组交换。</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://img-blog.csdn.net/20170104192709069?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvempxXzEzMTQ1MjA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast"><img src="https://img-blog.csdn.net/20170104192709069?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvempxXzEzMTQ1MjA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" srcset="/yaosx425/yaosx425.github.io/img/loading.gif" lazyload alt="三种交换"></a></p>
+<p> 三种交换方式在数据传输阶段的主要特点：</p>
+<p> <strong>电路交换</strong>：整个报文的比特流连续的从源点直达终点，好像在一个管道中传送。</p>
+<p> <strong>报文交换</strong>：整个报文先传输到相邻的结点，全部存储下来后查找转发表，转发到下一个结点。</p>
+<p> <strong>分组交换</strong>：单个分组（报文的一部分）传送到相邻结点，传送到相邻结点，存储下来后查找转发表，转发到下一个结点。</p>
+<ol>
+<li><p>**速率:**单位时间内传送的比特数，其单位是b&#x2F;s(比特每秒)比特是计算机中的最小单位。</p>
+<p>一个字节（Byte）&#x3D;8个bit</p>
+<p>1Kb &#x3D; 1024bit</p>
+<p>1KB &#x3D; 1024Byte</p>
+<p>1Mb &#x3D; 1024Kb</p>
+<p>1MB &#x3D; 1024KB</p>
+<p>所以有1Mb &#x3D; 0.125MB（1&#x2F;8MB）</p>
+</li>
+<li><p><strong>带宽</strong>：在计算机网络中，带宽用来表示通信线路的数据传输能力，因此网络带宽指的是在单位时间内从网络的某一点到另一点所能通过的最高速率。</p>
+</li>
+<li><p><strong>时延</strong>：时延指的是数据从网络的一端传送到另一端所需的时间。网络中的时延有以下几个不同的部分组成：（1）发送时延（2）传播时延（3）处理时延（4）排队时延</p>
+</li>
+<li><p><strong>CSMA&#x2F;CD</strong>：Carrier Sense Multiple Access with Collision Detection，载波监听多点接入&#x2F;碰撞检测。</p>
+<p>载波监听：检测信道，在发送数据前，发送数据中，每个站都要不断的检测信道。</p>
+<p>多点接入：因为是总线型的网络，许多计算机以多点接入的方式连接在一根总线上。</p>
+<p>碰撞检测：边发送边监听。</p>
+<p>特别的是：该协议在物理上是通过电压的变化来检测碰撞是否发生。</p>
+<p>在发送数据前已经监听了空闲信道，为什么还要在发送数据中监听呢？</p>
+<p>因为电磁波在总线上的传播有时延，有速率的限制。所以如果A向B发送消息，必须要在时延之内的时间传送到，否则如果此时B发消息，则必然发生碰撞。发送站在发送数据后的一段时间内，数据存在碰撞的可能，以太网将这一现象称为<strong>发送的不确定性</strong>。</p>
+</li>
+<li><p><strong>截断二进制指数退避</strong>：如果发送数据没有碰撞，则顺利的传送了数据。那么如果发生了碰撞，我们如何重传数据呢？以太网采用的就是截断二进制指数退避，退避一词就是推迟的意思。</p>
+<p>基本的算法思想就是：</p>
+<p>（1）协议规定基本的退避时间为一个争用期的时间长度。（2t &#x3D; 51.2us）</p>
+<p>（2）根据公式计算下列的k值：k &#x3D; min[重传次数，10]，当重传次数小于10，k就取重传次数，否则取10</p>
+<p>（3）将k值代入下列整数集合中：[0，1，…（2^k-1）]，取得的整数记为r,r即为r倍的争用期。</p>
+<p>（4）当重传次数达到16仍不能成功则丢弃该帧，向上层汇报。</p>
+<p>由此可见，推迟的平均时间随着重传次数而增大。</p>
+</li>
+<li><p>OSI指的是开放系统互连模型。</p>
+</li>
+<li><p>同轴电缆分为两种基本类型，基带同轴电缆和宽带同轴电缆。目前基带常用的是电缆，其屏蔽线是用铜做成的网状的，特征阻抗是50欧（如RG-8、RG-58等）；宽带同轴电缆常用的电缆的屏蔽层通常是用铝冲压成的，特征阻抗是75欧（如RG-59等）。</p>
+</li>
+<li><p>调制解调器是调制器和解调器的缩写，一种计算机硬件，它能把计算机的数字信号翻译成可沿着普通电话线传送的模拟信号，而这些模拟信号又可被线路另一端的另一个调制解调器接收，并译成计算机可懂得语言。这一简单过程完成了两台计算机间的通信。它的主要功能是：信号转换、同步传输、多路复用、直接连接。</p>
+</li>
+<li><p>ATM是一种高速分组交换技术，它的基本数据传输单元是信元。信元有一个5字节的信元头和一个48字节的用户数据，它的长度是53字节。信元头包含信元控制信息，净荷用于承载用户的数据。ATM中信元的定义对ATM基本网络的总体性能，特别是对时间透明性和语义透明性都有着特殊的影响。</p>
+</li>
+<li><p>光导纤维作用：利用光导纤维可以进行光纤通信。激光的方向性强，频率高，是进行光纤通信的理想光源。光纤通信与电波通信相比，光纤通信能提供更多的通信通路，可满足大容量通信系统的需要。在实际使用中，常把千百根光导纤维组合在一起并加以增强处理，制成像电缆一样的光缆，这样既提高了光导纤维的强度，又大大增加了通信容量。</p>
+</li>
+<li><p>光纤分为两种，单模光纤和多模光纤。单模光纤（SMF）是一种在横向模式直接传输光信号的光纤。单模光纤运行在100M&#x2F;s或1G&#x2F;s的数据速率，传输距离都可以达到至少5公里。通常情况下，单模光纤用于远程信号传输。多模光纤（MMF）主要用于短距离的光纤通信，如在建筑物或校园内。典型的传输速度是100M&#x2F;s，传输距离可达2km，1G&#x2F;s可达1000m,10G&#x2F;s可达550m。有两种类型的折射率：渐变折射率和阶跃折射率。</p>
+</li>
+<li><p>TCP（传输控制协议）是一种面向连接的、可靠的、基于字节流的传输层通信协议。</p>
+</li>
+<li><p><strong>波特率：</strong> 在电子通信领域，波特（Baud）即调制速率，指的是有效数据讯号调制载波的速率，即单位时间内载波调制状态变化的次数。表示每秒钟传送的码元符合的个数，它是对符号传输速率的一种度量，它用单位时间内载波调制状态改变的次数来表示，1波特即指每秒传输1个符号。</p>
+</li>
+<li><p><strong>比特率：</strong> 在通信和计算机领域，比特率（Bit rate）是单位时间内传输或处理的比特的位数，或者指信号（用数字二进制位表示）通过系统（设备、无线电波或导线）处理或传送的速率，即单位时间内处理或传输的数据量。</p>
+</li>
+<li><p>**波特率和比特率的关系：*<em>1波特即指每秒传输1个码元符号（通过不同的调制方式，可以在码元符号上负载多个bit位信息），1比特每秒是指每秒传输1比特（bit）。因此信息传输速率即比特率在数值上和波特率有这样的关系：I&#x3D;S</em>log2N。其中I为传信率，S为波特率，N为每个符号承载的信息量，而以比特为单位。波特率与比特率的关系也可以换算成：比特率 &#x3D; 波特率 * 单个调制状态对应的二进制位数。</p>
+</li>
+<li><p>FDDI（光纤分布式数据接口）是由美国国家标准化组织（ANSI）制定的在光缆上发送数字信号的一组协议。FDDI使用双环令牌，传输速率可以达到100Mb&#x2F;s。由于支持高宽带和远距离通信网络,FDDI通常用作骨干网。它可以用来互连单个计算机与局域网。使用802.2LLC协议，与IEEE802LAN兼容，使用基于IEEE802.5令牌标准的令牌传递MAC协议。</p>
+</li>
+<li><p>虚电路服务是一种面向连接的，使所有分组顺序到达目的端的可靠性数据传输服务。数据报服务是一种无连接的，使分组按照独立路由到达目的端的数据传输服务。</p>
+<p>虚电路方式的主要特点如下：</p>
+<p>（1）一次通信具有呼叫建立、数据传输和呼叫清除三个阶段，适用于两端之间长时间的数据交换。</p>
+<p>（2）分组按照固定路由由顺序传输，分组在每个结点上存储、排队等待传输。</p>
+<p>（3）分组传输时延小，可靠，分组不易丢失。</p>
+<p>（4）线路或设备故障可能使虚电路中断时，需要重新呼叫建立新的连接。</p>
+<p>数据报服务方式特点：</p>
+<p>（1）每个分组所走过的路径可能是不同的。</p>
+<p>（2）由于传输路径不同，各节点交换处理的时间不等，到达目的地的时间也不相同，于是就会出现到达目的地后各分组的顺序与发送时的顺序不同的情况，必须重新排序，再装配成报文。</p>
+</li>
+<li><p>停止等待协议是最简单但也是最基础的数据链路层协议。停止等待就是每发送完一个分组就停止发送，等待对方的确认。在收到确认后再发送下一个分组。</p>
+</li>
+<li><p>**滑动窗口协议：**发送端和接收端分别设定发送窗口和接受窗口。三次握手的时候，客户端把自己的缓冲区大小也就是窗口大小发送给服务器，服务器回应时也将窗口大小发送给客户端，服务器客户端都知道了彼此的窗口大小。</p>
+</li>
+<li><p>**停止等待ARQ协议：**当发送窗口和接收窗口都等于1时，就是停止等待协议。发送端给接收端发送数据，等待接收端确认回复ACK，并停止发送新的数据包，开启计时器。数据包在计时器超时之前得到确认，那么计时器就会关闭，并发送下一个数据包。如果计时器超时，发送端就认为数据包丢失或被破坏，需要重新发送之前的数据包，说明数据包在得到确认之前，发送端需要存储数据包的副本。停止等待协议是发出一个帧后得到确认才发下一个，降低了信道的利用率。</p>
+</li>
+<li><p>**退后N帧协议：**在发送完一个帧后，不用停下来等待确认，而是可以连续发送多个数据帧。收到确认帧时，任可发送数据，这样就减少了等待时间，整个通信的吞吐量提高。如果前一个帧在超时时间内未得到确认，就认为丢失或被破坏，需要重发出错帧及其后面的所有数据帧，这样有可能有把正确的数据帧重传一遍，降低了传送效率。</p>
+</li>
+<li><p>**选择重传协议:**NAK:非确认帧，当在一定时间内没有收到某个数据帧的ACK时，回复一个NACK。在发送过程中，如果一个数据帧计时器超时，就认为该帧丢失或被破坏，接收端只把出错的帧丢弃，其后面的数据帧保存在缓存中，并向发送端回复NAK。发送端接收到NAK时，只发送出错的帧。如果落在窗口的帧从未接收过，那么存储起来，等比它序列号小的所有帧都按次序交给网络层，那么此帧才提交给网络层。接收端收到的数据包的顺序可能和发送的数据包的顺序不一样。因此在数据包里必须含有顺序字符来帮助接收端来排序。选择重传协议可以避免重复传送那些正确到达接收端的数据帧。但是接收端要设置具有相当容量的缓存空间，这在许多情况下是不够经济的。</p>
+</li>
+<li><p><strong>滑动窗口协议</strong>属于TCP协议的一种应用，用于网络数据传输时的流量控制，以避免拥塞的发生。该协议允许发送方在停止并等待确认前发送多个数据分组。由于发送方不必每发一个分组就停下来等待确认。因此该协议可以加速数据的传输，提高网络吞吐量。</p>
+</li>
+<li><p><strong>TCP&#x2F;IP</strong>（传输控制协议&#x2F;网际协议）是指能够在多个不同网络间实现信息传输的协议簇。<strong>SNMP</strong>（简单网络管理协议）是专门设计用于在IP网络管理网络节点（服务器、工作站、路由器、交换机及HUBS等）的一种标准协议，它是一种应用层协议。<strong>SMTP</strong>是一种提供可靠且有效的电子邮件传输的协议。<strong>TCP</strong>传输控制协议是一种面向连接的、可靠的、基于字节流的传输层通信协议，由IETF的RFC793定义。</p>
+</li>
+<li><p><strong>透明网桥</strong>是一种即插即用设备，只要把网桥接入局域网，不需要改动硬件和软件，无需设置地址开关，无需装入路由器或参数，网桥就能工作。</p>
+</li>
+<li><p><strong>源路由网桥</strong>和透明桥接技术相竞争以期成为局域网联接的数据链路层的标准，运用了支撑树算法。</p>
+</li>
+<li><p>**多接口网桥-以太网交换机：**以太网交换机是基于以太网传输数据的交换机，以太网采用共享总线型传输媒体方式的局域网。</p>
+</li>
+<li><p>**以太网交换机的结构：**是每个端口都直接与主机相连，并且一般都工作在全双工方式。网桥的接口数很少，一般只有2~4，而以太网交换机通常都有十几个接口。以太网交换机的每个接口都直接与一个单个主机或另一个集线器相连，并且一般都工作在全双工方式。当主机需要通信时，以太网交换机能同时连通许多对端口，使每一对相互通信的主机都能像独占通信媒体那样，进行无冲突的传输数据。以太网交换机实质上就是一个多接口的网桥，和工作在物理层的转发器和集线器有很大的差别。</p>
+</li>
+<li><p>**网络分类：**按照拓扑结构分类：总线型、环形、星型、网状。</p>
+<p>按信息交换方式分类：电路交换、报文交换、报文分组交换。</p>
+<p>按照覆盖范围分类：局域网LAN（作用范围一般为几米到几十公里）、城域网MAN（界于WAN与LAN之间）、广域网WAN（作用范围一般为几十到几千公里）</p>
+</li>
+<li><p>局域网LAN，局域网是结构复杂程度最低的计算机网络。局域网仅是在同一地点上经网络连在一起的一组计算机。局域网通常挨得很近，它是如今应用最广泛的一类网络。</p>
+</li>
+<li><p>广域网WAN是影响广泛的复杂网络系统。</p>
+</li>
+<li><p>网络传输介质：有线网、光纤网、无线网、局域网通常采用单一的传输介质。而城域网和广域网采用多种传输介质。按照通信方式分类：点对点传输网络、广播式传输网络。按照网络使用的目的分类：共享资源网、数据处理网、数据传输网、网络使用目的等。按照服务方式分类：客户机&#x2F;服务器网络、对等网。</p>
+</li>
+<li><p>时延是指一个报文或分组从一个网络的一端传送到另一端所需要的时间，包括了发送时延、传播时延、处理时延、排队时延。发送时延与传播时延是我们主要考虑的，对于报文长度较大的情况，发送时延与传播时延是主要考虑的。对于报文长度较大的情况，发送时延是主要矛盾；报文长度较小的情况，传播时延是主要矛盾。</p>
+</li>
+<li><p><strong>二元调制方法</strong>，最基本的二元制调制方法有以下几种：调幅（AM）：载波的振幅随基带数字信号而变化。调频（FM）：载波的频率随基带数字信号而变化。调相（PM）：载波的初始相位随基带信号而变化。</p>
+</li>
+<li><p>ARP（地址解析协议）：Address Resolution Protocol，是根据ip地址获取物理地址的一个TCP&#x2F;IP协议。主机发送信息时将包含目标地址的ARP请求广播到网络上的所有主机，并接收返回消息，以此确定目标的物理地址。收到返回消息后将该IP地址和物理地址存入本机ARP缓存中并保留一定时间，下次请求时直接查询ARP缓存以节约资源。</p>
+</li>
+<li><p>RARP（逆地址解析协议）：功能和ARP协议相对，其将局域网中某个主机的物理地址转换成IP地址，比如局域网中有一台主机只知道物理地址而不知道IP地址，那么可以通过RARP协议发出征求自身IP地址的广播请求，然后由RARP服务器负责回答。</p>
+</li>
+<li><p>MAC（Media Access Control或者Medium AccessControl）地址，意译为媒体访问控制，或称为物理地址、硬件地址，用来定义网络设备的位置。数据链路层负责MAC地址。一个主机会有一个MAC地址，而每个网络位置会有一个专属于它的IP地址。如果一台计算机有两张网卡，就会有两个物理地址。MAC地址就是计算机设备网卡上的地址，也叫物理地址。</p>
+</li>
+<li><p>面向连接通信中，连接的建立和释放是必不可少的过程。TCP连接的建立采用客户服务器方式，主动发起连接建立的应用进程叫做客户，而被动等待连接的应用进程叫做服务器。</p>
+</li>
+<li><p>三网融合是一种广义的、社会化的说法，在现阶段它并不意味着电信网、计算机网和有线电视网三大网络的物理合一，而主要是指高层业务应用的融合，其表现为技术上趋向一致，网络层上可以实现互联互通，形成无缝覆盖，业务层上互相渗透和交叉，应用层上趋向一致使用统一的IP协议，为提供多样化、多媒体化、个性化服务的同一目标逐渐交汇到一起，通过不同的安全协议，最终形成一套网络中兼容多种业务的运维模式。</p>
+</li>
+<li><p>往返时延（RTT Round-Trip Time）：在计算机网络中它是一个重要的性能指标，表示从发送端发送数据开始，到发送端收到来自接收端的确认（接收端收到数据后便立即发送确认），总共经历的时延。</p>
+</li>
+<li><p>虚拟局域网（VLAN）是一组逻辑上的设备和用户，这些设备和用户并不受物理位置的限制，可以根据功能、部门及应用等因素将它们组织起来，相互之间的通信就好像它们在同一个网段中一样，由此得名虚拟局域网。</p>
+</li>
+<li><p>IP地址和物理地址的区别和联系：</p>
+<p>区别：（1）唯一性 。MAC地址具有唯一性，每个硬件出厂时候的MAC地址是固定的；IP地址不具备唯一性，因此很多应用软件是围绕MAC地址开发的。（MAC地址是烧录在网卡或者接口上的物理地址，具有二层意义和全球唯一性，一般不能被改变。IP地址是网络中的主机或者三层接口在网络中的逻辑地址，在同一个网络内具有唯一性）。</p>
+<p>（2）长度不同。物理地址是长度为48位，MAC地址的长度为48位（6个字节），通常表示12个16进制数，每2个16进制数之间用冒号隔开。IP地址目前主流是32位长(IPV4)即指使用TCP&#x2F;IP协议指定给主机的32位地址。IP地址由用点分隔开的4个8位组构成。</p>
+<p>（3）实现原理不同。MAC地址属于由硬件实现，工作在数据链路层。IP地址工作在网络层和以上各层，是一种逻辑地址。</p>
+<p>联系：</p>
+<p>（1）IP地址和MAC地址通过ARP协议（地址解析协议）联系到一起</p>
+<p>（2）IP地址和MAC地址结合起来传送数据包。</p>
+<p>（3）IP地址可以和MAC地址进行绑定以此来确定网络上的唯一的一台电脑。</p>
+</li>
+<li><p>简答TCP的三次握手技术：第一次握手：客户端给服务器发送一个SYN段（在TCP标头中SYN位字段为1的TCP&#x2F;IP数据包），该段中也包含了客户端的初始序列号（Sequence number &#x3D; J）。第二次握手：服务器返回客户端SYN+ACK段（在TCP标头中SYN和ACK位字段都为1的TCP&#x2F;IP数据包），该段中包含服务器的初始序列号（Sequence number &#x3D; k），同时使Acknowledgement number &#x3D; J+1来表示确认已收到客户端的SYN段（Sequence number &#x3D; J）。第三次握手：客户端给服务器响应一个ACK段（在TCP标头中ACK位字段为1的TCP&#x2F;IP数据包），该段中使Acknowledgment number &#x3D; K + 1来表示确认已收到服务器的SYN段（Sequence number &#x3D; K）。</p>
+</li>
+<li><p>中继器（Repeater）工作在物理层，中继器是最简单的网络互联设备，连接同一个网络的两个或多个网段，主要完成物理层的功能，负责在两个网络节点的物理层上按位传递信息，完成信号的复制、调整和放大功能，以此从而增加信号传输的距离，延长网络的长度和覆盖区域。</p>
+</li>
+<li><p>集线器（Hub），工作在物理层，属于共享型设备，接收数据广播发出，在局域网内一般是星型连接拓扑结构，所有的工作站都连接到集线器上。集线器的主要功能是对接收到的信号进行同步整形放大，以扩大网络的传输距离，是中继器的一种形式。</p>
+</li>
+<li><p>交换机，交换机顾名思义以交换为主要功能，工作在数据链路层，根据MAC地址进行数据转发。交换机的每一个端口都属于一个冲突域，而集线器所有端口属于一个冲突域。</p>
+</li>
+<li><p>网桥，工作在OSI模型的数据链路层，可以看成是一个二层路由器。网桥可有效的将两个局域网（LAN）连起来，根据MAC地址（物理地址）来转发帧，使本地通信限制在本网段内，并转发相应的信号至另一网段，网桥通常用于联结数量不多的、同一类型的网段。</p>
+</li>
+<li><p>路由器，工作在OSI的网络层，根据IP进行寻址转发数据包。路由器是一种可以连接多个网络或网段的网络设备，能将不同网络或网段之间（比如局域网-大网）的数据信息进行转换，并为信包传输分配最合适的路径，使它们之间能够进行数据传输，从而构成一个更大的网络。</p>
+</li>
+<li><p>网关（Gateway）又称网间连接器、协议转换器。网关在网络层以上实现网络互连，是复杂的网络互连设备，仅用于两个高层协议不同的网络互连。网关既可以用于广域网互连，也可以用于局域网互连。网关是一种充当转换重任的计算机系统或设备。使用在不同的通信协议、数据格式或语言，甚至体系结构完全不同的两种系统之间。</p>
+</li>
+<li><p><strong>计算机网络采用层次化结构的优点</strong>包括：（1）分层结构将应用系统正交的划分成若干层，每一层只解决问题的一部分，通过各层的协作提供整体解决方案，有效的降低了单个问题的规模和复杂度。（2）分层结构具有良好的可扩展性。（3）分层架构易于维护。</p>
+</li>
+<li><p>什么是数据交换？是指在多个数据终端设备之间，为任意两个终端设备建立数据通信临时互连通路的过程。可分为电路交换、报文交换、分组交换。</p>
+</li>
+<li><p>**电路交换：**由于电路交换在通信之前要在通信双方之间建立一条被双方独占的物理通路（由通信双方之间的交换设备和链路逐段连接而成）。</p>
+<p><strong>优点：</strong></p>
+<p>（1）由于通信线路为通信双方用户专用，数据直达，所以传输数据的时延非常小。</p>
+<p>（2）通信双方之间的物理通路一旦建立，双方可以随时通信，实时性强。</p>
+<p>（3）双方通信时按发送顺序传送数据，不存在失序问题。</p>
+<p>（4）电路交换既适用于传输模拟信号，也适用于传输数字信号。</p>
+<p>（5）电路交换的交换的交换设备（交换机等）及控制均较简单。</p>
+<p><strong>缺点：</strong></p>
+<p>（1）电路交换的平均连接建立时间对计算机通信来说较长。</p>
+<p>（2）电路交换连接建立后，物理通路被通信双方独占，即使通信线路空闲，也不能供其他用户使用，因而信道利用低。</p>
+<p>（3）电路交换时，数据直达，不同类型、不同规格、不同速率的终端很难相互进行通信，也难以在通信过程中进行差错控制。</p>
+</li>
+<li><p>**报文交换：**报文交换是以报文为数据交换的单位，报文携带有目标地址、源地址等信息，在交换结点采用存储转发的传输方式。</p>
+<p><strong>优点：</strong></p>
+<p>（1）报文交换不需要为通信双方预先建立一条专用的通信线路，不存在连接建立时延，用户可随时发送报文。</p>
+<p>（2）由于采用存储转发的传输方式，使之具有下列优点：</p>
+<p> a. 在报文交换中便于设置代码检验和数据重发设施，加之交换结点还具有路径选择，就可以做到某条传输路径发生故障时，重新选择另一条路径传输数据，提高了传输的可靠性。</p>
+<p> b.在存储转发中容易实现代码转换和速率匹配，甚至收发双发可以不同时处于可用状态，这样就便于类型、规格和速度不同的计算机之间进行通信。</p>
+<p> c.提供多目标服务，即一个报文可以同时发送到多个目的地，这在电路交换中是很难实现的。</p>
+<p> d.允许建立数据传输的优先级，使优先级高的报文优先转换。</p>
+<p>（3）通信双方不是固定的占有一条通信线路，而是在不同的时间一段一段的部分占有这条物理通路，因而大大提高了通信线路的利用率。</p>
+<p><strong>缺点：</strong></p>
+<p>（1）由于数据进入交换结点后要经历存储、转发这一过程，从而引起转发时延（包括接收报文、检验正确性、排队、发送时间等），而且网络的通信量愈大，造成的时延就愈大，因此报文交换的实时性差，不适合传送实时或交互式业务的数据。</p>
+<p>（2）报文交换只适用于数字信号。</p>
+<p>（3）由于报文长度没有限制，而每个中间结点都要完整的接收传来的报文，当输出线路不空闲时，还可能要存储几个完整报文等待转发，要求网络中每个结点有较大的缓冲区。为了降低成本，减少结点的缓冲存储器的容量，有时要把等待转发的报文存在磁盘上，进一步增加了传送时延。</p>
+</li>
+<li><p>**分组交换：**分组交换仍采用存储转发传输方式，但将一个长报文先分割为若干个较短的分组，然后把这些分组（携带源、目的地址和编号信息）逐个的发送出去，因此分组交换除了具有报文的优点外，与报文交换相比还有以下优缺点：</p>
+<p><strong>优点：</strong></p>
+<p>（1）加速了数据在网络中的传输。因为分组是逐个传输，可以使后一个分组的存储操作与前一个分组的转发操作并行，这种流水线式的传输方式减少了报文的传输时间。此外，传输一个分组所需的缓冲区比传输一份报文所需的缓冲区小得多，这样因缓冲区不足而等待发送的机率及等待的时间也必然少得多。</p>
+<p>（2）简化了存储管理。因为分组的长度固定，相应的缓冲区的大小也固定，在交换结点中存储器的管理通常被简化为对缓冲区的管理，相对比较容易。</p>
+<p>（3）减少了出错机率和重发数据量。因为分组较短，其出错机率必然减少，每次重发的数据量也就大大减少，这样不仅提高了可靠性，也减少了传输时延。</p>
+<p>（4）由于分组短小，更适用于优先级策略，便于及时传送一些紧急数据，因此对于计算机之间的突发式的数据通信，分组交换显然更为合适。</p>
+<p><strong>缺点：</strong></p>
+<p>（1）尽管分组交换比报文交换的传输时延少，但仍存在存储转发时延，而且其结点交换机必须具有更强的处理能力。</p>
+<p>（2）分组交换与报文交换一样，每个分组都要加上源、目的地址和分组编号等信息，使传送的信息量大约增大5%~10%，一定程度上降低了通信效率，增加了处理的时间，使控制复杂，时延增加。</p>
+<p>（3）当分组交换采用数据报服务的时候，可能出现失序、丢失或重复分组，分组到达目的结点时，要对分组按编号进行排序等工作，增加了麻烦。若采用虚电路服务，虽无失序问题，但有呼叫建立、数据传输和虚电路释放三个过程。</p>
+</li>
+<li><p>总之，如果要传送的数据量很大，且其传送时间远大于呼叫时间，则采用电路交换较为合适；当端到端的通路有很多段的链路组成时，采用分组交换传送数据较为合适。从提高整个网络的信道利用率上看，报文交换和分组交换优于电路交换，其中分组交换比报文交换的时延小，尤其适合计算机之间的突发式的数据通信。</p>
+</li>
+<li><p><strong>通信过程中的差错</strong>大致可以分成两类：一类是由热噪声引起的随机错误；另一类是由冲突噪声引起的突发错误。突发性错误影响局部，而随机性错误影响全局。</p>
+</li>
+<li><p><strong>差错产生的原因</strong>主要是由线路本身电气特性所产生的随机噪声（热噪声），信号振幅、频率和相位的衰减或畸变，电信号在传输介质上的反射回音效应，相邻线路的串扰，外界的电磁干扰和设备故障等因素造成的。</p>
+</li>
+<li><p><strong>差错控制方式：</strong>（1）前向纠错。实时性好，单工通信采用（2）自动重发请求（ARQ）。强调检错能力，不要求有纠错能力，双向通道采用。（3）混合纠错。上述两种方式的综合，但传输设备相对复杂。</p>
+</li>
+<li><p>**介质访问控制（Medium Access Control）**简称MAC，是解决当局域网中共用信道的使用产生竞争时，如何分配信道的使用权问题。它定义了数据帧怎样在介质上进行传输。在共享同一个带宽的链路中，对连接介质的访问是“先来先服务”的。物理寻址在此处被定义，逻辑拓扑（信号通过物理拓扑的路径）也在此处被定义。线路控制、出错通知（不纠正）、帧的传递顺序和可选择的流量控制也在这一子层中实现。</p>
+</li>
+<li><p><strong>交换机和集线器的区别：</strong></p>
+<p>（1）工作层次。集线器工作在物理层，每发送一个数据，所有的端口均可以收到，采用了广播的方式，因此网络性能受到很大的限制。交换机工作在数据链路层，每个端口形成一张MAC地址转发表，根据数据包的MAC地址转发数据，而不是广播形式。</p>
+<p>（2）转发方式。集线器的工作原理是广播形式，无论哪个端口收到数据之后，都要广播到所有的端口，当接入设备比较多时，网络性能会受到很大的影响。交换机根据MAC地址转发数据，收到数据包之后，检查报文的目的MAC地址，找到对应的端口进行转发，而不是广播到所有的端口。</p>
+<p>（3）传输模式。集线器内部采用了总线型拓扑，各个结点共用一条总线进行通信，数据包的发送和接收采用了CSMA&#x2F;CD协议，在同一时间内必须是单向的，只能维持在半双工模式下，两个端口不能同时收发数据，并且当两个端口通信时，其他端口不能工作。当交换机上的两个端口通信时，它们之间的通道是相互独立的，可以实现全双工通信。两个端口同时收发数据。</p>
+<p>（4）带宽影响。集线器无论有多少个端口，所有的端口共享一条宽带，同一时刻只能有两个端口传输数据，并且只能工作在半双工模式下。交换机的网络性能要远远优于集线器。随着技术的进步，交换机的成本已经降低，集线器逐步退出市场。</p>
+</li>
+<li><p>IEEE802.2协议中10BASE—T标准规定使用5类UTP时网卡到集线器的最大距离是100米。</p>
+</li>
+<li><p>PPP协议是数据链路层的协议。</p>
+</li>
+<li><p>无线信道是对无线通信中发送端和接收端之间通路的一种形象的比喻，对于无线电波而言，它从发送端传送到接收端，其间并没有一个有形的连接，它的传播路径也有可能不只一条。无线信道也就是常说的无线的“频段”。</p>
+</li>
+<li><p>信道带宽是限定允许通过该信道的信号下限频率和上限频率，可以理解为一个频率通带。比如一个信道允许的通带为1.5kHz至15kHz，则其带宽为13.5kHz。</p>
+</li>
+<li><p>奈奎斯特定理 C&#x3D;2HlogN(以2为底)。</p>
+<p>某信道带宽为10kHz，编码采用32种不同的物理状态来表示数据，则无噪声环境下，该信道的最大传输速率是:</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">c</span>=<span class="hljs-number">2</span>*<span class="hljs-number">10</span>*log2（<span class="hljs-number">32</span>）=<span class="hljs-number">2</span>*<span class="hljs-number">10</span>*<span class="hljs-number">5</span><br></code></pre></td></tr></table></figure>
+
+<p>H &#x3D; 10kHz 带宽 N&#x3D;32 不同的物理状态</p>
+</li>
+<li><p>一个VLAN可以看成一个广播域。</p>
+</li>
+<li><p>在以太网中，如果某个CSMA&#x2F;CD网络上的两台计算机在同时通信时会发生冲突，那么这个CSMA&#x2F;CD网络就是一个<strong>冲突域</strong>。广播是一种信息的传播方式，指网络中的某一设备同时向网络中所有的其他设备发送数据，这个数据所能广播到的范围即为<strong>广播域</strong>。简单点说，<strong>广播域</strong>就是指网络中所有能接收到同样广播消息的设备的集合。<strong>管理域</strong>是一些资源的集合，域内的行为服从于一个系统管理的政策。由行政部门或组织管理的一组逻辑单元为一个管理域（MD），它分为公用管理域（ADMD）和专门管理域（PRMD）。</p>
+</li>
+<li><p>双绞线分屏蔽和非屏蔽两种。</p>
+</li>
+<li><p>利用集线器可将总线型网络转换成星型拓扑。</p>
+</li>
+<li><p>多路复用的方法中，从性质上来说，频分多路复用较适用于模拟信号传输，而时分多路复用较适用于数字信号传输。</p>
+</li>
+<li><p>普通家庭使用的电视机通过机顶盒设备可以实现上网冲浪漫游。</p>
+</li>
+<li><p>**文件传输协议（FTP）**是用于在网络上进行文件传输的一套标准协议，它工作在应用层，使用TCP传输而不是UDP，客户在和服务器建立连接前要经过一个“三次握手”的过程，保证客户和服务器之间的连接是可靠的，而且是面向连接，为数据传输提供可靠保证。FTP允许用户以文件操作的方式（如文件的增、删、改、查、传送等）与另一主机相互通信。<strong>用户数据包协议（UDP）<strong>支持一个无连接的传输协议,工作在</strong>传输层。</strong> <strong>传输控制协议（TCP）<strong>是一种面向连接的、可靠的、基于字节流的传输层通信协议，TCP应该能够在从硬线连接到分组交换或电路交换网络的各种通信系统之上操作，工作在</strong>传输层。</strong> <strong>网际互连协议（IP）<strong>是TCP&#x2F;IP体系中的</strong>网络层</strong>协议。</p>
+</li>
+<li><p><strong>工作组</strong>是局域网中的一个概念。它是最常见最简单最普通的资源管理模式，就是将不同的电脑按功能分别列入不同的组中，以方便管理。</p>
+</li>
+<li><p><strong>虚电路</strong>是分组交换的两种传输方式中的一种。在通信和网络中，虚电路是由分组交换通信所提供的面向连接的通信服务。虚电路协议向高层协议隐藏了将数据分割成段，包或帧的过程。</p>
+</li>
+<li><p>采用虚电路分组交换方式时，可以省去的阶段是<strong>建立物理连接</strong>。</p>
+</li>
+<li><p><strong>介质访问控制方法简称MAC</strong>，是解决当局域网中共用信道的使用产生竞争时，如何分配信道的使用权问题。它定义了数据帧怎样在介质上进行传输。在共享同一个带宽的链路中，对连接介质的访问是“先来先服务”的。</p>
+</li>
+<li><p><strong>协议组</strong>是协议的层次集合，每层为下一个最高层提供服务。</p>
+</li>
+<li><p>OSI&#x2F;RM模型中，<strong>传输层</strong>用来在设备的进程间传递报文。</p>
+</li>
+<li><p><strong>协议组</strong>是协议的层次集合，每层为下一个最高层提供服务。</p>
+</li>
+<li><p>数据链路层处理设备到设备的通信，传输层处理端结点间的通信。</p>
+</li>
+<li><p>虚电路也有连接建立、数据传输、连接释放三阶段、虚电路的各个结点不需要为每个分组作路径选择判定。</p>
+</li>
+<li><p><strong>SMTP</strong>是一种提供可靠且有效的电子邮件传输的协议，SMTP是建立在FTP文件传输服务上的一种邮件服务，主要用于系统之间的邮件信息传递，并提供有关来信的通知。</p>
+</li>
+<li><p><strong>POP</strong>的全称为Post Office Protocol，即邮局协议，用于电子邮件的接收。本协议主要用于支持使用客户端远程管理在服务器上的电子邮件。</p>
+</li>
+<li><p>TCP&#x2F;IP协议簇包含一个提供对电子邮箱进行远程获取的协议，称为POP。</p>
+</li>
+<li><p>OSPF协议是域内路由协议。</p>
+</li>
+<li><p>在虚电路服务中分组的顺序总是按发送顺序到达目的站。</p>
+</li>
+<li><p>内部网关协议RIP是一种分布式的基于距离向量的路由选择协议，是互联网的标准协议。内部网关协议OSPF开放最短路径优先，OSPF最主要的特征是使用了分布式的链路状态协议。</p>
+</li>
+<li><p>协议是不同结点对等实体之间进行通信的规则或约定。</p>
+</li>
+<li><p>**非对称数字用户线路（ADSL）**是数字用户线路服务中最流行的一种，采用了上、下行不对称的高速数据调制技术。</p>
+</li>
+<li><p><strong>IP、ICMP协议</strong>工作在网络层，<strong>SMTP、SNMP协议</strong>工作在应用层，<strong>TCP、UDP协议</strong>工作在运输层。</p>
+</li>
+<li><p><strong>私有地址范围：</strong></p>
+<p>A类地址：10.0.0.0~10.255.255.255</p>
+<p>B类地址：172.16.0.0~172.31.255.255</p>
+<p>C类地址：192.168.0.0~192.168.255.255</p>
+</li>
+<li><p>Internet控制报文协议（ICMP），它是TCP&#x2F;IP协议簇的一个子协议，用于在IP主机、路由器之间传递控制消息。控制消息是指网络通不通、主机是否可达、路由是否可用等网络本身的消息。这些控制消息虽然并不传输用户数据，但是对于用户数据的传递起着重要的作用。</p>
+</li>
+<li><p>通常的路由器可以支持多种网络层协议，并提供不同协议之间的分组转换。</p>
+</li>
+<li><p>公共交换电话网（PSTN）和综合业务数字网（ISDN）都是采用电路交换技术的通信网络。X.25、帧中继及ATM等都是采用交换技术的广域网。</p>
+</li>
+<li><p>127开头的IP地址是保留回环地址，不可能出现在网络上，主要用于测试。</p>
+</li>
+<li><p>一个计算机网络的3个主要组成部分是一个通信子网、一系列通信协议、若干主机。</p>
+</li>
+<li><p>交换机带宽计算:端口数x相应的端口速率x2（全双工模式）。</p>
+</li>
+<li><p>MAC地址是一个6字节的二进制串，地址的前3个字节代表厂商代码，后3个字节由厂商自行分配。</p>
+</li>
+<li><p>共享式以太网需要进行冲突检测，仅能实现半双工流量控制，利用CSMA&#x2F;CD介质访问机制。</p>
+</li>
+<li><p>VLAN的主要作用有保证网络安全、抑制广播风暴、简化网络管理、提高网络设计的灵活性。</p>
+</li>
+<li><p>计算机网络从逻辑功能上分为通信子网和资源子网。</p>
+</li>
+<li><p>物理层的技术特性有机械特性、电气特性、功能特性、规程特性。</p>
+</li>
+<li><p>调制解调器一般由基带处理、调制解调、信号放大和滤波、均衡等几部分组成。调制是将数字信号与音频载波组合，产生适合于电话线上传输的音频信号（模拟信号），解频是从音频信号中恢复出数字信号。调制解调器一般分为外置式、内置式和pc卡式三种。</p>
+</li>
+<li><p>令牌环总线的管理包括逻辑环的初始化、站点的入环、站点撤出环路、多令牌处理。</p>
+</li>
+<li><p>决定局域特性的主要技术要素是网络拓扑、传输介质、介质访问控制方法。</p>
+</li>
+<li><p>网络<strong>按照通信方式分类</strong>，可分为点对点传输网络和广播式传输网络。</p>
+</li>
+<li><p><strong>集线器的工作过程</strong>：首先是结点发信号到线路，集线器接收该信号，因信号在电缆传输中有衰减，集线器接收信号后将衰减的信号整形放大，最后集线器将放大的信号广播转发到其他所有端口。</p>
+</li>
+<li><p><strong>集线器</strong>连接的网络物理上（外观）是星型网络，逻辑上还是总线型网络。</p>
+</li>
+<li><p>星型拓扑结构是由通过点到点链路连接到中央结点的各站点组成的，星型网络中有一个唯一的转发结点（中央结点），每一个计算机都通过单独的通信线路连接到中央结点，星型拓扑的优点是：利用中央结点可以方便的提供服务和重新配置网络。</p>
+</li>
+<li><p><strong>电话交换机的结构</strong>是星型网状拓扑结构，它在一个单位内为综合语音和数据工作站交换信息提供信道，还可以提供语音信箱和电话会议等业务，是局域网的一个分支。</p>
+</li>
+<li><p>交换机的物理结构是星型拓扑结构，逻辑上也是星型拓扑结构。</p>
+</li>
+<li><p><strong>IP</strong>只为主机提供一种无连接、不可靠的、尽力而为的数据包传输服务。</p>
+</li>
+<li><p><strong>网桥</strong>只能隔离冲突域，<strong>路由器</strong>能隔离广播域。</p>
+</li>
+<li><p><strong>FDM的前提</strong>是传输介质的可用带宽要大于多路给定信号所需带宽的总和。<strong>TDM</strong>可分为同步TDM和异步TDM，异步TDM又称为统计时分多路复用技术，对于模拟信号，可以将TDM和FDM组合起来使用。</p>
+</li>
+<li><p>虚电路交换包括三个阶段：建立连接、传输数据、拆除连接，建立连接之后就类似于专线，所以不存在路由选择。</p>
+</li>
+<li><p>逻辑链路控制（<strong>LLC</strong>） 介质访问控制（<strong>MAC</strong>）</p>
+</li>
+<li><p>路由选择算法包括两种：静态路由选择算法和动态路由选择算法。</p>
+<p>静态路由选择算法包括</p>
+<p>（1）洪泛法</p>
+<p>（2）随机走动法</p>
+<p>（3）最短路径法</p>
+<p>（4）基于流量的路由算法</p>
+<p>动态路由算法包括</p>
+<p>（1）距离矢量路由算法</p>
+<p>（2）链路状态路由算法</p>
+</li>
+<li><p>**串行线路网际协议（SLIP）**是一个在串行线路上对IP分组进行封装的简单的面向字符的协议，用以使用户通过电话线和调制解调器接入Internet。</p>
+</li>
+<li><p><strong>数据传输单元</strong>：物理层-比特流 数据链路层-帧 网络层-数据包 运输层-数据段 应用层-数据</p>
+</li>
+<li><p>IP数据报分为首部和数据两部分。</p>
+</li>
+<li><p>信道复用技术包括<strong>频分多路复用</strong>、<strong>时分多路复用</strong>、<strong>波分多路复用</strong>和<strong>码分多路复用</strong>。</p>
+</li>
+<li><p>目前广域网主要采用网状拓扑结构，它的优点是不受瓶颈问题和失效问题的影响。由于结点之间有许多条路径相连，可以为数据流的传输选择适当的路由，从而绕过失效的部件或过忙的节点。这种结构虽然比较复杂，成本也比较高，提供上述功能的网络协议也比较复杂，但由于它的可靠性高，仍然受到欢迎。</p>
+</li>
+<li><p>决定局域网的主要技术要素为：网络拓扑、传输介质、介质访问控制方法。</p>
+</li>
+<li><p>在局域网中常用的拓扑结构是:星型、环型、总线型拓扑。</p>
+</li>
+<li><p><strong>ARP协议</strong>用于将计算机的网络地址转换成物理地址。</p>
+</li>
+<li><p>域名解析是为了解决数字化的IP地址不便记忆的问题而引入的一种层次型命名机制，完成名字-地址的映射。</p>
+</li>
+<li><p><strong>电路交换</strong>是一种直接的交换方式，它为一对需要进行通信的装置（站）之间提供一条临时的专用通道，即提供一条专用的传输通道，即可是物理通道又可是逻辑通道。（使用时分或频分复用技术）<strong>存储转发交换方式</strong>又可以分为<strong>报文存储转发与报文分组存储转发</strong>，报文分组存储转发交换方式又可以分为数据报与虚电路方式。</p>
+</li>
+<li><p><strong>TCP的功能</strong>是将数据流从一台主机可靠的传输到另一台主机。</p>
+</li>
+<li><p><strong>MAC帧最小的数据长度</strong>为64字节，MAC帧头占18个字节，故数据长度必须大于46个字节，如不够则进行补充。</p>
+</li>
+<li><p><strong>DNS服务器</strong>为客户提供存储、查询和搜索其它主机域名和IP地址的服务。主要实现域名与IP地址之间的转换，以解决IP地址难以记忆的问题。</p>
+</li>
+<li><p>访问网站的过程中，TCP&#x2F;IP参考模型各层的协议用到了哪些？作用是什么？并简述流程。</p>
+<p>应用层：HTTP：WWW访问协议、DNS:域名解析。</p>
+<p>传输层： TCP：在客户和服务器之间建立连接，提供可靠的数据传输。</p>
+<p>网络层：IP：进行路由选择 ICMP：提供网络传输中的差错检测 ARP：将目的IP地址映射成物理MAC地址。</p>
+<p>网络接口层：LLC和MAC：提供数据链路层的功能，实现可靠的数据链路。</p>
+<p>过程：</p>
+<p>利用DNS，查询到<a target="_blank" rel="noopener" href="http://www.google.com对应的ip地址./">www.google.com对应的IP地址。</a></p>
+<p>浏览器与google的服务器利用TCP协议建立连接。</p>
+<p>浏览器利用HTTP的GET方法向google服务器发送资源请求。</p>
+<p>google发送回应消息。</p>
+<p>浏览器解释回应消息，并以图形化的方式显示。</p>
+</li>
+<li><p>IP地址为202.112.14.137，子网掩码为255.255.255.224</p>
+<p>网络地址：202.112.14.128</p>
+<p>网络号：202.112.14</p>
+<p>主机地址：202.112.14.137</p>
+<p>主机号：9</p>
+<p>子网号：128</p>
+<p>子网地址：202.112.14.128</p>
+<p>ip地址与子网掩码进行与运算，结果是网络地址。</p>
+<p>子网地址也可以说是网络地址，也是ip地址和子网掩码进行与运算。</p>
+</li>
+<li><p>127开头的IP地址是保留回环地址，不可能出现在网络上的。</p>
+</li>
+<li><p>IP地址和网络ID不同。</p>
+</li>
+<li><p>调制解调器的组成包括：基带处理、调制解耦、信号放大、均衡。</p>
+</li>
+<li><p>以太网是应用最普遍的局域网技术，取代了其他局域网技术如令牌环、FDDI和ARCNET。</p>
+</li>
+<li><p>在ISO&#x2F;OSI参考模型中，同层对等实体间进行信息交换时必须遵守的规则称为协议，相邻层间进行信息交换时必须遵守的规则称为接口，相邻层间进行信息交换是使用的一组操作原语称为服务，运输层的主要功能是提供端到端的信息传送，它利用网络层提供的服务来完成此功能。</p>
+</li>
+<li><p>没有服务器控制的通信区域，则为对等网。</p>
+</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>计算机网络</div>
+      <div>https://github.com/yaosx425/yaosx425.github.io/2021/11/30/计算机网络/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>姚淑璇</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年11月30日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/yaosx425/yaosx425.github.io/2021/12/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" title="计算机操作系统">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">计算机操作系统</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/yaosx425/yaosx425.github.io/2021/11/29/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AF%AD%E8%A8%80%E7%9A%84%E5%A4%9A%E5%88%86%E6%B4%BE%E3%80%81%E5%8D%95%E5%88%86%E6%B4%BE%E3%80%81%E5%8F%8C%E9%87%8D%E5%88%86%E6%B4%BE%E6%9C%BA%E5%88%B6/" title="面向对象语言的多分派、单分派、双重分派机制">
+                        <span class="hidden-mobile">面向对象语言的多分派、单分派、双重分派机制</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/yaosx425/yaosx425.github.io/js/events.js" ></script>
+<script  src="/yaosx425/yaosx425.github.io/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/yaosx425/yaosx425.github.io/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/yaosx425/yaosx425.github.io/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/yaosx425/yaosx425.github.io/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

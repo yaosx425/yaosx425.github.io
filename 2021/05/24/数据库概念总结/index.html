@@ -1,0 +1,1007 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/yaosx425/yaosx425.github.io/img/fluid.png">
+  <link rel="icon" href="/yaosx425/yaosx425.github.io/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="姚淑璇">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="第一章 数据库系统概述 **数据：**数据（Data）是数据库中存储的基本对象，可以定义为：描述事物的符号记录。  数据库：（DataBase，DB）是指长期存储在计算机内的、有组织的、可共享的大量数据集合。  数据库管理系统：（DataBase Management System，DBMS）是位于用户与操作系统之间的一层数据管理软件。  DBMS的功能：（1）数据定义功能、（2）数据操纵功能、（">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库概念总结">
+<meta property="og:url" content="https://github.com/yaosx425/yaosx425.github.io/2021/05/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E5%BF%B5%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="虫">
+<meta property="og:description" content="第一章 数据库系统概述 **数据：**数据（Data）是数据库中存储的基本对象，可以定义为：描述事物的符号记录。  数据库：（DataBase，DB）是指长期存储在计算机内的、有组织的、可共享的大量数据集合。  数据库管理系统：（DataBase Management System，DBMS）是位于用户与操作系统之间的一层数据管理软件。  DBMS的功能：（1）数据定义功能、（2）数据操纵功能、（">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-24T03:22:32.000Z">
+<meta property="article:modified_time" content="2023-02-24T03:33:23.137Z">
+<meta property="article:author" content="姚淑璇">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>数据库概念总结 - 虫</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/yaosx425/yaosx425.github.io/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/yaosx425/yaosx425.github.io/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/yaosx425/yaosx425.github.io/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"github.com","root":"/yaosx425/yaosx425.github.io/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/yaosx425/yaosx425.github.io/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/yaosx425/yaosx425.github.io/js/utils.js" ></script>
+  <script  src="/yaosx425/yaosx425.github.io/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/yaosx425/yaosx425.github.io/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/yaosx425/yaosx425.github.io/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/yaosx425/yaosx425.github.io/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/yaosx425/yaosx425.github.io/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/yaosx425/yaosx425.github.io/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/yaosx425/yaosx425.github.io/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/yaosx425/yaosx425.github.io/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="数据库概念总结"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-05-24 11:22" pubdate>
+          2021年5月24日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          12k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          102 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">数据库概念总结</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="第一章-数据库系统概述"><a href="#第一章-数据库系统概述" class="headerlink" title="第一章 数据库系统概述"></a>第一章 数据库系统概述</h1><ol>
+<li><p>**数据：**数据（Data）是数据库中存储的基本对象，可以定义为：描述事物的符号记录。</p>
+</li>
+<li><p><strong>数据库：</strong>（DataBase，DB）是指长期存储在计算机内的、有组织的、可共享的大量数据集合。</p>
+</li>
+<li><p><strong>数据库管理系统：</strong>（DataBase Management System，DBMS）是位于用户与操作系统之间的一层数据管理软件。</p>
+</li>
+<li><p><strong>DBMS的功能：</strong>（1）数据定义功能、（2）数据操纵功能、（3）数据库的运行管理、（4）数据库的建立和维护功能。</p>
+</li>
+<li><p><strong>数据库系统：</strong>（DataBase System, DBS）是指在计算机系统中引入数据库后的系统，是由软件和硬件组成的完整系统。一般由数据库、数据库管理系统、计算机硬件和软件支撑环境、应用系统、数据库管理员和用户构成。</p>
+</li>
+<li><p>数据库中只能存储对象的数据模型。</p>
+</li>
+<li><p>**数据模型：**数据模型是对现实世界的抽象，将现实世界中有应用价值的数据及其关联抽象出来，并为DBMS所支持，最终在机器上实现。</p>
+</li>
+<li><p>现实世界、信息世界、计算机世界。<strong>现实世界</strong>设定了需求及边界条件，为整个转换提供了客观基础与初始启动环境。<strong>信息世界</strong>是现实世界在人脑中的反映，是对客观事物及其联系的一种抽象描述。信息世界由概念模型描述。<strong>计算机世界</strong>是信息世界中致力于在计算机物理结构上的描述。计算机世界将信息世界的概念模型数字化转换为数据模型，实现信息的数据化，便于计算机处理。</p>
+</li>
+<li><p>**概念模型：**是对现实世界的抽象表示，是现实世界到计算机世界的一个中间层次。</p>
+</li>
+<li><p>问题 –&gt; 概念模型 –&gt; 数据模型 现实世界 –&gt; 信息世界 –&gt; 计算机世界</p>
+</li>
+<li><p><strong>概念模型涉及的术语：</strong>（1）实体 （2）属性 （3）码 （4）域 （5）实体型（6）实体集（7）联系</p>
+<p> （1） 实体：客观存在的、可以相互区别的事物或概念。例如：作者、书是具体的事物，出版社是抽象的概念。</p>
+<p> （2） 属性：实体所具有的某一特性。</p>
+<p> （3）码 ：能够唯一标识实体的属性集。</p>
+<p> （4）域 ：属性的取值范围。</p>
+<p> （5）实体型：具有相同属性的实体称为同型实体，用实体名及其属性名的集合来抽象和刻画同型实体，称为实体型。</p>
+<p> （6）实体集：属于同一个实体型的实体集合。实体集是实体型的有限集合。</p>
+<p> （7）联系：包括实体内部的联系和实体之间的联系。实体内部的联系指实体的各属性之间的联系，实体之间的联系指不同实体集 之间的联系。</p>
+</li>
+<li><p>数据模型的组成要素：数据结构、数据操作、完整性约束条件。</p>
+<p>**数据结构：**数据结构主要描述数据类型、内容、性质的有关情况以及数据间的联系，是对系统静态特征的描述。通常按数据结构的类型来命名数据模型。</p>
+<p>**数据操作：**数据操作主要描述在相应的数据结构上的操作类型与操作方式，是对系统动态行为的描述。数据库主要有检索和更新（包括插入、删除、修改）两大类操作。</p>
+<p>**完整性约束条件：**完整性约束条件主要描述数据结构内数据间的语法、语义联系，它们之间的制约与依存关系，以及数据动态变化的规则，以此来保证数据的正确、有效与相容。数据模型应该反映和规定本数据模型必须遵守的、基本的通用的完整性约束条件。</p>
+</li>
+<li><p>数据库有类型之分，是根据数据模型划分的。层次模型、网状模型、关系模型、面向对象模型。</p>
+</li>
+<li><p>**关系模型：**基本元素包括关系、元组、属性、主码、域、分量以及关系模式等。</p>
+<p> 关系：一个关系就是一张表。</p>
+<p> 元组：表中的一行。</p>
+<p> 属性：表中的一列。</p>
+<p> 候选码：能够唯一确定一个元组的属性组，如商品编号。</p>
+<p> 主码：关系中可能有多个候选码，选定其中一个作为主码。</p>
+<p> 域：属性的取值范围。</p>
+<p> 分量：元组中的一个属性值。</p>
+<p> 关系模式：对关系的描述。</p>
+<p> <strong>关系模型的特点：</strong>（1）在关系模型中，实体及实体间的联系都是用关系来表示。（2）关系模型要求关系必须是规范的，最基本的条件是，关系中的每一个分量必须是一个不可分的数据项，即不允许表中还有表。</p>
+<p> **关系模型的完整性约束：**关系模型的完整性约束包括三大类：实体完整性、参照完整性和用户定义的完整性。</p>
+<p> <strong>关系模型的优点：</strong>（1）具有数学基础（2）概念单一（3）存取路径透明</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-strong">**关系模型的缺点：**</span>查询效率低。<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>面向对象模型：</strong></p>
+<p>优点：（1）适合处理各种各样的数据类型。（2）面向对象程序设计与数据库技术相结合。（3）提高开发效率。（4）改善数据访问。</p>
+<p>缺点：（1）定义不准确。（2）维护困难。（3）不适合所有的应用。</p>
+</li>
+<li><p>从数据库管理系统角度看数据库系统内部的体系结构，通常采用三级模式结构。从数据库最终用户角度看数据库系统外部的体系结构，可以分为单用户结构、主从式结构、分布式结构和客户机&#x2F;服务器结构等。</p>
+</li>
+<li><p>数据库系统通常采用<strong>三级模式结构</strong>：外模式、模式、内模式。</p>
+<p>外模式：又称子模式或用户模式，它是模式的子集，是数据的局部逻辑结构，也是数据库用户看到的数据视图。</p>
+<p> 一个数据库可以有多个外模式，外模式是与某一应用有关的数据的逻辑表示，应用程序都是和外模式打交道。</p>
+<p>模式：模式又称逻辑模式或概念模式，它是数据库中全体数据的全局逻辑结构和特征的描述，也是所有用户的公共数据视图。</p>
+<p> 一个数据库只有一个模式。定义模式不仅要定义数据的逻辑结构，而且要定义数据之间的联系，定义与数据有关的安全性、完 整性要求。</p>
+<p>内模式：又称存储模式，它是数据在数据库中的内部表示，即数据的物理结构和存储方式的描述。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">一个数据库只有一个内模式。<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>三级模式之间的两层映像：外模式&#x2F;模式映像，模式&#x2F;内模式映像。</p>
+<p> 外模式&#x2F;模式映像：模式描述的是数据的全局逻辑结构，外模式描述的是数据的局部逻辑结构。对应于同一个模式可以有任意多个外模式。对于每一个外模式，数据库系统都有一个外模式&#x2F;模式映像，它定义了该外模式与模式之间的对应关系。</p>
+<p> 模式&#x2F;内模式映像：数据库中只有一个模式，也只有一个内模式，所以模式&#x2F;内模式映像是唯一的，它定义了数据库的全局逻辑结构与存储结构之间的对应关系。保证数据与程序之间的物理独立性。</p>
+</li>
+<li><p>数据库系统的外部体系结构：</p>
+<p>1.单用户结构的数据库系统 2.主从式结构的数据库系统 3.分布式结构的数据库系统 4.客户机&#x2F;服务器结构的数据库系统 5.浏览器&#x2F;服务器结构的数据库系统</p>
+</li>
+<li><p>数据管理阶段：1.人工管理阶段 2.文件系统阶段3.数据库系统阶段</p>
+</li>
+</ol>
+<h1 id="第二章-关系数据库"><a href="#第二章-关系数据库" class="headerlink" title="第二章 关系数据库"></a>第二章 关系数据库</h1><ol>
+<li><p><strong>关系：</strong></p>
+<p>域：域是一组具有相同数据类型的值的集合，可以理解为表格中的一个列的取值范围。</p>
+<p>笛卡尔积中许多元组无实际意义，从中取出有实际意义的元组便构成关系。关系是笛卡儿积的子集，所以关系也是一个二维表，表的每一行对应一个元组，表的每一列对应一个域。</p>
+<p>给域的每一列起一个名字，称为属性，n目关系必有n个属性。</p>
+<p>关系中的每行是关系中的元组。</p>
+<p>能唯一标识关系中一个元组的某一属性组，称为候选码。候选码不只一个，选定其中的一个作为主码。候选码的诸属性称为主属性，不属于候选码的属性称为非主属性。</p>
+<p><strong>关系的性质：</strong></p>
+<p> （1）关系中的每个属性值是不可分解的。</p>
+<p> （2）表中各列取自同一个域，因此一列中的各个分量具有相同的性质。</p>
+<p> （3）不同的列可以来自同一个域，其中的每一列为一个属性，不同的属性要给予不同的属性名。</p>
+<p> （4）列的次序可以任意交换，不改变关系的实际意义。</p>
+<p> （5）表中的行叫元组，代表一个实体，实体应该是可以区分的，因此表中不允许出现完全相同的两行。</p>
+<p> （6）行的次序无关紧要，可以任意交换，不会改变关系的意义。</p>
+</li>
+<li><p><strong>关系模式：</strong></p>
+<p>关系数据库中，关系模式是型，关系是值。关系模式是对关系的描述。关系模式是静态的、稳定的，而关系是动态的、随时间不断变化的。实际工作中，人们通常把关系模式和关系统称为关系。</p>
+</li>
+<li><p>关系数据库是基于关系模型的数据库。所有实体和实体之间的联系所形成的关系的集合就构成了一个关系数据库。在数据库中，关系模式是型，关系是值，两者通常统称为关系数据库。</p>
+</li>
+<li><p>关系模式的完整性规则是对关系的某种约束条件。关系模型中有三类完整性约束：实体完整性、参照完整性和用户定义的完整性。</p>
+<p> **实体完整性规则：**若属性（指一个或一组属性）A是基本关系R的主属性，则A不能取空值。所谓空值就是指不能取“不存在”或“不知道”或“无意义”的值。</p>
+<p> **参照完整性规则：**若属性F是基本关系R的外码，他与基本关系S的主码相对应，那么对于R中的每个元组中F的值，</p>
+<p> **用户完整性规则：**针对某一具体的应用环境，给出关系数据库的约束条件，这些约束条件就是反映某一具体应用所涉及的数据必须满足的语义要求。</p>
+</li>
+<li><p>**关系代数：**关系代数的运算按运算符的不同可分为传统的集合运算和专门的关系运算两类。</p>
+</li>
+<li><p>传统的集合运算主要包括并、交、差、广义笛卡儿积四种运算。、</p>
+<p> 并：**如果R和S都是关系，具有相同的目n，且相应的属性取自同一个域，**则R和S的并是由属于R或属于S的元组组成，其结果仍为n目关系。</p>
+<p> 交：R和S的交是由既属于R又属于S的元组组成，其结果仍为n目关系。</p>
+<p> 差：则R和S的差表示由属于R但不属于S的元组组成，其结果仍为n目关系。</p>
+<p> 广义笛卡儿积：如果R和S都是关系，分别为m目和n目，则R和S的广义笛卡儿积是一个（n+m）列的元组的集合。</p>
+</li>
+<li><p>专门的关系运算包括选择、投影、连接、除等。</p>
+<p> 选择运算：又称为限制运算。它是在关系R中选择满足条件的元组。选择运算是对单个关系R进行的运算，它将产生一个包含关系R 中部分元组的新关系。并且是从行的角度进行的运算。</p>
+<p> 投影运算：也是对单个关系进行的运算，它将产生一个只有某些列的新关系。</p>
+<p> 连接运算：选择和投影都是对单个关系进行的运算，在通常情况下，需要从两个关系中选择满足条件的元组数据，连接运算就是这 样的一种运算。连接运算又分为θ连接、等值连接和自然连接。</p>
+<p> θ连接：是从行的角度进行运算。</p>
+<p> 等值连接：θ为“&#x3D;”的连接运算称为等值运算。</p>
+<p> 自然连接：可以说是一种特殊的等值连接，他要求两个关系进行比较的分量必须是相同的属性组，并且在结果中把重复的属 性列去掉，自然连接需要取消重复列，所以是同时从行和列的角度进行运算。</p>
+<p> 除运算：是两个关系之前的运算。</p>
+</li>
+</ol>
+<h1 id="第三章：SQL"><a href="#第三章：SQL" class="headerlink" title="第三章：SQL"></a>第三章：SQL</h1><ol>
+<li><p>SQL（Structed Query Language，结构化查询语言）是操作关系数据库的通用语言。不只支持数据库查询操作，其功能还包括数据定义、数据操纵、数据控制等。</p>
+</li>
+<li><p>SQL的主要特点是：一体化、高度非过程化、语言简洁、多种使用方式。</p>
+</li>
+<li><p>SQL server数据库中的所有数据、对象和事务日志均以文件的形式保存，根据作用不同，这些文件可以分为数据文件与事务日志文件。</p>
+</li>
+<li><p>数据文件可根据数据存储需要进行组织，除了必需的一个主数据文件，还可以包括一个或多个次数据文件。</p>
+</li>
+<li><p>主数据文件用于存储数据库的系统表，数据库对象启动信息和数据库数据。所有数据库只能有一个主数据文件，其文件的拓展名为.mdf。次数据文件用于存储主数据文件中未存储的数据和数据对象。一个数据可以有一个或多个次数据文件，其文件扩展名为.ndf。</p>
+</li>
+<li><p>事务日志文件用于记录数据库的操作情况。每个数据库至少有一个事务日志文件，其文件扩展名为ldf。</p>
+</li>
+<li><p>一旦建立数据库文件，则在SQL Server资源管理器目录菜单中就会显示该数据库对象及其包含的数据表、视图等子项。</p>
+</li>
+<li><p>创建数据库时，SQLserver首先将系统数据库model的内容复制到新数据库中，然后使用空页填充新数据库的剩余部分。model数据库中的对象均被复制到新数据库中，其数据库选项也被新数据库继承。</p>
+</li>
+<li><p>表是关系数据库中的基本对象，关系数据库的数据均存储在表中。在关系数据库中，每个关系都对应一个表，一个数据库包含一个或多个表。其他的对象，如视图、索引等均依附于表存在。</p>
+</li>
+<li><p>在定义表的时候，需要指明每个列之间的数据类型。数据的类型决定了数据表中存储数据的存储空间和对这些数据能进行的运算，存储空间决定了数据的存储范围和精度。</p>
+</li>
+<li><p><strong>数据库的完整性是指数据的正确性与相容性</strong>。前者要求数据符合现实语义、反映实际情况，后者要求在不同的关系中的相关数据符合逻辑。</p>
+</li>
+<li><p>列级约束、元组约束、关系约束。列级约束是指某列的约束，例如该列的范围，元组约束是指元组中各字段之间联系的约束，关系约束是指关系之间联系的约束。</p>
+</li>
+<li><p>实体完整性要求表中每条记录必须唯一，也不能为空。为保证实体完整性，每个表需指定一个属性或属性组合作为他的主码。一个表只能设置一个主码。</p>
+</li>
+<li><p>用户自定义完整性是指用户根据业务逻辑定义约束规则，防止数据库出现不符合逻辑的数据。一个列只能有一个DEFAULT约束，该约束也只能定义在一个列上，在插入数据时，数据库系统会检查DEFAULT约束，不输入新值的情况下，系统会使用默认值填充。</p>
+</li>
+<li><p>参照完整性属于表间规则，若主码和外码来自同一个表，则称为自参照完整性，只要依赖于某主码的外码值存在，该表中的该主码的值就不能随意的修改和删除，除非设置了级联删除和修改。</p>
+</li>
+<li><p>外码约束是参照完整性的具体的执行方式，参照表–外码表；被参照表–主码表。主码表被引用的属性必须是候选码或主码。</p>
+</li>
+<li><p>完整性约束维护主要是修改和删除约束。修改约束可以先删除约束，再添加同名约束。</p>
+</li>
+<li><p>索引是提高查询速度的重要手段。数据库索引包含来自基本表属性的组成的索引关键字和对应的各行数据的存储位置。索引表本身就会占用用户的数据库空间，在对数据进行插入、更新、删除的时候，维护索引也会增加时间成本。</p>
+</li>
+<li><p>聚集索引、非聚集索引、唯一索引。聚集索引是指表中的数据按照索引关键字的顺序在磁盘进行重新存储。因为一个表的数据只能根据一种物理顺序存储，所以一张表只能有一个聚集索引。</p>
+</li>
+<li><p>非聚集索引则要求数据表的数据按照索引关键字的顺序排序，表的物理顺序与索引关键字顺序不同。<em>一个表上可以有多个非聚集索引。</em></p>
+</li>
+<li><p>唯一索引的索引关键字不允许重复。如果在student表的sname字段上建立了唯一索引，则sname的值不允许重复。聚集索引和非聚集索引都可以是唯一索引。</p>
+</li>
+<li><p><strong>主码约束</strong>其实是一种索引，UNIQUE约束默认为非聚集唯一约束。索引一经建立，就由数据库系统维护，无须用户参与。</p>
+</li>
+<li><p><strong>单表查询</strong>是指from子句后面的数据表只有一张的查询。</p>
+</li>
+<li><p>使用distinct关键字可以去掉结果集中重复的行。</p>
+</li>
+<li><p>查询中文在XX和XX之间的信息按字符的拼音字母先后排序。谓词IN用来查找属性值属于指定集合的元组。</p>
+</li>
+<li><p>使用连接符AND和OR可以连接多个查询条件。多个运算符的执行顺序是从左往右，AND的运算级别高于OR，用户可以使用小括号改变优先级。</p>
+</li>
+<li><p>查询结果可以按照ORDER BY子句指定升序或降序排列，默认为升序。</p>
+</li>
+<li><p>ORDER BY子句后也可以跟多个字段，先按第一个字段的顺序排列，如果第一个字段的排序结果相同，则按第二个字段顺序排列。</p>
+</li>
+<li><p>ORDER BY子句后也可以跟表达式、函数等。</p>
+</li>
+<li><p>SQL使用GROUP BY 子句对元组进行分组。</p>
+</li>
+<li><p>内连接是一种常见的查询方式。内连接包括非等值连接、等值连接。等值连接的连接字段如果一样，去掉重复的列，就是自然连接。如果连接的是两个相同的表，就是自连接。</p>
+</li>
+<li><p><strong>等值连接</strong> 比较运算符为等号的连接称为等值连接，不为等号时是非等值连接。</p>
+</li>
+<li><p>为简化代码，可以为连接表指定别名，一旦指定别名后，查询语句中相应的表都要用该别名替代。</p>
+</li>
+<li><p>内连接包括等值连接、自连接两种，比较运算符为等号的连接称为等值连接，不为等号时为非等值连接。自连接将同一张表进行连接。</p>
+</li>
+<li><p><strong>内连接</strong>将满足连接条件的元组连接起来形成结果集元组，但有时用户需要将不满足连接条件的元组也显示在结果集中，例如查看哪些商品没有人买。外连接包括全外连接，左外连接，和右外连接。</p>
+</li>
+<li><p><strong>全外连接</strong>是将参与连接的表中不满足连接条件的元组均显示出来，无对应连接元组值使用NULL填充。</p>
+</li>
+<li><p><strong>左外连接</strong>使用LEFT JOIN…ON语句连接。左边表的元组不管满不满足连接条件均显示，右边表不满足连接条件的不显示。</p>
+</li>
+<li><p><strong>右外连接</strong>使用RIGHT JOIN…ON语句连接，右边表的元组不管满不满足连接条件均显示，左边表不满足连接条件的不显示。</p>
+</li>
+<li><p><strong>子查询</strong>：子查询就是嵌套在另一个查询语句中的查询语句，因此，子查询也叫嵌套查询。包含子查询的查询通常称为外层查询。</p>
+</li>
+<li><p><strong>不相关子查询</strong>是指内层查询条件不依赖于外层查询。即单独执行内层语句也会得到明确结果集。</p>
+</li>
+<li><p><strong>相关子查询</strong>：如果子查询内层查询的查询条件依赖于外层查询，则被称为相关子查询。</p>
+</li>
+<li><p>**集合查询：**并操作UNION、交操作INTERSECT、和差操作EXCEPT。参加集合操作的列数需相等，对应列的数据类型需相同。</p>
+</li>
+<li><p><strong>基于派生表查询</strong>：当子查询出现在FROM子句中时，子查询的查询结果形成一个临时的派生表，这个表可以作为查询对象。</p>
+</li>
+<li><p>**数据更改：**包括插入数据、修改数据和删除表中数据。INSERT语句插入数据，通常有两种形式。一种是插入元组，另一种是插入子查询结果。</p>
+</li>
+<li><p>DELETE删除表中的数据，DROP删除表中结构。</p>
+</li>
+<li><p>视图是数据库中的常用对象之一，它的内容是数据库部分数据或以聚合等方式重构的数据。在数据库中只存放视图的定义，不存放视图的数据，这些数据仍在原数据表中。只有执行视图查询的时候，这些数据才出现在结果集中，因为不存储数据，所以视图与基本表不同，是一个虚表。</p>
+</li>
+<li><p>定义视图时，语句WITH CHECK OPTION表示通过视图进行更新操作时要保证更新的数据满足子查询的条件表达式。</p>
+</li>
+<li><p>视图可以定义在已经定义的视图上，也可以建立在表与视图的连接上。</p>
+</li>
+<li><p>更新视图是通过视图来插入、删除、修改数据。由于视图不存储数据，通过视图更新数据最终要转换为对基本表的更新。</p>
+</li>
+<li><p>视图的好处:</p>
+<p> 1.简化数据查询。</p>
+<p> 2.使用户多角度看待同一数据。</p>
+<p> 3.提供一定程度的逻辑独立性。</p>
+<p> 4.提供数据库安全性。</p>
+</li>
+</ol>
+<h1 id="第六章：关系数据理论"><a href="#第六章：关系数据理论" class="headerlink" title="第六章：关系数据理论"></a>第六章：关系数据理论</h1><ol>
+<li><strong>关系数据库</strong>是以<strong>关系模型</strong>为基础的数据库，他利用关系来<strong>描述现实世界</strong>，一个关系既可以用来<strong>描述一个实体及其属性</strong>，又可以用来<strong>描述实体间的联系</strong>。<strong>关系模式是用来定义关系</strong>的，一个关系数据库包含一组关系。定义这些关系的关系模式的全体就构成了该数据库的模式。</li>
+<li>关系实质上是一张二维表。表的每一行叫做一个元组，每一列叫做一个属性，因此，一个元组就是该关系所涉及的属性级的笛卡尔积的一个元素。关系是元组的集合。也就是笛卡尔积的一个子集。<strong>关系模式</strong>就是这个元组集合的结构上的描述。</li>
+<li>一个<strong>关系模式</strong>应当是一个五元组。</li>
+<li>在本章中，当且仅当U上的一个关系r满足F时，r称为关系模式R&lt;U,F&gt;的一个关系。</li>
+<li><strong>关系</strong>：每一个分量必须是不可分的数据项。满足这个条件的关系模式就属于第一范式（1NF）。</li>
+<li>**数据依赖：**现实系统中数据间的语义，需要通过完整性来维护。不仅如此，数据间的语义，还会对关系模式的设计产生影响。这种数据语义在关系模式中的具体表现就是数据依赖。</li>
+<li>**数据依赖：**就是通过一种关系中属性间值的相等与否体现出来的数据间的相互关系，它是现实世界属性间的相互关联的抽象，是数据内在的性质，是语义的体现。</li>
+<li>数据依赖有很多种，其中最常用是<strong>函数依赖和多值依赖</strong>。</li>
+<li><strong>函数依赖存在的问题</strong>：1.数据冗余 2.更新异常，包括插入异常、更新异常、删除异常。</li>
+<li>为什么会出现异常现象呢？这是由于关系模式中属性间<em>存在的这些复杂的依赖关系。</em></li>
+<li>解决数据间的依赖关系常常采用对关系的分解来消除不合理的部分，从而设计出合理的管理模式。</li>
+<li><strong>函数依赖</strong>不是指关系模式R中的某个或某些关系实例满足的约束条件，而是指R的所有关系实例均要满足的约束条件。</li>
+<li>在关系模式R（U）中，对于U的子集X和Y，如果X-&gt;Y,但Y不含于X，则称X-&gt;Y是<strong>非平凡函数依赖</strong>；若X-&gt;Y,但是Y含于X，则称X-&gt;Y是<strong>平凡函数依赖</strong>。</li>
+<li>在关系模式R(U)中,如果X-&gt;Y,并且对于X的任何一个真子集X‘，都有Y不依赖于X’,则称Y<strong>完全函数依赖</strong>于X，记作X F–&gt;Y。若X–&gt;Y,但是Y不完全函数依赖于X，则称Y<strong>部分函数依赖</strong>于X，记作X–P&gt;Y。</li>
+<li>在关系模式R(U)中,如果X-&gt;Y,Y-&gt;Z,且Y不含于X，Y-&gt;X,则称Z传递函数依赖于X，记作X–传递&gt;Z。</li>
+<li>如果Y-&gt;X,即X&lt;—&gt;Y,则Z直接依赖于X。</li>
+<li>设K为R（U,F）中的属性或属性组合。若K–F&gt;U,则K为R的候选码。若候选码多于一个，则选定其中的一个作为主码。</li>
+<li><strong>候选码</strong>可以唯一的识别关系的元组。</li>
+<li>一个关系模式可能具有多个<strong>候选码</strong>，可以指定一个候选码作为<strong>识别关系元组的主码</strong>。</li>
+<li>包含在任何一个候选码中的属性，叫做<strong>主属性</strong>，不包含在任何候选码中的属性称为<strong>非主属性或非码属性</strong>。最简单的情况下，候选码<strong>只包含一个属性</strong>。最复杂的情况下，候选码包含关系模式的所有属性，称为<strong>全码</strong>。</li>
+<li>范式可以理解为某一种级别的关系模式的集合。</li>
+<li>一个低一级范式的关系模式，通过模式分解可以转换为若干个高一级范式的关系模式的集合，这种过程叫做<strong>规范化</strong>。</li>
+<li>规范化的过程实质上就是将关系模式简单化的过程。以减少关系模式出现更新异常的问题。</li>
+<li><strong>第一范式</strong>：如果一个关系模式R的所有属性都是不可分的基本数据项。则R是第一范式。满足第一范式的关系称为规范化关系。</li>
+<li>**第二范式：**若关系模式R属于第一范式，且每一个非主属性都完全函数依赖于码，则称R为第二范式，简称2NF。由第一范式向第二范式转换的方法是，消除其中的部分函数依赖，一般是将一个关系模式分解成多个2NF的关系模式。即将部分函数依赖于码的非主属性及其决定属性移除。另外形成一个关系。</li>
+<li>**第三范式：**如果关系R为2NF，并且R中的每一个非主属性都不传递依赖于R的候选码，则称R为第三范式。简称3NF。如果R中只包含两个属性，则R一定属于第三范式，因为它不可能存在非主属性对码的传递函数依赖。第二范式向第三范式转换就是消除非主属性对码的传递函数依赖。</li>
+<li>**BC范式：**如果关系R为1NF，并且R中不存在任何属性对码的部分依赖和函数依赖。那么称R为BCNF。</li>
+<li>BC范式的特性：所有非主属性对每一个码都是完全函数依赖，所有的主属性对每一个不包含它的码，也是完全函数依赖，没有任何属性完全函数依赖于非码的任何一组属性。第三范式不一定是BC范式，BC范式一定是第三范式。3NF向BC范式关系转换，就是要消除主属性对码的部分和传递函数依赖。</li>
+</ol>
+<h1 id="第七章：数据库设计"><a href="#第七章：数据库设计" class="headerlink" title="第七章：数据库设计"></a>第七章：数据库设计</h1><ol>
+<li><p>数据库设计是指对于一个给定的应用环境，构造最优的数据库模式，建立数据库及其应用系统，使之能够有效的存储数据，满足各种用户的应用需求（信息要求和处理要求）。在数据库领域内，常常把使用数据库的各类系统统称为数据库应用系统。</p>
+</li>
+<li><p>设计方法是指设计数据库所使用的理论和步骤。数据库设计方法目前可分为三类：直观设计法、规范设计法、计算机辅助设计法。</p>
+</li>
+<li><p>数据库的设计可划分为六个阶段：需求分析阶段、概念结构设计阶段、逻辑结构设计阶段、物理结构设计阶段、数据库实施阶段、数据库运行和维护阶段。</p>
+</li>
+<li><p>数据库设计的特点：</p>
+<p> 1.数据库设计是涉及多学科的综合技术。</p>
+<p> 2.数据库设计是硬件、软件和干件的的结合。</p>
+<p> 3.数据库设计具有反复性、试探性，应分步进行。</p>
+<p> 4.数据库设计需要将结构设计和行为设计密切结合。</p>
+</li>
+<li><p>**数据字典（Data Dictionary，DD）：**是各类数据描述的集合。对数据库设计来讲，数据字典是进行详细的数据收集和数据分析所获得的结果。数据字典通常包括数据项、数据结构、数据流、数据存储和处理过程五个部分。数据项是数据的最小的组成单位，若干数据项可以组成数据结构，数据字典通过对数据项和数据结构的定义来描述数据流、数据存储和处理过程的逻辑内容。</p>
+<p> 1.数据项：数据项是不可再分的数据单位。数据项描述&#x3D;{数据项编号，数据项名，数据项含义说明，别名，数据类型，长度，取值范围，取值含义，与其他数据项的逻辑关系}，其中逻辑范围、与其他数据项的逻辑关系定义了数据的完整性约束条件，是设计数据检验功能的依据。</p>
+<p> 2.数据结构：数据结构反映了数据间的组合关系。它可以是由若干个数据项构成，也可以是由若干个数据结构组成，或者由若干数据项和数据结构混合组成。数据结构描述&#x3D;{数据结构编号，数据结构名称，含义说明，组成：{数据项名或数据结构名}}</p>
+<p> 3.数据流：数据流是数据结构在系统内的传输途径，表示某一处理过程的输入或输出。数据流描述&#x3D;{数据流名，说明，数据流来源，数据流去向，组成：{数据结构}，平均流量，高峰期流量}。</p>
+<p> 4.数据存储：数据存储是数据结构停留或保存的地方，也是数据流的来源和去向之一。数据存储描述&#x3D;{数据存储名，说明，编号，流入的数据流，流出的数据流，组成：{数据结构}，数据量，存取方式}。</p>
+<p> 5.处理过程：处理过程描述业务处理的处理逻辑和输入、输出。具体的处理逻辑一般用判定表或判定树来描述。处理过程描述&#x3D;{处理过程编号，处理过程名，说明，输入：{数据流}，输出：{数据流}，处理：{简要说明}}，其中简要说明中主要说明该处理过程的功能及处理要求。功能是指该处理过程用来做什么。</p>
+</li>
+<li><p>系统分析和数据库设计人员是数据库设计的核心人员。</p>
+</li>
+<li><p>用户和数据库管理员在数据库设计中也是举足轻重的，他们主要参加需求分析和数据库的运行维护。程序员则在系统实施阶段参与进来，分别负责编制程序和准备软硬件环境。</p>
+</li>
+<li><p>目前，数据库设计人员使用最为广泛的仍然是以逻辑数据库设计和物理数据库设计为核心的规范设计方法。按照这种规范设计方法以及数据库应用系统的开发过程，数据库的设计可以划分为六个阶段：需求分析阶段，概念结构设计阶段，逻辑结构设计阶段，物理结构设计阶段，数据库实施阶段，数据库运行和维护阶段。</p>
+</li>
+<li><p><strong>需求分析阶段</strong>是指收集和分析组织内将由数据库应用程序支持的那部分信息，并用这些信息确定新系统中用户的需求。<strong>概念结构设计阶段</strong>就是对用户需求进行综合、归纳与抽象，建立一个独立于具体的DBMS并且与所有物理因素均无关的企业信息模型的过程，是整个数据库设计的关键。<strong>逻辑结构设计阶段</strong>的目的是将概念设计阶段设计好的全局ER模型转换成与选用的DBMS所支持的数据模型，并对其进行优化。<strong>物理结构设计阶段</strong>是为逻辑数据模型选取一个最适合应用环境的物理结构（包括存储结构和存取方法）。<strong>数据库实施阶段</strong>，数据库物理设计是面向特定的DBMS系统，所以在进行物理设计时，必须首先确定使用的数据库系统。</p>
+</li>
+<li><p>收集了需求信息之后，对调研阶段所获得的需求信息进行分析的过程叫做需求分析。</p>
+</li>
+<li><p>业务是企业、组织为实现自身目标、职能的一系列有序的活动过程。业务分析就是对上述各种流动及其交织过程的详细分析过程。数据是信息的载体，是数据库存储的主要对象。数据分析就是把数据在组织内部的业务流动情况，以数据流动的方式抽象出来，从数据流动过程来分析业务系统的数据处理模式。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-bullet">1.</span> 确定业务：首先确定企业、组织中包含哪些业务，判断业务的标准是：是否为实现组织目标的有序活动过程。<br><span class="hljs-bullet">2.</span> 业务流程分析：业务流程是业务的活动过程，是指企业或组织为完成某一项目标或任务，而进行的跨时间或空间并在逻辑上相关的一系列活动的有序集合。<br><span class="hljs-bullet">3.</span> 业务规则分析：业务规则是保证业务能够正常运转的一致性和相关性的必须被遵守的约束性条件。<br><span class="hljs-bullet">4.</span> 数据流程分析，数据流程分析就是在业务流程分析的基础上，舍去物化因素、重点发现和解决数据流动过程中的问题，比如数据流程不畅、前后数据不匹配以及数据处理过程不合理等等。<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>业务及数据分析的具体过程可以用业务流程图和数据流程图来表达。</p>
+</li>
+<li><p>概念结构设计：概念模型是现实世界和机器世界的中介，既独立于数据库的逻辑结构，也独立于某一数据库管理系统（DBMS）。</p>
+<ol>
+<li>概念模型是各种数据模型的共同基础，它比数据模型更独立于机器、更抽象，从而更加稳定。</li>
+<li>用ER图来描述现实世界的概念模型，规则：<ol>
+<li>实体：用矩形表示，矩形框内写明实体名。</li>
+<li>属性：用椭圆形表示，并用无向边将其与相应的实体连接起来。</li>
+<li>联系：用菱形表示，菱形框内写明联系名，并用无向边分别与有关实体连接起来，同时在无向边旁标上联系的类型。联系本身也是一种实体，也可以有属性。如果一个联系具有属性，那这些属性也要用无向边与该联系连接起来。</li>
+<li>概念结构设计的方法和步骤：自顶向下方法、自底向上方法、逐步扩张方法、混合策略方法。</li>
+<li>概念模型设计分三步来完成：进行数据抽象，设计局部视图；将局部视图综合成全局视图及全局概念模型。分类、聚集、概括。</li>
+<li>超类相当于父类。</li>
+<li>决定一个对象是否作为属性对待，（1）作为属性，不能再具有需要描述的性质。即属性不能是另一些属性的聚集。（2）属性不能与其他实体具有联系，即E-R图中的联系是实体之间的联系。</li>
+<li>视图集成：视图集成可分为一次集成方法和逐步集成方法。视图集成一般分两步走：第一步是合并，即将各分ER图合并生成初步ER图，第二步是修改和重构。即消除初步ER图中不必要的冗余，生成基本的ER图。</li>
+<li>各分ER图之间的冲突分为三类：属性冲突、命名冲突和结构冲突。<ol>
+<li>属性冲突：属性域冲突，即属性值的类型、取值范围或取值集合的不同。也有可能是属性取值单位冲突。</li>
+<li>命名冲突：同名异义或异义同名。</li>
+<li>结构冲突：<ol>
+<li>同一对象在不同应用中具有的不同抽象。解决方法：把属性变换为实体或把实体变换为属性，使同一对象具有相同的抽象。</li>
+<li>同一实体在不同的分ER图中属性组成不同，包括属性个数、次序。解决方法：使该实体的属性取各分ER图中属性的并集，再适当调整属性的次序。</li>
+<li>实体之间的联系在不同的分ER图中呈现不同的类型。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>视图集成的目的：不在于把若干分ER图形式上合并为一个ER图，而在于消除冲突使之成为能够被全系统中所有用户共同理解和接受的统一的概念模型。</li>
+<li>消除视图冗余的方法主要有分析法和规范化理论方法。</li>
+<li>**评审：**评审分为用户评审和DBA及开发人员评审两部分。</li>
+<li>逻辑结构设计<ol>
+<li>逻辑结构设计的任务就是把概念模型转换为基于特定数据模型但独立于特定DBMS和其他物理条件的企业信息模型的过程。这些模型在功能上、完整性上和一致性约束及数据库的可扩展性等方面均应满足用户的各种需求。</li>
+<li>逻辑模型设计分三步：（1）把概念模型向一般的关系、网状、层次模型转换（2）对数据模型进行优化（3）设计用户子模式。</li>
+<li>概念模型向关系模型的转换：将ER图转换为关系模型实际上就要将概念设计中所得到的ER图的实体和实体间的联系转换成关系的属性。<ol>
+<li>一个实体转换成一个关系模式，实体的属性就是关系的属性，实体的码就是关系的码。</li>
+<li>一个1：1的联系可以转换成一个独立的关系模式，也可以与任意一端的关系模式合并。如果转换成一个独立的关系模式，则与该关系相连的各实体的码以及联系本身的属性均转换为关系的属性。</li>
+<li>一个1：n联系可以转换成一个独立的关系模式，也可以与n端对应的关系模式合并，如果转换成一个独立的关系模式，则与该联系相连的各实体的码以及联系本身的属性均转换为关系的属性，而关系的码为n端实体的码。</li>
+<li>一个m：n联系转换为一个独立的关系模式，与该联系相连的各实体的码以及联系本身的属性均转换为关系的属性，各实体的码共同组成该关系模式的码。</li>
+<li>三个或三个以上的实体间的一个多元联系可以转换为一个关系模式，与该多元联系相连的各实体的码以及联系本身的属性均转换为关系的属性，关系的码为诸实体码的组合。</li>
+<li>具有相同码的关系模式可以合并。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>关系模型的优化：从ER图转换而来的关系模式还只是逻辑模式的初步形式，而且数据库逻辑设计结果也不是唯一的。<ol>
+<li>确定数据依赖。</li>
+<li>对于各个关系模式之间的数据依赖进行极小化的处理，消除冗余的联系。</li>
+<li>考察是否存在部分函数依赖，传递函数依赖，多值依赖等，确定各关系模式分别属于第几范式。</li>
+<li>按照需求分析阶段得到的各种应用对数据处理的要求，分析对于这样的应用环境这些模式是否适合，确定是否要对他们进行合并或分解。同时，需要注意：<em>并不是规范化程度越高的关系就越优，需要同时考虑时间效率，需要权衡响应时间和潜在问题两者的利弊。</em></li>
+<li>对关系模式进行必要的合并和分解。<ol>
+<li>对于多个关系模式具有相同的主码，并且对这些关系模式的处理主要是多关系的查询操作，则可对这些关系模式按照组合使用频率进行合并。</li>
+<li>关系模式的分解可分为水平分解和垂直分解。<ol>
+<li>水平分解是把关系模式按分类查询的条件分解成几个关系模式，这样可以减少应用系统每次查询需要访问的记录次数，从而提高查询效率。</li>
+<li>垂直分解是把关系模式中经常一起使用的属性分解出来，形成一个子关系模式。</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><strong>用户子模式设计</strong>：根据用户需求设计了局部应用视图，并将局部应用视图进行集成后形成了数据库应用系统的概念模型，用ER图表示。在将概念模型转换为逻辑模型后，即生成了整个应用系统的模式后，还应该根据局部应用需求，结合具体DBMS的特点，设计用户的外模式，外模式的设计也是逻辑设计的一部分。</li>
+<li>**物理结构设计：**逻辑结构设计阶段完全独立于数据库的实现细节，如目标DBMS的特定功能和应用程序，但依赖于目标数据模型。</li>
+<li>如果说逻辑数据库设计关注于”是什么”，那么物理数据库设计则关注于”怎么做”，数据库物理设计者必须知道计算机系统怎么处理DBMS操作，并需要对目标DBMS的功能有充分的了解。所以数据库的物理结构设计就是对于一个给定的逻辑数据模型选取一个最合适的应用环境的物理结构的过程，包括存储结构，存储方法以及为实现数据高效访问而建立的索引和任何完整性约束、安全策略等。</li>
+<li>数据库的物理结构设计分为三步:<ol>
+<li>确定数据库的物理结构，在关系数据库中主要指存取方法和存储结构。</li>
+<li>对物理结构进行评价，评价的重点是时间和空间效率。</li>
+<li>撰写物理设计说明书和相关文档。</li>
+</ol>
+</li>
+<li>确定数据库的物理结构：<ol>
+<li>数据库的物理结构主要是指数据库的存储记录格式、存储记录安排和存取方法。</li>
+<li>数据库物理结构设计的主要目的之一就是高效的存取数据。</li>
+<li>度量数据库存储效率的常用参数有事务吞吐量、响应时间和磁盘存储空间等。</li>
+<li>物理结构设计的主要内容包括存储记录的结构设计、确定数据的存放位置、存取方法的设计、确定系统配置等。</li>
+</ol>
+</li>
+<li>物理结构设计：<ol>
+<li>存储记录的结构设计</li>
+<li>确定数据的存放位置</li>
+<li>存取方法的设计：数据库系统是多用户共享的系统，对同一个关系要建立多条存取路径才能满足多用户的各种应用要求。数据库常用的存储方法有三类：索引方法、聚簇方法和Hash方法。</li>
+<li>聚簇存取方法的选择：所谓聚簇就是把有关的元组集中在一个物理块内或物理上相邻的区域，以提高对某些数据的访问速度。<ol>
+<li>建立聚簇索引的要求：当应用中主要是通过聚簇键进行访问或连接时。</li>
+<li>对应每个聚簇键值平均元组数适当的情况。如果太少，簇集的效益不明显，甚至浪费空间；如果太多，需采用多个连接块，同样不利于提高性能。</li>
+<li>聚簇键值应相对稳定，以减少修改簇集键所引起的维护开销。<ol>
+<li>聚簇只能提高某些应用的性能，而且建立与维护聚簇的开销是相当大的。对已有关系建立聚簇，将导致关系中元组移动其物理存储位置，并使此关系上原有的索引无效，必须重建。当一个元组的聚簇码值改变时，该元组的存储位置也要做相应的移动，聚簇码值要相对稳定，以减少修改聚簇码值所引起的维护开销。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>Hash存取方法的选择：Hash存取方法是使用散列函数根据记录的一个或多个字段的值来计算存放记录的页地址。<ol>
+<li>存储使用Hash存储方法的规则：如果一个关系的属性主要出现在等值连接条件中或主要出现在相等比较选择条件中，而且满足下列两个条件之一，则此关系可以选择Hash存取方法。<ol>
+<li>如果一个关系的大小可预知，而且不变。</li>
+<li>如果关系的大小动态改变，而且数据库管理系统提供了动态的Hash存取方法。</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>数据库概念总结</div>
+      <div>https://github.com/yaosx425/yaosx425.github.io/2021/05/24/数据库概念总结/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>姚淑璇</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年5月24日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/yaosx425/yaosx425.github.io/2021/06/05/%E6%95%B0%E6%8D%AE%E5%BA%93%E9%94%99%E9%A2%98%E7%A7%AF%E7%B4%AF/" title="数据库错题积累">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">数据库错题积累</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/yaosx425/yaosx425.github.io/2021/05/22/Python%E9%94%99%E9%A2%98%E7%AC%94%E8%AE%B0/" title="Python错题笔记">
+                        <span class="hidden-mobile">Python错题笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/yaosx425/yaosx425.github.io/js/events.js" ></script>
+<script  src="/yaosx425/yaosx425.github.io/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/yaosx425/yaosx425.github.io/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/yaosx425/yaosx425.github.io/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/yaosx425/yaosx425.github.io/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
